@@ -2,7 +2,8 @@
 
 set -e
 set -u
-
+# reference to https://dev.to/bgord/multiple-postgres-databases-in-a-single-docker-container-417l
+# github: https://github.com/mrts/docker-postgresql-multiple-databases
 function create_user_and_database() {
 	local database=$1
 	echo "  Creating user and database '$database'"

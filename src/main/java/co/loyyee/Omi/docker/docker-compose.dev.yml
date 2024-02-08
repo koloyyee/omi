@@ -8,6 +8,8 @@ services:
     volumes:
         # reference to https://dev.to/bgord/multiple-postgres-databases-in-a-single-docker-container-417l
         # github: https://github.com/mrts/docker-postgresql-multiple-databases
+        # @see: ./pg_init/multi_database.sh - create multiple databases
+        # @see: ./pg_init/init.sql - create databases
         - ./pg_init:/docker-entrypoint-initdb.d # Load init scripts
     environment:
       POSTGRES_USERNAME: postgres

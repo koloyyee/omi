@@ -8,6 +8,8 @@ logging:
       springframework:
         jdbc : DEBUG
 spring:
+#  profiles:
+#    active: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     # Breakfast - Scraping App
@@ -34,3 +36,5 @@ spring:
   sql:
     init:
       mode: always
+
+

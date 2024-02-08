@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
@@ -60,6 +61,7 @@ public class BreakfastDatasourceConfiguration{
      * source: https://stackoverflow.com/questions/51146269/spring-boot-2-multiple-datasources-initialize-schema
      * */
     @Bean
+//    @Profile("dev")
     public DataSourceInitializer breakfastDataSourceInitializer(@Qualifier("breakfastDataSource") DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
         /**  filename coherent with your .sql, in this case breakfast **/
