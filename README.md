@@ -1,6 +1,6 @@
-# GENTEN 原點 
+# OMI 原點 
 
-Genten came from the japanese phrase 原点, to my understanding it means the point of origin.
+Omi means origin.
 
 ### Goal
 A point of origin for all my web projects. It will serve as the backend hub of all the API endpoints.

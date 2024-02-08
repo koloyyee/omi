@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init/multi_databases.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init/multi_databases.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +48,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/YuenDim",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "Docker"
