@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.Breakfast.service;
+package co.loyyee.Omi.Breakfast.service;
 
 public class Reuters {
 }

@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.Breakfast.service;
+package co.loyyee.Omi.Breakfast.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

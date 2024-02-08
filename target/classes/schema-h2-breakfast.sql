@@ -1,6 +1,6 @@
---CREATE TABLE IF NOT EXISTS CompanyTicker (
-DROP TABLE IF EXISTS CompanyTicker;
-CREATE TABLE CompanyTicker (
+CREATE TABLE IF NOT EXISTS CompanyTicker (
+--DROP TABLE IF EXISTS CompanyTicker;
+--CREATE TABLE CompanyTicker (
     id SERIAL PRIMARY KEY,
     cik_str VARCHAR(50) NOT NULL,
     ticker VARCHAR(10) NOT NULL,

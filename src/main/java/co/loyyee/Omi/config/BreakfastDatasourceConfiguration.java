@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.config;
+package co.loyyee.Omi.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -62,8 +62,10 @@ public class BreakfastDatasourceConfiguration{
     @Bean
     public DataSourceInitializer breakfastDataSourceInitializer(@Qualifier("breakfastDataSource") DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        // filename coherent with your .sql, in this case breakfast
+        /**  filename coherent with your .sql, in this case breakfast **/
+        /** h2 **/
 //        resourceDatabasePopulator.addScript(new ClassPathResource("schema-h2-breakfast.sql"));
+        /** postgres **/
         resourceDatabasePopulator.addScript(new ClassPathResource("schema-pg-breakfast.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();

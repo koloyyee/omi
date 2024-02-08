@@ -8,26 +8,29 @@ logging:
       springframework:
         jdbc : DEBUG
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
-    generate-unique-name: false
+    url: jdbc:postgresql://localhost:5432/postgres
+    # Breakfast - Scraping App
     breakfast:
-      url: jdbc:h2:mem:breakfast
-      name: breakfast
+      url: jdbc:postgresql://localhost:5432/breakfast
+      username: postgres
+      password: password
+    # Mesure - Food Cost App
     mesure:
-      url: jdbc:h2:mem:mesure
-      name: mesure
+      url: jdbc:postgresql://localhost:5432/mesure
+      username: postgres
+      password: password
+  #  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    generate-unique-name: false
+#    breakfast:
+#      url: jdbc:h2:mem:breakfast
+#      name: breakfast
+#    mesure:
+#      url: jdbc:h2:mem:mesure
+#      name: mesure
   sql:
     init:
       mode: always
-
-
-
-
-# Breakfast - Scraping App
-#spring.datasource.
-#spring.datasource.name=breakfast
-# Mesure - Food Cost App
-#spring.datasource.name=mesure

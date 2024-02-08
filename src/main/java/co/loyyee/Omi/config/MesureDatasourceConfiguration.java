@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.config;
+package co.loyyee.Omi.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 /**
  * For reference why this configuration is needed:
- * @see co.loyyee.Yuendim.config.BreakfastDatasourceConfiguration
+ * @see co.loyyee.Omi.config.BreakfastDatasourceConfiguration
  *
  * Opt out by commenting out the @Configuration annotation.
  * */
@@ -36,7 +36,7 @@ public class MesureDatasourceConfiguration {
 
     /**
      * Why we need an initializer? see reference.
-     * @see co.loyyee.Yuendim.config.BreakfastDatasourceConfiguration#breakfastDataSourceInitializer(DataSource)
+     * @see co.loyyee.Omi.config.BreakfastDatasourceConfiguration#breakfastDataSourceInitializer(DataSource)
      * */
     @Bean
     public DataSourceInitializer mesureDataSourceInitializer(@Qualifier("mesureDataSource") DataSource dataSource) {

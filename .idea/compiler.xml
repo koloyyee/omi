@@ -7,15 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Gogen" />
-        <module name="YuenDim" />
+        <module name="Omi" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Gogen" options="-parameters" />
+      <module name="Omi" options="-parameters" />
       <module name="Origin" options="-parameters" />
-      <module name="YuenDim" options="-parameters" />
     </option>
   </component>
 </project>

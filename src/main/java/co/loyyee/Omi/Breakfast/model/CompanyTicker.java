@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.Breakfast.model;
+package co.loyyee.Omi.Breakfast.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.FutureOrPresent;

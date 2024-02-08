@@ -1,7 +1,7 @@
-package co.loyyee.Yuendim.Breakfast.config;
+package co.loyyee.Omi.Breakfast.config;
 
-import co.loyyee.Yuendim.Breakfast.model.CompanyTicker;
-import co.loyyee.Yuendim.Breakfast.repository.CompanyTickerRepository;
+import co.loyyee.Omi.Breakfast.model.CompanyTicker;
+import co.loyyee.Omi.Breakfast.repository.CompanyTickerRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

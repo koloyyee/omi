@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.Breakfast.repository;
+package co.loyyee.Omi.Breakfast.repository;
 
 import org.springframework.stereotype.Repository;
 

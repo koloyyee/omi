@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim.Breakfast.model;
+package co.loyyee.Omi.Breakfast.model;
 
 import java.time.LocalDateTime;
 

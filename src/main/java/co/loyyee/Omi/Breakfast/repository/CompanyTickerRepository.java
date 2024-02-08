@@ -1,6 +1,6 @@
-package co.loyyee.Yuendim.Breakfast.repository;
+package co.loyyee.Omi.Breakfast.repository;
 
-import co.loyyee.Yuendim.Breakfast.model.CompanyTicker;
+import co.loyyee.Omi.Breakfast.model.CompanyTicker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;

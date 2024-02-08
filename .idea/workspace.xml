@@ -4,7 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="" />
+    <list default="true" id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/controller/BreakfastController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/controller/BreakfastController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/CompanyTicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/CompanyTicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/News.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/News.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Outlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Outlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Reuters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Reuters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/MesureDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/MesureDatasourceConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/create-mulitple-postgres-databases.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/docker-compose.dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/pg_init_scripts/create-mulitple-postgres-databases.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/pg_init_scripts/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema-pg-breakfast.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema-pg-breakfast.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/co/loyyee/Omi/ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/loyyee/Omi/ApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/controller/BreakfastController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/controller/BreakfastController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/CompanyTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/CompanyTicker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/News.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/News.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Outlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Outlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/TickerNews.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/TickerNews.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/CompanyTickerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/CompanyTickerRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/TickerNewsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/TickerNewsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Benzinga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Benzinga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Finviz.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Finviz.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Reuters.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Reuters.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/ScrapeAll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/ScrapeAll.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/BreakfastDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/BreakfastDatasourceConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/MesureDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/MesureDatasourceConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/schema-h2-breakfast.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/schema-h2-breakfast.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,83 +90,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/loyyeeko/Code/Personal/Projects/YuenDim&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/YuenDim",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "Docker"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init_scripts" />
+      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker" />
+      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Yuendim/docker" />
+      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Yuendim/docker/pg_init_scripts" />
       <recent name="$PROJECT_DIR$/.." />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="co.loyyee.genten.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.co.loyyee.YuenDim.Application">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.origin.Application" />
-      <module name="YuenDim" />
+      <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Application" />
+      <module name="Omi" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="co.loyyee.origin.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Benzinga" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.origin.Breakfast.service.Benzinga" />
-      <module name="Origin" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="co.loyyee.origin.Breakfast.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Finviz" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.origin.Breakfast.service.Finviz" />
-      <module name="Origin" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="co.loyyee.origin.Breakfast.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScrapeAll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.origin.Breakfast.service.ScrapeAll" />
-      <module name="Origin" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="co.loyyee.origin.Breakfast.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="co.loyyee.YuenDim.Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.YuenDim.Application" />
-      <module name="YuenDim" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="co.loyyee.YuenDim.*" />
+          <option name="PATTERN" value="co.loyyee.Omi.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -139,13 +139,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker/docker-compose.dev.yml: Compose Deployment (1)" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker/docker-compose.dev.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="src/main/java/co/loyyee/Yuendim/docker/docker-compose.dev.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker/docker-compose.dev.yml.omi_pg: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="omi_pg" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="yuendim_pg" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.co.loyyee.YuenDim.Application" />
         <item itemvalue="Application.Application" />
-        <item itemvalue="Application.ScrapeAll" />
-        <item itemvalue="Application.Finviz" />
-        <item itemvalue="Application.Benzinga" />
+        <item itemvalue="Docker.docker/docker-compose.dev.yml: Compose Deployment (1)" />
+        <item itemvalue="Docker.docker/docker-compose.dev.yml.omi_pg: Compose Deployment" />
+        <item itemvalue="Docker.docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" />
+        <item itemvalue="Docker.docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>

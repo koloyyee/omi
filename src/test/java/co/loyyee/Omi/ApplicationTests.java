@@ -1,4 +1,4 @@
-package co.loyyee.Yuendim;
+package co.loyyee.Omi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

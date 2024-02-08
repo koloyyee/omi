@@ -1,7 +1,7 @@
-package co.loyyee.Yuendim.Breakfast.service;
+package co.loyyee.Omi.Breakfast.service;
 
-import co.loyyee.Yuendim.Breakfast.model.Outlet;
-import co.loyyee.Yuendim.Breakfast.model.TickerNews;
+import co.loyyee.Omi.Breakfast.model.Outlet;
+import co.loyyee.Omi.Breakfast.model.TickerNews;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
