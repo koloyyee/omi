@@ -110,11 +110,21 @@ final private JdbcClient jdbc;
      * */
     @Transactional
     public void saveAll(List<CompanyTicker> tickers){
-      jdbcTemplate.batchUpdate("""
+
+      /** h2 **/
+      String hrSql = """
               INSERT INTO CompanyTicker 
               ( cik_str, ticker, title, created_at ) 
               VALUES (?, ?, ?, CURRENT_TIMESTAMP() )
-              """,
+              """;
+      String pgSql = """
+              INSERT INTO CompanyTicker 
+              ( cik_str, ticker, title, created_at ) 
+              VALUES (?, ?, ?, NOW() )
+              """;
+
+      jdbcTemplate.batchUpdate(
+              pgSql,
                 tickers,
                 tickers.size(),
                 (ps, ticker ) -> {

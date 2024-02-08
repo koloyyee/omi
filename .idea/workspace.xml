@@ -5,53 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/controller/BreakfastController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/controller/BreakfastController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/CompanyTicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/CompanyTicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/News.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/News.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Outlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Outlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Reuters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Reuters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/MesureDatasourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/MesureDatasourceConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/create-mulitple-postgres-databases.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/docker-compose.dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/init.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/pg_init_scripts/create-mulitple-postgres-databases.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/YuenDim/docker/pg_init_scripts/init.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/schema-pg-breakfast.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema-pg-breakfast.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/co/loyyee/Omi/ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/loyyee/Omi/ApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/config/CompanyTickerLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/controller/BreakfastController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/controller/BreakfastController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/CompanyTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/CompanyTicker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/News.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/News.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Outlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/Outlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/TickerNews.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/model/TickerNews.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/CompanyTickerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/CompanyTickerRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/TickerNewsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/repository/TickerNewsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Benzinga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Benzinga.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Finviz.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Finviz.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Reuters.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/Reuters.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/ScrapeAll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/Breakfast/service/ScrapeAll.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/BreakfastDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/BreakfastDatasourceConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/MesureDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/YuenDim/config/MesureDatasourceConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/schema-h2-breakfast.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/schema-h2-breakfast.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
