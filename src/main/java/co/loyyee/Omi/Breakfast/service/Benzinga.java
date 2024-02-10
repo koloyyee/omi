@@ -6,11 +6,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -20,18 +25,33 @@ public class Benzinga implements Runnable {
     private List<TickerNews> tickerNewsList;
     private String ticker;
     private Thread thread;
+    private String url;
+    final static private String BASE_URL = "https://www.benzinga.com/quote/";
+    final static private String END = "/news";
 
+    final private Logger log = LoggerFactory.getLogger(Benzinga.class);
     public Benzinga(String ticker) {
         tickerNewsList = new ArrayList<>();
         this.ticker = ticker;
-        thread = new Thread(this);
-        thread.start();
+        // Platform thread
+//        thread = new Thread(this);
+//        thread.start();
+        url = BASE_URL + ticker + END;
+        thread = Thread.ofVirtual().start(this);
     }
 
     private LocalDate formatDate(String date) {
         DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
         LocalDate localDate = LocalDate.parse(date, parseFormatter);
         return localDate;
+    }
+    private boolean isIntMonth(String first) {
+        try{
+            Integer.parseInt(first);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 /**
  * edge cases: Aug 30, 2023, 11:58AM
@@ -41,30 +61,35 @@ public class Benzinga implements Runnable {
 
         String[] split = recentPast.split(" ");
         int whileAgo;
-        try{
-            whileAgo = Integer.parseInt(split[0]);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-           whileAgo  = 0;
+        /** TODO: unable to solve the "Aug 30, 2023, 11:58AM" error yet */
+//        if( !isIntMonth(split[0])) {
+//            String test = "May 6, 2023, 5:10PM";
+//            log.info(test);
+//            // handle month. e.g.
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, uuuu, hh:mma", Locale.ENGLISH);
+//                LocalDateTime localDateTime = LocalDateTime.parse(test, formatter);
+//                log.info(localDateTime.toString());
+//                return localDateTime;
+//        }
+
+        if( isIntMonth(split[0])) {
+            {
+                whileAgo = Integer.parseInt(split[0]);
+                String time = split[1];
+                LocalDateTime result = switch (time) {
+                    case "day", "days" -> currentDateTime.minusDays(whileAgo);
+                    case "hour", "hours" -> currentDateTime.minusHours(whileAgo);
+                    default -> currentDateTime.minusMinutes(whileAgo);
+                };
+//        log.info(String.valueOf(result));
+                return result;
+            }
+        } else {
+        return null;
         }
-        String time = split[1];
-        LocalDateTime result = switch (time) {
-            case "day", "days" -> currentDateTime.minusDays(whileAgo);
-            case "hour", "hours" -> currentDateTime.minusHours(whileAgo);
-            default -> currentDateTime.minusMinutes(whileAgo);
-        };
-        return result;
     }
 
-    public List<TickerNews> scrape(String ticker) {
-        if (ticker.isBlank()) {
-            throw new IllegalArgumentException("Ticker cannot be empty");
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://www.benzinga.com/quote/");
-        sb.append(ticker);
-        sb.append("/news");
-        String url = sb.toString();
+    public List<TickerNews> scrape() {
 
         try {
             Document document = Jsoup.connect(url)
@@ -77,6 +102,9 @@ public class Benzinga implements Runnable {
                 String title = element.select("div.content-title").first().text();
                 String[] contentFooter = element.select("div.text-gray-400.text-sm").text().trim().split("-");
                 String source = contentFooter[0].trim();
+                if(contentFooter[1].contains("Sponsor")) {
+                    break;
+                }
                 LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
 
                 TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.BENZINGA, source, issuedDate);
@@ -94,14 +122,6 @@ public class Benzinga implements Runnable {
      * source: https://stackoverflow.com/questions/63022139/web-scraping-using-multithreading/63022373#63022373
      * */
     public List<TickerNews> streamScrape() {
-        if (ticker.isBlank()) {
-            throw new IllegalArgumentException("Ticker cannot be empty");
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://www.benzinga.com/quote/");
-        sb.append(ticker);
-        sb.append("/news");
-        String url = sb.toString();
 
         try {
             Document document = Jsoup.connect(url)
@@ -110,6 +130,10 @@ public class Benzinga implements Runnable {
             Elements headlines = document.select("a.content-headline");
 
             tickerNewsList = headlines.parallelStream()
+                .filter(element -> {
+                    String[] contentFooter = element.select("div.text-gray-400.text-sm").text().trim().split("-");
+                    return !contentFooter[1].contains("Sponsor");
+                })
                     .map(element -> {
                         String href = element.attr("href");
                         String title = element.select("div.content-title").first().text();
@@ -117,6 +141,7 @@ public class Benzinga implements Runnable {
                         String source = contentFooter[0].trim();
                         LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
                         TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.BENZINGA, source, issuedDate);
+
                         return tickerNews;
                     }).collect(Collectors.toList());
             return getTickerNewsList();
@@ -139,12 +164,14 @@ public class Benzinga implements Runnable {
 
     @Override
     public void run() {
-        streamScrape();
+//        streamScrape();
+        scrape();
     }
 
     public static void main(String[] args) {
         Benzinga b = new Benzinga("AAPL");
-        System.out.println(b.getTickerNewsList());
+        b.scrape();
+//        System.out.println(b.getTickerNewsList());
 
     }
 

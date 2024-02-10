@@ -26,6 +26,7 @@ public class Finviz implements Runnable {
         this.ticker = ticker;
         thread = new Thread(this);
         thread.start();
+        thread = Thread.ofVirtual().start(this);
     }
     /**
      * Turning e.g: String Feb-01-24 and 15:33PM into LocalDateTime
@@ -81,7 +82,6 @@ public class Finviz implements Runnable {
                 }
                 TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.FINVIZ, "none", issuedDateTime);
                 tickerNewsList.add(tickerNews);
-                System.out.println(tickerNews);
 
             }
         } catch (IOException e) {
@@ -106,7 +106,6 @@ public class Finviz implements Runnable {
     @Override
     public void run() {
         scrape();
-//        System.out.println(getTickerNews());
     }
 
 //    public static void main(String[] args) {

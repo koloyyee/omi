@@ -4,8 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Month.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,13 +33,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Record" />
-        <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
-  </component>
-  <component name="FindBugs-IDEA-Workspace">
-    <toolWindowEditorPreview>false</toolWindowEditorPreview>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,50 +43,33 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2brA3usBaqAAP4Se7GuhwLMtqmj" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2cB44tgGCcjMuiuzIxk8wroPG5o" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Benzinga.executor": "Debug",
+    "Application.ScrapeAll.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/YuenDim",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "Docker"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/Omi",
+    "settings.editor.selected.configurable": "preferences.pathVariables"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker/pg_init_scripts" />
-      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/docker" />
-      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Yuendim/docker" />
-      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Yuendim/docker/pg_init_scripts" />
-      <recent name="$PROJECT_DIR$/.." />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="co.loyyee.genten.config" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.Application">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Application" />
+  <component name="RunManager">
+    <configuration name="ScrapeAll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Breakfast.service.ScrapeAll" />
       <module name="Omi" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="co.loyyee.Omi.*" />
+          <option name="PATTERN" value="co.loyyee.Omi.Breakfast.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -80,94 +77,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Gogen" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Gogen" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
-      <method v="2" />
-    </configuration>
-    <configuration name="docker/docker-compose.dev.yml: Compose Deployment (1)" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker/docker-compose.dev.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="src/main/java/co/loyyee/Yuendim/docker/docker-compose.dev.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker/docker-compose.dev.yml.omi_pg: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="omi_pg" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="yuendim_pg" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Application" />
-        <item itemvalue="Docker.docker/docker-compose.dev.yml: Compose Deployment (1)" />
-        <item itemvalue="Docker.docker/docker-compose.dev.yml.omi_pg: Compose Deployment" />
-        <item itemvalue="Docker.docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" />
-        <item itemvalue="Docker.docker/docker-compose.dev.yml.yuendim_pg: Compose Deployment" />
+        <item itemvalue="Application.ScrapeAll" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b735f136-0bf5-47a0-a8a5-3f2a95e91438" name="Changes" comment="" />
-      <created>1706962628155</created>
+      <changelist id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="" />
+      <created>1707571450209</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1706962628155</updated>
+      <updated>1707571450209</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NumberFormatException" package="java.lang" />
-          <option name="timeStamp" value="7" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
