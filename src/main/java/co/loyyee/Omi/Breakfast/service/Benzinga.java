@@ -1,6 +1,7 @@
 package co.loyyee.Omi.Breakfast.service;
 
 import co.loyyee.Omi.Breakfast.model.Outlet;
+import co.loyyee.Omi.Breakfast.model.Scraper;
 import co.loyyee.Omi.Breakfast.model.TickerNews;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,16 +13,13 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class Benzinga implements Runnable {
+public class Benzinga implements Runnable, Scraper<TickerNews> {
     private List<TickerNews> tickerNewsList;
     private String ticker;
     private Thread thread;
@@ -81,7 +79,6 @@ public class Benzinga implements Runnable {
                     case "hour", "hours" -> currentDateTime.minusHours(whileAgo);
                     default -> currentDateTime.minusMinutes(whileAgo);
                 };
-//        log.info(String.valueOf(result));
                 return result;
             }
         } else {
@@ -164,8 +161,8 @@ public class Benzinga implements Runnable {
 
     @Override
     public void run() {
-//        streamScrape();
-        scrape();
+        streamScrape();
+//        scrape();
     }
 
     public static void main(String[] args) {

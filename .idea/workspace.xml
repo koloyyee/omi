@@ -5,47 +5,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Month.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/TODOs.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Scraper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/TickerNews.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/ScrapeAll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/controller/BreakfastController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/controller/BreakfastController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/CompanyTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/CompanyTicker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Month.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Month.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/News.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/News.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Outlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Outlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Reuters.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Reuters.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/MesureDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/MesureDatasourceConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/co/loyyee/YuenDim/ApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.sdkman/candidates/java/21-amzn/lib/src.zip!/java.base/java/util/Arrays.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2cB44tgGCcjMuiuzIxk8wroPG5o" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,17 +69,41 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Application.executor": "Run",
     "Application.Benzinga.executor": "Debug",
     "Application.ScrapeAll.executor": "Run",
+    "Docker.docker/docker-compose.dev.yml: Compose Deployment.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/Omi",
-    "settings.editor.selected.configurable": "preferences.pathVariables"
+    "settings.editor.selected.configurable": "editor.preferences.import"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="co.loyyee.Omi.config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Application" />
+      <module name="Omi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.loyyee.Omi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ScrapeAll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Breakfast.service.ScrapeAll" />
       <module name="Omi" />
@@ -77,8 +117,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker/docker-compose.dev.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="src/main/java/co/loyyee/Omi/docker/docker-compose.dev.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Application" />
+        <item itemvalue="Docker.docker/docker-compose.dev.yml: Compose Deployment" />
         <item itemvalue="Application.ScrapeAll" />
       </list>
     </recent_temporary>
