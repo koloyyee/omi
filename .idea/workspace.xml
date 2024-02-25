@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/openai_doc_note.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/service/DrafterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/DrafterConfigurationProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application-production.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/service/CompletionService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/docker-compose.dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/pg_init/init.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/pg_init/multi_databases.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

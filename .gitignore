@@ -30,8 +30,5 @@ replay_pid*
 ### mac ###
 .DS_Store
 
-### env ###
-src/main/resources/.env
-
 openai_doc_note.txt
 application.yml
