@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/service/CompletionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openai_doc_note.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/service/DrafterService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/config/DrafterConfigurationProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-production.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loyyee_Ko_COOP_Resume.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/service/CompletionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/co/loyyee/Omi/ApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/co/loyyee/Omi/ApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/docker-compose.dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/pg_init/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/docker/pg_init/multi_databases.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,19 +70,23 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/loyyeeko/Code/Personal/Projects/Omi",
-    "settings.editor.selected.configurable": "editor.preferences.import"
+    "settings.editor.selected.configurable": "preferences.sourceCode.YAML"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="co.loyyee.Omi.config" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CompletionService">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="OPENAI_KEY" value="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" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="co.loyyee.Omi.Application" />
       <module name="Omi" />
       <extension name="coverage">
@@ -116,7 +129,9 @@
       </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker/docker-compose.dev.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -135,9 +150,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CompletionService" />
         <item itemvalue="Application.Application" />
         <item itemvalue="Docker.docker/docker-compose.dev.yml: Compose Deployment" />
+        <item itemvalue="Application.CompletionService" />
         <item itemvalue="Application.ScrapeAll" />
       </list>
     </recent_temporary>

@@ -1,5 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
+import co.loyyee.Omi.Drafter.service.DrafterService;
+import co.loyyee.Omi.config.DrafterConfigurationProperties;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -37,6 +39,13 @@ import java.io.IOException;
 @CrossOrigin(origins = "http://localhost:5173")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
+	final private DrafterService service;
+	final private DrafterConfigurationProperties config;
+
+	public FileUploadController(DrafterService service, DrafterConfigurationProperties config) {
+		this.service = service;
+		this.config = config;
+	}
 
 	/**
 	 * uploadPdf handles the PDF file uploaded from the client
@@ -79,7 +88,22 @@ public class FileUploadController {
 			/* extract all text from the PDF */
 			String resume= stripper.getText(document);
 
-			return new ResponseEntity( HttpStatus.OK);
+			StringBuilder userContent = new StringBuilder();
+			userContent.append("Here is the company: ")
+				.append(company)
+				.append( "The job title: ")
+				.append(title + "\n")
+				.append("The job description: ")
+				.append(description  + "\n" )
+				.append("Here is my resume: \n")
+				.append(resume);
+			log.info("Submitting ✈️: " + userContent.toString());
+			String resp = this.service
+				.setContent(userContent.toString())
+				.ask();
+			log.info("receiving 📦: " + resp);
+
+			return new ResponseEntity( resp, HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("PDFBox extraction: " + e.getMessage());
 			return new ResponseEntity( HttpStatus.INTERNAL_SERVER_ERROR);
