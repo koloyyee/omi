@@ -7,10 +7,9 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,17 +17,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * FileUploadController
- * It is responsible for bridging between client and OpenAI API
+ * <h3>FileUploadController</h3>
+ * <hr>
+ *<p>It is responsible for bridging between client and OpenAI API
  * not chat support but a prompt and get response from ChatGPT.
- *
- * The main is to draft a cover letter for the user with AI,
+ *</p>
+ * <br>
+ * <p>The main is to draft a cover letter for the user with AI,
  * based on the job description and the user's resume.
+ *</p>
  *
+ * <br>
  * We will be handling both PDF and Docx file formats.
+ * <p>{@link PDFTextStripper#getText(PDDocument)} will be used to extract text from PDF</p>
+ *<p>{@link Loader#loadPDF(File)} will be used to load the PDF file</p>
  * */
 @RestController
 @RequestMapping("/api/drafter")
+@CrossOrigin(origins = "http://localhost:5173")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
@@ -42,11 +48,11 @@ public class FileUploadController {
 	 * @param title Title of the job the user is applying for
 	 * @param description The job description
 	 * */
-	@PostMapping("/upload/pdf")
-	public void uploadPdf(@NotNull @RequestParam("file") MultipartFile mf,
-						   @RequestParam("company") String company,
-						   @RequestParam("title") String title,
-						   @RequestParam("description") String description) {
+	@PostMapping(value = "/upload/pdf", consumes = "multipart/form-data")
+	public ResponseEntity uploadPdf(@NotNull @RequestParam("resume") MultipartFile mf,
+									@NotNull @RequestParam("company") String company,
+									@NotNull	@RequestParam("title") String title,
+									@NotNull @RequestParam("description") String description) {
 
 		/* Multipart File conversion because PDDocument only take  File. */
 		File file = null;
@@ -57,25 +63,29 @@ public class FileUploadController {
 			fos.write(mf.getBytes());
 			fos.close();
 		} catch (IOException e) {
-			log.error(e.getMessage());
+			log.error("File conversion: " + e.getMessage());
 		}
-
+		/*
+		* PDFBox 3.0 has replaced PDDocument.load with Loader.loadPDF
+		 * reference: https://pdfbox.apache.org/3.0/migration.html
+		 * check - <strong>Use Loader to get a PDF document</strong>
+		*
+		* */
 		try (PDDocument document = Loader.loadPDF(file)) {
-
+			/* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
 			PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
 			stripperByArea.setSortByPosition(true);
 			PDFTextStripper stripper = new PDFTextStripper();
 			/* extract all text from the PDF */
 			String resume= stripper.getText(document);
-			log.info("company: " + company);
-			log.info("title: " + title);
-			log.info("description: " + description);
-			log.info("resume: " + resume);
+
+			return new ResponseEntity( HttpStatus.OK);
 		} catch (IOException e) {
-			log.error(e.getMessage());
+			log.error("PDFBox extraction: " + e.getMessage());
+			return new ResponseEntity( HttpStatus.INTERNAL_SERVER_ERROR);
 		} finally {
+			log.info("Deleting file: " + file.getName());
 			file.delete();
 		 }
-
 	}
 }

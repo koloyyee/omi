@@ -40,7 +40,12 @@
 			<artifactId>pdfbox</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-
+<!--		https://github.com/TheoKanning/openai-java?tab=readme-ov-file	-->
+		<dependency>
+			<groupId>com.theokanning.openai-gpt3-java</groupId>
+			<artifactId>service</artifactId>
+			<version>0.18.2</version>
+		</dependency>
 		<!--Spring Boot Core -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
