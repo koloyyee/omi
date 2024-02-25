@@ -73,7 +73,9 @@ public class FileUploadController {
 			log.info("resume: " + resume);
 		} catch (IOException e) {
 			log.error(e.getMessage());
-		}
+		} finally {
+			file.delete();
+		 }
 
 	}
 }

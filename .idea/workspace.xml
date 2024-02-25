@@ -5,33 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f4dd2b-7338-4579-8bc1-acc1fbc44300" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/TODOs.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/model/Scraper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Benzinga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Breakfast/service/Finviz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/config/CompanyTickerLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/controller/BreakfastController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/controller/BreakfastController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/CompanyTicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/CompanyTicker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Month.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Month.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/News.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/News.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Outlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/Outlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/model/TickerNews.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/CompanyTickerRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/repository/TickerNewsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Benzinga.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Finviz.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Reuters.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/Reuters.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Breakfast/service/ScrapeAll.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/BreakfastDatasourceConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/MesureDatasourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/config/MesureDatasourceConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/co/loyyee/YuenDim/ApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/loyyee/Omi/Drafter/controller/FileUploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co/loyyee/Omi/Drafter/controller/FileUploadController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
