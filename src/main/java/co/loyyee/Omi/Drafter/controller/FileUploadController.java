@@ -9,7 +9,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +35,7 @@ import java.io.IOException;
  * */
 @RestController
 @RequestMapping("/api/drafter")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "${api.frontend}")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 	final private DrafterService service;
@@ -97,16 +96,15 @@ public class FileUploadController {
 				.append(description  + "\n" )
 				.append("Here is my resume: \n")
 				.append(resume);
-			log.info("Submitting ✈️: " + userContent.toString());
+
 			String resp = this.service
 				.setContent(userContent.toString())
 				.ask();
-			log.info("receiving 📦: " + resp);
 
-			return new ResponseEntity( resp, HttpStatus.OK);
+			return  ResponseEntity.ok(resp);
 		} catch (IOException e) {
 			log.error("PDFBox extraction: " + e.getMessage());
-			return new ResponseEntity( HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.internalServerError().build();
 		} finally {
 			log.info("Deleting file: " + file.getName());
 			file.delete();

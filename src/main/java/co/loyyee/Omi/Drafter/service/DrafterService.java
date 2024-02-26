@@ -27,17 +27,17 @@ import java.util.concurrent.CompletionService;
 public class DrafterService {
 	final private static Logger log = LoggerFactory.getLogger(CompletionService.class);
 	private String promptContent;
-//	@Value("${OPENAI_KEY}") // for environment variables
-	@Value("${openai.api-key}") // for application.yml variable
-	private String apiKey;
 	private int durationSecs;
-	private OpenAiService service;
-	private List<ChatMessage> messages;
-	private ChatMessage systemMessages;
-	private String messageHeader;
-//	final private DrafterConfigurationProperties properties; // for configuration properties
+	private final List<ChatMessage> messages;
+	private final String messageHeader;
+
+	/* different ways of getting the environment variables */
+	//	final private DrafterConfigurationProperties properties; // for configuration properties
+	//	@Value("${OPENAI_KEY}") // for environment variables
+	@Value("${api.openai}") // for application.yml variable
+	private String apiKey;
 	public DrafterService(DrafterConfigurationProperties properties) {
-		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview.";
+		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
 		this.durationSecs = 30;
 		this.messages = new ArrayList<>();
 		/* different ways of getting the environment variables */
@@ -69,8 +69,8 @@ public class DrafterService {
 	}
 
 	public String ask() {
-		this.service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
-		this.systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.promptContent);
+		OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
+		ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.promptContent);
 		this.messages.add(systemMessages);
 		ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
 			.model("gpt-3.5-turbo")
@@ -83,7 +83,7 @@ public class DrafterService {
 		log.info("OpenAI Service Launching.");
 		/** joining the message. */
 		try {
-			return this.service.streamChatCompletion(chatCompletionRequest)
+			return service.streamChatCompletion(chatCompletionRequest)
 				.doOnError(Throwable::printStackTrace)
 				.filter(el -> el.getChoices().get(0).getMessage().getContent() != null)
 				.map(el -> el.getChoices().get(0).getMessage().getContent())
@@ -94,7 +94,7 @@ public class DrafterService {
 			log.error(e.getMessage());
 			return e.getMessage();
 		} finally {
-			this.service.shutdownExecutor();
+			service.shutdownExecutor();
 		}
 	}
 

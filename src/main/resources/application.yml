@@ -9,8 +9,9 @@ logging:
         jdbc : DEBUG
 
 
-openai:
-  api-key: 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
+api:
+  frontend: https://localhost:5173
+  openai: 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
 
 spring:
 #  profiles:
