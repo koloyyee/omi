@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>co.loyyee</groupId>
-	<artifactId>Omi</artifactId>
+	<artifactId>omi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Gogen</name>
 	<description>All services traces back to here </description>

@@ -1,13 +1,15 @@
 package co.loyyee.Omi.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
@@ -35,6 +37,9 @@ import javax.sql.DataSource;
  * */
 @Configuration
 public class BreakfastDatasourceConfiguration{
+
+    @Autowired
+    private DataSource dataSource;
     @Bean
     @ConfigurationProperties("spring.datasource.breakfast")
     public DataSourceProperties breakfastDataSourceProperties() {
@@ -46,12 +51,17 @@ public class BreakfastDatasourceConfiguration{
         return breakfastDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
-
+    /** NOTE: Crucial when having 2 datasource **/
     @Bean
-    public JdbcTemplate breakastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
+    @Primary
+    public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-
+    /**NOTE: Crucial if we are using both JdbcClient and JdbcTemplate */
+    @Bean
+    public JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
+        return JdbcClient.create(dataSource);
+    }
 
     /**
      * schema.sql will not populate the H2 when there are multiple data source,

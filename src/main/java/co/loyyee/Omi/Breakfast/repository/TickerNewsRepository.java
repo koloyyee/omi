@@ -1,16 +1,16 @@
 package co.loyyee.Omi.Breakfast.repository;
 
-import co.loyyee.Omi.Breakfast.model.TickerNews;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 @Repository
 public class TickerNewsRepository {
 
+	@Autowired
+	@Qualifier("breakfastJdbcTemplate")
 	final private JdbcTemplate jdbcTemplate;
 	final private JdbcClient jdbc;
 
