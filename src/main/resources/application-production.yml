@@ -7,15 +7,15 @@ spring:
         active: prod
 
     datasource:
-        url: ${PG}
+        url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DB}
         # Breakfast - Scraping App
         breakfast:
-            url: ${PG_BREAKFAST}
+            url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DB}/${PG_BREAKFAST}
             username: ${PG_USERNAME}
             password: ${PG_PASSWORD}
         # Mesure - Food Cost App
         mesure:
-            url: ${PG_MESURE}
+            url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DB}/${PG_MESURE}
             username: ${PG_USERNAME}
             password: ${PG_PASSWORD}
 
