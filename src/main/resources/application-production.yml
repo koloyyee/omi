@@ -1,5 +1,5 @@
 api:
-    frontend: http://localhost:5173
+    frontend: ${FRONTEND_URL}
     openai: ${OPENAI_KEY} # for production with over Linux server environment variable.
 
 spring:
