@@ -12,6 +12,6 @@ services:
       # @see: ./pg_init/init.sql - create databases
       - ./pg_init:/docker-entrypoint-initdb.d # Load init scripts
     environment:
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_MULTIPLE_DATABASES: Breakfast, Mesure # Create multiple databases
