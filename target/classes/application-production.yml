@@ -1,2 +1,0 @@
-openai:
-  api-key: ${OPENAI_KEY} # for production with over Linux server environment variable.

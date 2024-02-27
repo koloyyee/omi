@@ -1,2 +1,24 @@
-openai:
-  api-key: ${OPENAI_KEY} # for production with over Linux server environment variable.
+api:
+    frontend: http://localhost:5173
+    openai: ${OPENAI_KEY} # for production with over Linux server environment variable.
+
+spring:
+    profiles:
+        active: prod
+
+    datasource:
+        url: ${PG}
+        # Breakfast - Scraping App
+        breakfast:
+            url: ${PG_BREAKFAST}
+            username: ${PG_USERNAME}
+            password: ${PG_PASSWORD}
+        # Mesure - Food Cost App
+        mesure:
+            url: ${PG_MESURE}
+            username: ${PG_USERNAME}
+            password: ${PG_PASSWORD}
+
+sql:
+    init:
+        mode: always

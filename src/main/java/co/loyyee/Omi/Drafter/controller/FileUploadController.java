@@ -46,6 +46,28 @@ public class FileUploadController {
 		this.config = config;
 	}
 
+
+	/**
+	 * @param mf Spring Boot file type MultipartFile from client post request
+	 *
+	 *<p> It will convert file from MultipartFile to File parsing into Text</p>
+	 */
+	private File convertToFile(@NotNull MultipartFile mf) {
+
+		File file = null;
+		try {
+			file = new File(mf.getOriginalFilename());
+			file.createNewFile();
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(mf.getBytes());
+			fos.close();
+		} catch (IOException e) {
+			log.error("File conversion Error: " + e.getMessage());
+		}
+		return file;
+	}
+
+
 	/**
 	 * uploadPdf handles the PDF file uploaded from the client
 	 * we will extract with PDFBox and package it into a JSON object
@@ -63,23 +85,15 @@ public class FileUploadController {
 									@NotNull @RequestParam("description") String description) {
 
 		/* Multipart File conversion because PDDocument only take  File. */
-		File file = null;
-		try {
-			file = new File(mf.getOriginalFilename());
-			file.createNewFile();
-			FileOutputStream fos = new FileOutputStream(file);
-			fos.write(mf.getBytes());
-			fos.close();
-		} catch (IOException e) {
-			log.error("File conversion: " + e.getMessage());
-		}
-		/*
+		File file = convertToFile(mf);
+		/**
 		* PDFBox 3.0 has replaced PDDocument.load with Loader.loadPDF
 		 * reference: https://pdfbox.apache.org/3.0/migration.html
 		 * check - <strong>Use Loader to get a PDF document</strong>
 		*
 		* */
 		try (PDDocument document = Loader.loadPDF(file)) {
+
 			/* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
 			PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
 			stripperByArea.setSortByPosition(true);
@@ -100,6 +114,7 @@ public class FileUploadController {
 			String resp = this.service
 				.setContent(userContent.toString())
 				.ask();
+			log.info("FRONTEND API: ${api.frontend}");
 
 			return  ResponseEntity.ok(resp);
 		} catch (IOException e) {

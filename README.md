@@ -15,6 +15,10 @@ make the product useful instead of reconfiguring again and again,
 time worth more than money, don't waste it.
 
 ## Projects
-- **Breakfast**: A daily news aggregator for business and finance news.
-- **Mesure**: A food and beverage industry focus cost management app.
-- **Invoice**: A invoice management system.
+
+[//]: # (- **Breakfast**: A daily news aggregator for business and finance news.)
+- **Drafter**: We found someone to draft a cover letter for you.
+
+[//]: # (- **Mesure**: A food and beverage industry focus cost management app.)
+
+[//]: # (- **Invoice**: A invoice management system.)
