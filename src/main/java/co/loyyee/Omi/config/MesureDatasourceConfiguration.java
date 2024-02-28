@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  *
  * Opt out by commenting out the @Configuration annotation.
  * */
-//@Configuration
+@Configuration
 public class MesureDatasourceConfiguration {
     @Bean
     @ConfigurationProperties("spring.datasource.mesure")

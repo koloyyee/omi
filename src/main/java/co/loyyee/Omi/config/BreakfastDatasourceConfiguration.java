@@ -35,7 +35,7 @@ import javax.sql.DataSource;
  *      breakfast:
  *          url: xxxxxxx
  * */
-//@Configuration
+@Configuration
 public class BreakfastDatasourceConfiguration{
 
     @Autowired
