@@ -1,6 +1,5 @@
 package co.loyyee.Omi.Drafter.service;
 
-import co.loyyee.Omi.config.DrafterConfigurationProperties;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
@@ -36,15 +35,22 @@ public class DrafterService {
 	//	@Value("${OPENAI_KEY}") // for environment variables
 	@Value("${api.openai}") // for application.yml variable
 	private String apiKey;
-	public DrafterService(DrafterConfigurationProperties properties) {
+	public DrafterService() {
 		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
 		this.durationSecs = 30;
 		this.messages = new ArrayList<>();
 		/* different ways of getting the environment variables */
-//		this.properties = properties;
-//		this.apiKey = properties.apiKey();
 //		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
 	}
+//	public DrafterService(DrafterConfigurationProperties properties) {
+//		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
+//		this.durationSecs = 30;
+//		this.messages = new ArrayList<>();
+//		/* different ways of getting the environment variables */
+////		this.properties = properties;
+////		this.apiKey = properties.apiKey();
+////		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+//	}
 
 	public DrafterService setContent(String promptContent) {
 		StringBuilder strB = new StringBuilder();

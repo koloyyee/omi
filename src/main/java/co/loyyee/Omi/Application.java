@@ -2,11 +2,13 @@ package co.loyyee.Omi;
 
 import co.loyyee.Omi.config.DrafterConfigurationProperties;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(DrafterConfigurationProperties.class)
+@EnableAutoConfiguration
 public class Application {
 
 	public static void main(String[] args) {
