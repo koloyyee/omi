@@ -1,4 +1,5 @@
 application-production.yml
+docker-compose.dev.yml
 
 ### IDE/ Editor ###
 .vscode
