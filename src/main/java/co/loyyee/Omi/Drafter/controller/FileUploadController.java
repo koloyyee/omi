@@ -74,6 +74,10 @@ public class FileUploadController {
 		return file;
 	}
 
+	@GetMapping
+	public ResponseEntity testEndpoint() {
+		return ResponseEntity.ok("I am HERE!");
+	}
 
 	/**
 	 * uploadPdf handles the PDF file uploaded from the client
