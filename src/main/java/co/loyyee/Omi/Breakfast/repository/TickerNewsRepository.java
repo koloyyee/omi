@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TickerNewsRepository {
 
-	@Autowired
 	@Qualifier("breakfastJdbcTemplate")
 	final private JdbcTemplate jdbcTemplate;
+	@Qualifier("breakfastJdbcClient")
 	final private JdbcClient jdbc;
 
-	public TickerNewsRepository(JdbcTemplate jdbcTemplate, JdbcClient jdbc) {
+	public TickerNewsRepository(@Qualifier("breakfastJdbcTemplate") JdbcTemplate jdbcTemplate, @Qualifier("breakfastJdbcClient") JdbcClient jdbc) {
 		this.jdbcTemplate = jdbcTemplate;
 		this.jdbc = jdbc;
 	}

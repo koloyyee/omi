@@ -29,10 +29,8 @@ import java.util.Optional;
 public class CompanyTickerRepository {
 
     final private static Logger log = LoggerFactory.getLogger(CompanyTickerRepository.class);
-    @Autowired
     @Qualifier("breakfastJdbcTemplate")
     final private JdbcTemplate jdbcTemplate;
-    @Autowired
     @Qualifier("breakfastJdbcClient")
     final private JdbcClient jdbc;
 

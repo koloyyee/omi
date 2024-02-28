@@ -70,7 +70,7 @@ public class BreakfastDatasourceConfiguration{
      *
      * source: https://stackoverflow.com/questions/51146269/spring-boot-2-multiple-datasources-initialize-schema
      * */
-    @Bean
+    @Bean(name="breakfastDataSourceInitializer")
 //    @Profile("dev")
     public DataSourceInitializer breakfastDataSourceInitializer(@Qualifier("breakfastDataSource") DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
