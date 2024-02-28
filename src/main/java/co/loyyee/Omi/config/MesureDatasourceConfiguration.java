@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -17,7 +16,7 @@ import javax.sql.DataSource;
  *
  * Opt out by commenting out the @Configuration annotation.
  * */
-@Configuration
+//@Configuration
 public class MesureDatasourceConfiguration {
     @Bean
     @ConfigurationProperties("spring.datasource.mesure")

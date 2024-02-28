@@ -38,7 +38,6 @@ import javax.sql.DataSource;
 @Configuration
 public class BreakfastDatasourceConfiguration{
 
-    @Autowired
     private DataSource dataSource;
     @Bean
     @ConfigurationProperties("spring.datasource.breakfast")
@@ -54,12 +53,12 @@ public class BreakfastDatasourceConfiguration{
     /** NOTE: Crucial when having 2 datasource **/
     @Bean
     @Primary
-    public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
+    public JdbcTemplate breakfastJdbcTemplate( DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
     /**NOTE: Crucial if we are using both JdbcClient and JdbcTemplate */
     @Bean
-    public JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
+    public JdbcClient breakfastJdbcClient( DataSource dataSource) {
         return JdbcClient.create(dataSource);
     }
 
