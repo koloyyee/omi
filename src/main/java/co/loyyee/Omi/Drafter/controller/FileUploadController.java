@@ -9,6 +9,8 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,11 +40,12 @@ import java.io.IOException;
 @CrossOrigin(origins = "${api.frontend}")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
-	final private DrafterService service;
+	@Autowired
+	final private DrafterService drafterService;
 	final private DrafterConfigurationProperties config;
 
-	public FileUploadController(DrafterService service, DrafterConfigurationProperties config) {
-		this.service = service;
+	public FileUploadController(@Qualifier("drafterService") DrafterService drafterService, DrafterConfigurationProperties config) {
+		this.drafterService = drafterService;
 		this.config = config;
 	}
 
@@ -111,7 +114,7 @@ public class FileUploadController {
 				.append("Here is my resume: \n")
 				.append(resume);
 
-			String resp = this.service
+			String resp = this.drafterService
 				.setContent(userContent.toString())
 				.ask();
 			log.info("FRONTEND API: ${api.frontend}");
