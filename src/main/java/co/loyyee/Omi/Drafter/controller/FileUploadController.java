@@ -40,11 +40,13 @@ import java.io.IOException;
 @CrossOrigin(origins = "${api.frontend}")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
-	@Autowired
-	final private DrafterService drafterService;
 	final private DrafterConfigurationProperties config;
 
-	public FileUploadController(@Qualifier("drafterService") DrafterService drafterService, DrafterConfigurationProperties config) {
+	@Autowired
+	final private DrafterService drafterService;
+	public FileUploadController(
+			@Qualifier("drafterService") DrafterService drafterService,
+			DrafterConfigurationProperties config) {
 		this.drafterService = drafterService;
 		this.config = config;
 	}

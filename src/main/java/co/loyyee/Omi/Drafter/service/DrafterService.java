@@ -8,7 +8,7 @@ import com.theokanning.openai.service.OpenAiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletionService;
  *
  * see {@link<a href=" https://github.com/TheoKanning/openai-jav"> OpenAI Java library</a>}
  * */
-@Component
+@Service
 public class DrafterService {
 	final private static Logger log = LoggerFactory.getLogger(CompletionService.class);
 	private String promptContent;
