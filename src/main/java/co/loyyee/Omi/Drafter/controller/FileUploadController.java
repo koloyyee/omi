@@ -35,7 +35,7 @@ import java.io.IOException;
  * */
 @RestController
 @RequestMapping("/api/drafter")
-@CrossOrigin(origins = "${api.frontend}")
+@CrossOrigin(origins = "*")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 //	final private DrafterConfigurationProperties config;

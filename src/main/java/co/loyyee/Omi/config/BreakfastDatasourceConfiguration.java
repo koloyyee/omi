@@ -1,6 +1,5 @@
 package co.loyyee.Omi.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,17 +34,19 @@ import javax.sql.DataSource;
  *      breakfast:
  *          url: xxxxxxx
  * */
-//@Configuration
+@Configuration
 public class BreakfastDatasourceConfiguration{
 
     private DataSource dataSource;
     @Bean
+    @Primary
     @ConfigurationProperties("spring.datasource.breakfast")
     public DataSourceProperties breakfastDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
+    @Primary
     public DataSource breakfastDataSource() {
         return breakfastDataSourceProperties().initializeDataSourceBuilder().build();
     }

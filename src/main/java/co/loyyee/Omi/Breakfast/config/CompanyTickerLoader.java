@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * Opt out by commenting out the @Component annotation
  */
-//@Component
+@Component
 public class CompanyTickerLoader implements CommandLineRunner {
     final private Logger log = LoggerFactory.getLogger(CompanyTickerLoader.class);
     final private ObjectMapper mapper;
