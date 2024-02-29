@@ -40,7 +40,7 @@ public class MesureDatasourceConfiguration {
      * Why we need an initializer? see reference.
      * @see co.loyyee.Omi.config.BreakfastDatasourceConfiguration#breakfastDataSourceInitializer(DataSource)
      * */
-    @Bean
+    @Bean(name="mesureDataSourceInitializer")
     public DataSourceInitializer mesureDataSourceInitializer(@Qualifier("mesureDataSource") DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 //        resourceDatabasePopulator.addScript(new ClassPathResource("schema-h2-mesure.sql"));
