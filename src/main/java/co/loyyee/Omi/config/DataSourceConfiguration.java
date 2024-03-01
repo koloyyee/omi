@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer;
 import org.springframework.boot.sql.init.DatabaseInitializationMode;
 import org.springframework.boot.sql.init.DatabaseInitializationSettings;
@@ -89,20 +88,21 @@ public class DataSourceConfiguration {
 //                .build();
 //    }
 
+/**
     // Blog
-//    @Bean
-//    @ConfigurationProperties("app.datasource.blog")
+    @Bean
+    @ConfigurationProperties("app.datasource.blog")
     public DataSourceProperties blogDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-//    @Bean
+    @Bean
     public HikariDataSource blogDataSource(@Qualifier("blogDataSourceProperties")  DataSourceProperties blogDataSourceProperties) {
         return blogDataSourceProperties.initializeDataSourceBuilder()
                 .type(HikariDataSource.class).build();
     }
 
-//    @Bean
+    @Bean
     DataSourceScriptDatabaseInitializer blogDataSourceInitializer(@Qualifier("blogDataSource") DataSource datasource) {
         // h2 settings
         var settings = new DatabaseInitializationSettings();
@@ -111,13 +111,13 @@ public class DataSourceConfiguration {
         return new DataSourceScriptDatabaseInitializer(datasource, settings);
     }
     // Subscriber
-//    @Bean
-//    @ConfigurationProperties("app.datasource.subscriber")
+    @Bean
+    @ConfigurationProperties("app.datasource.subscriber")
     public DataSourceProperties subscriberDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-//    @Bean
+    @Bean
     public DataSource subscriberDataSource(@Qualifier("subscriberDataSourceProperties") DataSourceProperties subscriberDataSourceProperties) {
         return DataSourceBuilder.create()
                 .url(subscriberDataSourceProperties.getUrl())
@@ -125,7 +125,7 @@ public class DataSourceConfiguration {
                 .password(subscriberDataSourceProperties.getPassword())
                 .build();
     }
-//    @Bean
+    @Bean
     DataSourceScriptDatabaseInitializer subscriberDataSourceInitializer(@Qualifier("subscriberDataSource") DataSource datasource) {
         // h2 settings
         var settings = new DatabaseInitializationSettings();
@@ -133,5 +133,5 @@ public class DataSourceConfiguration {
         settings.setMode(DatabaseInitializationMode.EMBEDDED);
         return new DataSourceScriptDatabaseInitializer(datasource, settings);
     }
-
+*/
 }

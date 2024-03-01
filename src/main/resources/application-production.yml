@@ -1,0 +1,21 @@
+api:
+    frontend: ${FRONTEND_URL}
+    openai: ${OPENAI_KEY} # for production with over Linux server environment variable.
+
+app:
+    datasource:
+        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+        # Breakfast - Scraping App
+        breakfast:
+            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
+            username: ${PGUSER}
+            password: ${PGPASSWORD}
+        # Mesure - Food Cost App
+#        mesure:
+#            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGMESURE}
+#            username: ${PGUSER}
+#            password: ${PGPASSWORD}
+
+sql:
+    init:
+        mode: always
