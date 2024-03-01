@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,7 +24,7 @@ import javax.sql.DataSource;
  * if this is configuration is not set up the application.yml/.properties will <strong>ONLY</strong>
  * recognize spring.datasource.url.
  *
- * e.g.:
+* e.g.:
  * [application.properties]
  * spring.datasource.breakfast.url = xxxxx
  * [application.yml]
@@ -76,9 +75,9 @@ public class BreakfastDatasourceConfiguration{
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
         /**  filename coherent with your .sql, in this case breakfast **/
         /** h2 **/
-//        resourceDatabasePopulator.addScript(new ClassPathResource("schema-h2-breakfast.sql"));
+//        resourceDatabasePopulator.addScript(new ClassPathResource("breakfast-h2-schema.sql"));
         /** postgres **/
-        resourceDatabasePopulator.addScript(new ClassPathResource("schema-pg-breakfast.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("breakfast-pg-schema.sql"));
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);

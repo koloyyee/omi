@@ -8,8 +8,15 @@ docker-compose.dev.yml
 ### mac ###
 .DS_Store
 
+### Tutorial ###
+Blog/
+blog-schema.sql
+subscriber-schema.sql
+
+### Dev ###
 openai_doc_note.txt
 application.yml
+
 
 *#
 *.iml

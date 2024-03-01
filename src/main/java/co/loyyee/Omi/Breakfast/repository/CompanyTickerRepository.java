@@ -3,7 +3,6 @@ package co.loyyee.Omi.Breakfast.repository;
 import co.loyyee.Omi.Breakfast.model.CompanyTicker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
@@ -25,13 +24,11 @@ import java.util.Optional;
  * <p>
  * We are using JDBC Client to simply the CRUD processes but still using SQL.
  */
-//@Repository
+@Repository
 public class CompanyTickerRepository {
 
     final private static Logger log = LoggerFactory.getLogger(CompanyTickerRepository.class);
-    @Qualifier("breakfastJdbcTemplate")
     final private JdbcTemplate jdbcTemplate;
-    @Qualifier("breakfastJdbcClient")
     final private JdbcClient jdbc;
 
     public CompanyTickerRepository(@Qualifier("breakfastJdbcTemplate") JdbcTemplate jdbcTemplate, @Qualifier("breakfastJdbcClient") JdbcClient jdbc) {
