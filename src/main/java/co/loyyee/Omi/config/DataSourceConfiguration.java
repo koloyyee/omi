@@ -72,10 +72,10 @@ public class DataSourceConfiguration {
     DataSourceScriptDatabaseInitializer breakfastDataSourceInitializer(@Qualifier("breakfastDataSource") DataSource datasource) {
         var settings = new DatabaseInitializationSettings();
         // pg settings
-//        settings.setSchemaLocations(List.of("classpath:breakfast-pg-schema.sql"));
-//        settings.setMode(DatabaseInitializationMode.ALWAYS);
-        settings.setSchemaLocations(List.of("classpath:breakfast-h2-schema.sql"));
-        settings.setMode(DatabaseInitializationMode.EMBEDDED);
+        settings.setSchemaLocations(List.of("classpath:breakfast-pg-schema.sql"));
+        settings.setMode(DatabaseInitializationMode.ALWAYS);
+//        settings.setSchemaLocations(List.of("classpath:breakfast-h2-schema.sql"));
+//        settings.setMode(DatabaseInitializationMode.EMBEDDED);
         return new DataSourceScriptDatabaseInitializer(datasource, settings);
     }
     // Programmatically creating a DataSource
