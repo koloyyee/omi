@@ -7,7 +7,8 @@ app:
         url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
         # Breakfast - Scraping App
         breakfast:
-            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
+            url: jdbc:${PGBREAKFAST}
+#            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
             username: ${PGUSER}
             password: ${PGPASSWORD}
         # Mesure - Food Cost App
