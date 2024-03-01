@@ -34,7 +34,7 @@ import java.io.IOException;
  *<p>{@link Loader#loadPDF(File)} will be used to load the PDF file</p>
  * */
 @RestController
-@RequestMapping("/api/drafter")
+@RequestMapping("/drafter")
 @CrossOrigin(origins = "*")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
