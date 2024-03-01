@@ -76,6 +76,7 @@ public class FileUploadController {
 
 	@GetMapping
 	public ResponseEntity testEndpoint() {
+		this.drafterService.test();
 		return ResponseEntity.ok("I am HERE!");
 	}
 

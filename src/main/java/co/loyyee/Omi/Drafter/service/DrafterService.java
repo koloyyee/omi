@@ -6,7 +6,8 @@ import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -31,17 +32,29 @@ public class DrafterService {
 	private final String messageHeader;
 
 	/* different ways of getting the environment variables */
+
+	@Autowired
+	private Environment environment;
 	//	final private DrafterConfigurationProperties properties; // for configuration properties
 	//	@Value("${OPENAI_KEY}") // for environment variables
-	@Value("${api.openai}") // for application.yml variable
+//	@Value("${api.openai}") // for application.yml variable
 	private String apiKey;
 	public DrafterService() {
 		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
 		this.durationSecs = 30;
 		this.messages = new ArrayList<>();
 		/* different ways of getting the environment variables */
-//		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+
+
 	}
+
+	public void test() {
+		String envValue = environment.getProperty("api.openai");
+		log.info("🔑env API Key: " + envValue);
+		log.info("🗝️sys API Key: " + this.apiKey);
+	}
+
 //	public DrafterService(DrafterConfigurationProperties properties) {
 //		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
 //		this.durationSecs = 30;
