@@ -16,7 +16,8 @@ subscriber-schema.sql
 ### Dev ###
 openai_doc_note.txt
 application.yml
-
+BreakfastDatasourceConfiguration.java
+MesureDatasourceConfiguration.java
 
 *#
 *.iml
