@@ -1,6 +1,7 @@
 package co.loyyee.Omi;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,18 @@ public class Application {
     @Bean
     public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    CommandLineRunner envRunner(){
+        return args -> {
+            System.out.println("Environment is running");
+            System.out.println(System.getenv("PGHOST"));
+            System.out.println(System.getenv("PGPORT"));
+            System.out.println(System.getenv("PGDATABASE"));
+            System.out.println(System.getenv("PGBREAKFAST"));
+            System.out.println(System.getenv("PGMESURE"));
+        };
     }
 
     /**
