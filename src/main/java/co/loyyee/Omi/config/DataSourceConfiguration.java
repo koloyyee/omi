@@ -8,7 +8,6 @@ import org.springframework.boot.jdbc.init.DataSourceScriptDatabaseInitializer;
 import org.springframework.boot.sql.init.DatabaseInitializationMode;
 import org.springframework.boot.sql.init.DatabaseInitializationSettings;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
@@ -52,7 +51,7 @@ import java.util.List;
  * @Primary is the annotation that will tell Spring Boot which datasource to use as the default
  * Be specific about @Qualifier is to specify the name of the DataSource, DataSourceProperties, or any other bean
  * */
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 public class DataSourceConfiguration {
     // Breakfast
     @Bean
@@ -61,7 +60,7 @@ public class DataSourceConfiguration {
     public DataSourceProperties breakfastDataSourceProperties() {
         return new DataSourceProperties();
     }
-    @Bean
+//    @Bean
     @Primary
     public HikariDataSource breakfastDataSource( @Qualifier("breakfastDataSourceProperties") DataSourceProperties breakfastDataSourceProperties) {
         return breakfastDataSourceProperties.initializeDataSourceBuilder()

@@ -3,9 +3,8 @@ package co.loyyee.Omi.Breakfast.repository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class TickerNewsRepository {
 
 	@Qualifier("breakfastJdbcTemplate")

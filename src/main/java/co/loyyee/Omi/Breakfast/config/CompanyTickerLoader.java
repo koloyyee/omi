@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * Opt out by commenting out the @Component annotation
  */
-@Component
+//@Component
 public class CompanyTickerLoader implements CommandLineRunner {
     final private Logger log = LoggerFactory.getLogger(CompanyTickerLoader.class);
     final private ObjectMapper mapper;
