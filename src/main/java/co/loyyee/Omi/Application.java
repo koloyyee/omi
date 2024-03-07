@@ -1,9 +1,9 @@
 package co.loyyee.Omi;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import javax.sql.DataSource;
 
 
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
@@ -30,17 +30,17 @@ public class Application {
         return new JdbcTemplate(dataSource);
     }
 
-    @Bean
-    CommandLineRunner envRunner(){
-        return args -> {
-            System.out.println("Environment is running");
-            System.out.println(System.getenv("PGHOST"));
-            System.out.println(System.getenv("PGPORT"));
-            System.out.println(System.getenv("PGDATABASE"));
-            System.out.println(System.getenv("PGBREAKFAST"));
-            System.out.println(System.getenv("PGMESURE"));
-        };
-    }
+//    @Bean
+//    CommandLineRunner envRunner(){
+//        return args -> {
+//            System.out.println("Environment is running");
+//            System.out.println(System.getenv("PGHOST"));
+//            System.out.println(System.getenv("PGPORT"));
+//            System.out.println(System.getenv("PGDATABASE"));
+//            System.out.println(System.getenv("PGBREAKFAST"));
+//            System.out.println(System.getenv("PGMESURE"));
+//        };
+//    }
 
     /**
      * The correct way of creating a JdbcClient from Dan Vega Tutorial
