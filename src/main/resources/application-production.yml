@@ -5,7 +5,7 @@ api:
 app:
     datasource:
 #        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-        url: jdbc:postgresql://localhost:5432/postgres
+        url: jdbc:postgresql://0.0.0.0:5432/postgres
 #        username: ${PGUSER}
         username: ${PGUSER}
         password: ${PGPASSWORD}
@@ -13,7 +13,7 @@ app:
         # Breakfast - Scraping App
         breakfast:
 #            url: jdbc:${PGBREAKFAST}
-            url: jdbc:postgresql://localhost:5432/breakfast
+            url: jdbc:postgresql://0.0.0.0:5432/breakfast
 #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
             username: ${PGUSER}
             password: ${PGPASSWORD}
