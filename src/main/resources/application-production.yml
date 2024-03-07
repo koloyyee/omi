@@ -17,6 +17,6 @@ app:
 #            username: ${PGUSER}
 #            password: ${PGPASSWORD}
 
-#sql:
-#    init:
-#        mode: always
+sql:
+    init:
+        mode: always
