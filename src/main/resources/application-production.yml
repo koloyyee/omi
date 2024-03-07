@@ -24,11 +24,11 @@ app:
 #            username: ${PGUSER}
 #            password: ${PGPASSWORD}
 
-#sql:
-#    init:
-#        mode: always
-logging:
-    level:
-        org:
-            springframework:
-                jdbc: DEBUG
+sql:
+    init:
+        mode: always
+#logging:
+#    level:
+#        org:
+#            springframework:
+#                jdbc: DEBUG
