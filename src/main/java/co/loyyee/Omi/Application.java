@@ -3,15 +3,15 @@ package co.loyyee.Omi;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import javax.sql.DataSource;
 
 
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
@@ -19,12 +19,12 @@ public class Application {
     }
 
     /*** Breakfast JdbcClient and JdbcTemplate ***/
-    @Bean
+//    @Bean
     JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return JdbcClient.create(dataSource);
     }
 
-    @Bean
+//    @Bean
     public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
