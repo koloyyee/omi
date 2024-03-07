@@ -6,7 +6,6 @@ app:
     datasource:
         url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
 #        url: jdbc:postgresql://0.0.0.0:5432/postgres
-#        username: ${PGUSER}
         username: ${PGUSER}
         password: ${PGPASSWORD}
         driver-class-name: org.postgresql.Driver
