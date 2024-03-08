@@ -1,6 +1,9 @@
 package co.loyyee.Omi.Breakfast.controller;
 
-//@RequestMapping("/api/breakfast")
-//@RestController
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RequestMapping("/api/breakfast")
+@RestController
 public class BreakfastController {
 }

@@ -10,13 +10,13 @@ app:
         password: ${PGPASSWORD}
         driver-class-name: org.postgresql.Driver
         # Breakfast - Scraping App
-#        breakfast:
-#            url: jdbc:${PGBREAKFAST}
+        breakfast:
+            url: jdbc:${PGBREAKFAST}
 #            url: jdbc:postgresql://0.0.0.0:5432/breakfast
 #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
-#            username: ${PGUSER}
-#            password: ${PGPASSWORD}
-#            driver-class-name: org.postgresql.Driver
+            username: ${PGUSER}
+            password: ${PGPASSWORD}
+            driver-class-name: org.postgresql.Driver
         # Mesure - Food Cost App
 #        mesure:
 #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGMESURE}
