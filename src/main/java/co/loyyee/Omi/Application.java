@@ -25,12 +25,12 @@ public class Application {
     }
 
     /*** Breakfast JdbcClient and JdbcTemplate ***/
-    @Bean
+//    @Bean
     JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return JdbcClient.create(dataSource);
     }
 
-    @Bean
+//    @Bean
     public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
