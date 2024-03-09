@@ -2,13 +2,18 @@ api:
     frontend: ${FRONTEND_URL}
     openai: ${OPENAI_KEY} # for production with over Linux server environment variable.
 
-app:
+spring:
+    profiles:
+        active: production
     datasource:
         url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+app:
+    datasource:
+#        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
 #        url: jdbc:postgresql://0.0.0.0:5432/postgres
-        username: ${PGUSER}
-        password: ${PGPASSWORD}
-        driver-class-name: org.postgresql.Driver
+#        username: ${PGUSER}
+#        password: ${PGPASSWORD}
+#        driver-class-name: org.postgresql.Driver
         # Breakfast - Scraping App
         breakfast:
 #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}

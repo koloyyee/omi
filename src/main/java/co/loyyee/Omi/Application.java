@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import javax.sql.DataSource;
 
 
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+//@SpringBootApplication
 public class Application {
 
     private final static Logger log = LoggerFactory.getLogger(Application.class);
