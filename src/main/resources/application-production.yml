@@ -3,8 +3,6 @@ api:
     openai: ${OPENAI_KEY} # for production with over Linux server environment variable.
 
 spring:
-#    profiles:
-#        active: production
     datasource:
         url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
 app:
