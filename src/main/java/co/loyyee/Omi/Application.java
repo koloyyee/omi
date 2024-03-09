@@ -44,6 +44,18 @@ public class Application {
             System.out.println("MESURE: " + System.getenv("PGMESURE"));
         };
     }
+//    @Bean
+    CommandLineRunner blogDsRunner(
+//            @Qualifier("blogDataSource") DataSource blogDataSource,
+//            @Qualifier("subscriberDataSource") DataSource subscriberDataSource,
+            @Qualifier("breakfastDataSource") DataSource breakfastDataSource
+    ) {
+        return args -> {
+//            System.out.println("blogDataSource DataSource is = " + blogDataSource.getConnection().getMetaData().getURL());
+//            System.out.println("subscriberDataSource DataSource is = " + subscriberDataSource.getConnection().getMetaData().getURL());
+            System.out.println("breakfastDataSource DataSource is = " + breakfastDataSource.getConnection().getMetaData().getURL());
+        };
+    }
 
     /**
      * The correct way of creating a JdbcClient from Dan Vega Tutorial

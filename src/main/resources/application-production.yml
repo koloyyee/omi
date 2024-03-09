@@ -11,8 +11,8 @@ app:
         driver-class-name: org.postgresql.Driver
         # Breakfast - Scraping App
         breakfast:
-            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-#            url: jdbc:${PGBREAKFAST}
+#            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+            url: jdbc:${PGBREAKFAST}
 #            url: jdbc:postgresql://0.0.0.0:5432/breakfast
 #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}
             username: ${PGUSER}
