@@ -52,7 +52,7 @@ import java.util.List;
  * @Primary is the annotation that will tell Spring Boot which datasource to use as the default
  * Be specific about @Qualifier is to specify the name of the DataSource, DataSourceProperties, or any other bean
  * */
-//@Configuration(proxyBeanMethods = false)
+@Configuration(proxyBeanMethods = false)
 public class DataSourceConfiguration {
     // Breakfast
     @Bean

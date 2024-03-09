@@ -1,3 +1,11 @@
+--SELECT
+-- 'CREATE DATABASE Breakfast'
+-- WHERE NOT EXISTS
+-- (SELECT FROM pg_database
+-- WHERE datname = 'Breakfast');
+
+--EXEC SQL SET CONNECTION TO Breakfast;
+
 CREATE TABLE IF NOT EXISTS CompanyTicker (
 --DROP TABLE IF EXISTS CompanyTicker;
 --CREATE TABLE CompanyTicker (

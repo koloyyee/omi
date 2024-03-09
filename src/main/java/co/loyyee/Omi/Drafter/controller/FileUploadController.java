@@ -8,7 +8,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,21 +37,12 @@ import java.io.IOException;
 @CrossOrigin(origins = "*")
 public class FileUploadController {
 	final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
-//	final private DrafterConfigurationProperties config;
 
-	@Autowired
 	final private DrafterService drafterService;
 
     public FileUploadController(DrafterService drafterService) {
         this.drafterService = drafterService;
     }
-//	public FileUploadController(
-//			@Qualifier("drafterService") DrafterService drafterService,
-//			DrafterConfigurationProperties config) {
-//		this.drafterService = drafterService;
-//		this.config = config;
-//	}
-
 
 	/**
 	 * @param mf Spring Boot file type MultipartFile from client post request
@@ -76,7 +66,6 @@ public class FileUploadController {
 
 	@GetMapping
 	public ResponseEntity testEndpoint() {
-		this.drafterService.test();
 		return ResponseEntity.ok("I am HERE!");
 	}
 
@@ -127,8 +116,11 @@ public class FileUploadController {
 				.setContent(userContent.toString())
 				.ask();
 			log.info("FRONTEND API: ${api.frontend}");
-
-			return  ResponseEntity.ok(resp);
+			if(resp.contains("https://platform.openai.com/account/api-keys")) {
+				return ResponseEntity.badRequest().build();
+			} else {
+				return  ResponseEntity.ok(resp);
+			}
 		} catch (IOException e) {
 			log.error("PDFBox extraction: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();

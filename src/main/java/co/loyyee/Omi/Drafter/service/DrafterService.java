@@ -6,8 +6,6 @@ import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -33,43 +31,45 @@ public class DrafterService {
 
 	/* different ways of getting the environment variables */
 
-	@Autowired
-	private Environment environment;
 	//	final private DrafterConfigurationProperties properties; // for configuration properties
 	//	@Value("${OPENAI_KEY}") // for environment variables
 //	@Value("${api.openai}") // for application.yml variable
 	private String apiKey;
 	public DrafterService() {
-		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
+		StringBuilder header = new StringBuilder();
+		header.append("You will help me to draft a cover letter and help me to land an interview. ")
+				.append("first paragraph about me, and why I am interested in the position ")
+				.append("second paragraph is about how good the company culture is ")
+				.append("third paragraph work experience and skill set will contribute to the company ")
+				.append("fourth paragraph soft skills good fit for the company ")
+				.append("fifth paragraph looking forward to the interview and opportunity to work with the company. ")
+				.append("last paragraph thanks the hiring manager for taking the time, and including the contact information. ")
+				.append("but don't output anything, wait for my input.");
+
+		this.messageHeader = header.toString();
 		this.durationSecs = 30;
 		this.messages = new ArrayList<>();
 		/* different ways of getting the environment variables */
 		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
-
-
 	}
 
-	public void test() {
-		String envValue = environment.getProperty("api.openai");
-		log.info("🔑env API Key: " + envValue);
-		log.info("🗝️sys API Key: " + this.apiKey);
+	private void promptInitialHeader() {
+		ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.messageHeader);
+		this.messages.add(systemMessages);
+		ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+				.model("gpt-3.5-turbo")
+				.messages(messages)
+				.n(1)
+				.maxTokens(10)
+				.logitBias(new HashMap<>())
+				.build();
+
 	}
-
-//	public DrafterService(DrafterConfigurationProperties properties) {
-//		this.messageHeader = "You will help me to draft a cover letter and help me to land an interview, make it 4 paragraphs cover letter.";
-//		this.durationSecs = 30;
-//		this.messages = new ArrayList<>();
-//		/* different ways of getting the environment variables */
-////		this.properties = properties;
-////		this.apiKey = properties.apiKey();
-////		this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
-//	}
-
 	public DrafterService setContent(String promptContent) {
-		StringBuilder strB = new StringBuilder();
-		strB.append(this.messageHeader);
-		strB.append(promptContent);
-		this.promptContent = strB.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.messageHeader)
+				.append(promptContent);
+		this.promptContent = sb.toString();
 		return this;
 	}
 
@@ -95,7 +95,7 @@ public class DrafterService {
 			.model("gpt-3.5-turbo")
 			.messages(messages)
 			.n(1)
-//			.maxTokens()
+			.maxTokens(16380)
 			.logitBias(new HashMap<>())
 			.build();
 

@@ -24,7 +24,7 @@ import java.util.Optional;
  * <p>
  * We are using JDBC Client to simply the CRUD processes but still using SQL.
  */
-//@Repository
+@Repository
 public class CompanyTickerRepository {
 
     final private static Logger log = LoggerFactory.getLogger(CompanyTickerRepository.class);
