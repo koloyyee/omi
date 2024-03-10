@@ -10,6 +10,7 @@ application-production.properties
 .DS_Store
 
 .env
+*.txt
 
 ### Tutorial ###
 Blog/

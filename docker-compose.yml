@@ -1,14 +1,15 @@
 version: '3.8'
 
+
 services:
   omi_pg:
     image: postgres
     container_name: omi_pg
     volumes:
       - ./docker/pg_init:/docker-entrypoint-initdb.d
-      - /var/lib/postgresql/data
+      - "/pg_data/:/var/lib/postgresql/data"
     environment:
-      - POSTGRES_USER=$PGUSER
+      - POSTGRES_USER=$PGUSE
       - POSTGRES_PASSWORD=$PGPASSWORD
 #      - POSTGRES_DB=breakfast
       - POSTGRES_MULTIPLE_DATABASES=breakfast, mesure
@@ -23,16 +24,15 @@ services:
     depends_on:
       - omi_pg
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
-      - SPRING_DATASOURCE_USERNAME=$PGUSER
-      - SPRING_DATASOURCE_PASSWORD=$PGPASSWORD
+      - POSTGRES_USER="$PGUSER"
+      - POSTGRES_PASSWORD="$PGPASSWORD"
+      - SPRING_DATASOURCE_URL="jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}"
+      - SPRING_DATASOURCE_USERNAME="$PGUSER"
+      - SPRING_DATASOURCE_PASSWORD="$PGPASSWORD"
       - SPRING_PROFILES_ACTIVE=production
-      - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
-      - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mesure
+      - APP_DATASOURCE_URL=jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}"
+      - APP_DATASOURCE_URL=jdbc:postgresql://${PGHOST}:${PGPORT}/${PGMESURE}"
     ports:
       - 8080:8080
     env_file:
       - .env
-
