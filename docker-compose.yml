@@ -8,10 +8,10 @@ services:
       - ./docker/pg_init:/docker-entrypoint-initdb.d
       - /var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=$PGUSER
+      - POSTGRES_PASSWORD=$PGPASSWORD
 #      - POSTGRES_DB=breakfast
-      - POSTGRES_MULTIPLE_DATABASES=breakfast, Mesure
+      - POSTGRES_MULTIPLE_DATABASES=breakfast, mesure
     ports:
       - 5432:5432
 
@@ -26,11 +26,13 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_USERNAME=$PGUSER
+      - SPRING_DATASOURCE_PASSWORD=$PGPASSWORD
       - SPRING_PROFILES_ACTIVE=production
       - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
       - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mesure
     ports:
       - 8080:8080
+    env_file:
+      - .env
 

@@ -9,6 +9,8 @@ application-production.properties
 ### mac ###
 .DS_Store
 
+.env
+
 ### Tutorial ###
 Blog/
 blog-schema.sql
