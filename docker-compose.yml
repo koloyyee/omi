@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  omi_pg:
+    image: postgres
+    container_name: omi_pg
+    volumes:
+      - ./docker/pg_init:/docker-entrypoint-initdb.d
+      - /var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+#      - POSTGRES_DB=breakfast
+      - POSTGRES_MULTIPLE_DATABASES=breakfast, Mesure
+    ports:
+      - 5432:5432
+
+  omi:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: .
+    container_name: omi
+    depends_on:
+      - omi_pg
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_PROFILES_ACTIVE=production
+      - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/breakfast
+      - APP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mesure
+    ports:
+      - 8080:8080
+
