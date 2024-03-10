@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
@@ -23,12 +24,12 @@ public class Application {
     }
 
     /*** Breakfast JdbcClient and JdbcTemplate ***/
-//    @Bean
+    @Bean
     JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return JdbcClient.create(dataSource);
     }
 
-//    @Bean
+    @Bean
     public JdbcTemplate breakfastJdbcTemplate(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
@@ -42,7 +43,7 @@ public class Application {
             System.out.println("MESURE: " + System.getenv("PGMESURE"));
         };
     }
-//    @Bean
+    @Bean
     CommandLineRunner blogDsRunner(
 //            @Qualifier("blogDataSource") DataSource blogDataSource,
 //            @Qualifier("subscriberDataSource") DataSource subscriberDataSource,

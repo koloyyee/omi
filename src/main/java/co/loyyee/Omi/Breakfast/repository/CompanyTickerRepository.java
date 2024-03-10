@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import java.util.Optional;
  * <p>
  * We are using JDBC Client to simply the CRUD processes but still using SQL.
  */
-//@Repository
+@Repository
 public class CompanyTickerRepository {
 
     final private static Logger log = LoggerFactory.getLogger(CompanyTickerRepository.class);

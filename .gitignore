@@ -1,5 +1,5 @@
 #application-production.yml
-docker-compose.dev.yml
+docker-compose.yml
 application-production.properties
 
 ### IDE/ Editor ###

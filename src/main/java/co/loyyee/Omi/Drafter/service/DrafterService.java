@@ -19,7 +19,7 @@ import java.util.concurrent.CompletionService;
  * <hr>
  * The service is using Theo Kanning's
  * <p>
- * see {@link<a href=" https://github.com/TheoKanning/openai-jav"> OpenAI Java library</a>}
+ * see {@link<a href=" https://github.com/TheoKanning/openai-java"> OpenAI Java library</a>}
  */
 @Service
 public class DrafterService {
@@ -27,7 +27,7 @@ public class DrafterService {
     private String promptContent;
     private int durationSecs;
     private final List<ChatMessage> messages;
-    private final String messageHeader;
+//    private final String messageHeader;
 
     /* different ways of getting the environment variables */
 
@@ -37,6 +37,16 @@ public class DrafterService {
     private String apiKey;
 
     public DrafterService() {
+
+
+//        this.messageHeader = header.toString();
+        this.durationSecs = 30;
+        this.messages = new ArrayList<>();
+        /* different ways of getting the environment variables */
+        this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+    }
+
+    private void promptInitialHeader() {
         StringBuilder header = new StringBuilder();
         header.append("You will help me to draft a cover letter and help me to land an interview. ")
                 .append("first paragraph about me, and why I am interested in the position ")
@@ -47,16 +57,8 @@ public class DrafterService {
                 .append("last paragraph thanks the hiring manager for taking the time, and including the my contact information and as them to contact me. ")
                 .append("but don't output anything, wait for my input.");
 
-        this.messageHeader = header.toString();
-        this.durationSecs = 30;
-        this.messages = new ArrayList<>();
-        /* different ways of getting the environment variables */
-        this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
-    }
-
-    private void promptInitialHeader() {
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
-        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.messageHeader);
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
@@ -84,7 +86,7 @@ public class DrafterService {
     }
 
     public DrafterService setContent(String promptContent) {
-        this.promptContent = promptContent + "\n start drafting.";
+        this.promptContent = promptContent + "\n start drafting. And start with the word 'DRAFT\n' ";
         return this;
     }
 
@@ -119,13 +121,17 @@ public class DrafterService {
         log.info("OpenAI Service Launching.");
         /** joining the message. */
         try {
-            return service.streamChatCompletion(chatCompletionRequest)
+            var result = service.streamChatCompletion(chatCompletionRequest)
                     .doOnError(Throwable::printStackTrace)
                     .filter(el -> el.getChoices().get(0).getMessage().getContent() != null)
                     .map(el -> el.getChoices().get(0).getMessage().getContent())
                     .reduce((str1, str2) -> str1 + str2)
                     .blockingGet();
-
+        if(!result.contains("DRAFT")) {
+            throw new RuntimeException("This is an invalid response. Please try again.");
+        }else {
+            return result;
+        }
         } catch (Exception e) {
             log.error(e.getMessage());
             return e.getMessage();

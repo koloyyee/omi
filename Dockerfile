@@ -1,13 +1,13 @@
-FROM eclipse-temurin:21-jdk as build
-COPY . /app
-WORKDIR /app
-RUN ./mvnw --no-transfer-progress clean package -DskipTests
-RUN mv -f target/*.jar app.jar
+# the base image
+FROM amazoncorretto:21
 
-FROM eclipse-temurin:21-jre
-ARG PORT
-ENV PORT=${PORT}
-COPY --from=build /app/app.jar .
-RUN useradd runtime
-USER runtime
-ENTRYPOINT [ "java", "-Dserver.port=${PORT}", "-jar", "app.jar" ]
+# the JAR file path
+ARG JAR_FILE=target/*.jar
+
+# Copy the JAR file from the build context into the Docker image
+COPY ${JAR_FILE} application.jar
+
+CMD apt-get update -y
+
+# Set the default command to run the Java application
+ENTRYPOINT ["java", "-Xmx2048M", "-jar", "/application.jar"]

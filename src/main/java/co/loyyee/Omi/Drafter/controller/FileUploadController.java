@@ -129,4 +129,15 @@ public class FileUploadController {
 			file.delete();
 		 }
 	}
+
+//	@GetMapping("/upload/docx")
+//	public ResponseEntity uploadDocx(
+//			@NotNull @RequestParam("resume") MultipartFile mf,
+//			@NotNull @RequestParam("company") String company,
+//			@NotNull	@RequestParam("title") String title,
+//			@NotNull @RequestParam("description") String description
+//	) {
+//		File file = convertToFile(mf);
+//		XWPFWordExtractor extractor = null;
+//	}
 }
