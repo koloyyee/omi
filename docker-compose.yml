@@ -24,8 +24,8 @@ services:
     depends_on:
       - omi_pg
     environment:
-      - POSTGRES_USER="$PGUSER"
-      - POSTGRES_PASSWORD="$PGPASSWORD"
+      - POSTGRES_USER=$PGUSER
+      - POSTGRES_PASSWORD=$PGPASSWORD
       - SPRING_DATASOURCE_URL="jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}"
       - SPRING_DATASOURCE_USERNAME="$PGUSER"
       - SPRING_DATASOURCE_PASSWORD="$PGPASSWORD"
