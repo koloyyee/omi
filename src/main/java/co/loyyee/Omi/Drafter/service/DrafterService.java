@@ -44,6 +44,7 @@ public class DrafterService {
         this.messages = new ArrayList<>();
         /* different ways of getting the environment variables */
         this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+        System.out.println(apiKey);
     }
 
     private void promptInitialHeader() {

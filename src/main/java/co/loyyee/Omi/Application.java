@@ -55,6 +55,7 @@ public class Application {
 //            System.out.println("subscriberDataSource DataSource is = " + subscriberDataSource.getConnection().getMetaData().getURL());
             System.out.println("breakfastDataSource DataSource is = " + breakfastDataSource.getConnection().getMetaData().getURL());
             System.out.println("dataSource DataSource is = " + dataSource.getConnection().getMetaData().getURL());
+            System.out.println("OPENAI: " + System.getenv("OPENAI_KEY"));
         };
     }
 
