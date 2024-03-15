@@ -1,7 +1,7 @@
 #application-production.yml
 #docker-compose.yml
 application-production.properties
-
+docker-compose-dev.yml
 ### IDE/ Editor ###
 .vscode
 .idea
@@ -9,8 +9,11 @@ application-production.properties
 ### mac ###
 .DS_Store
 
+pg_data/
 .env
 *.txt
+*.pdf
+*.docx
 
 ### Tutorial ###
 Blog/

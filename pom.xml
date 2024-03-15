@@ -15,6 +15,7 @@
 	<description>All services traces back to here </description>
 	<properties>
 		<java.version>21</java.version>
+		<poi.version>5.2.3</poi.version>
 	</properties>
 	<dependencies>
 		<!--Shared-->
@@ -44,14 +45,21 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.3</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.3</version>
+			<version>${poi.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
 		<!--		https://github.com/TheoKanning/openai-java?tab=readme-ov-file	-->
 		<dependency>
 			<groupId>com.theokanning.openai-gpt3-java</groupId>

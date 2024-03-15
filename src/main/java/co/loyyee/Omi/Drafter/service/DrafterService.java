@@ -48,8 +48,8 @@ public class DrafterService {
 
     private void promptInitialHeader() {
         StringBuilder header = new StringBuilder();
-        header.append("You will help me to draft a cover letter and help me to land an interview. ")
-                .append("first paragraph about me, and why I am interested in the position ")
+        header.append("You will help me to draft a NEW cover letter and help me to land an interview. ")
+                .append("first paragraph about me, and why I am interested in the position, and education background and GPA. ")
                 .append("second paragraph is about how good the company culture is ")
                 .append("third paragraph work experience and skill set will contribute to the company ")
                 .append("fourth paragraph soft skills good fit for the company ")
