@@ -1,6 +1,6 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.DrafterService;
+import co.loyyee.Omi.Drafter.service.OaiDrafterService;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * <h3>FileUploadController</h3>
@@ -34,14 +35,14 @@ import java.io.*;
  */
 @RestController
 @RequestMapping("/drafter")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class FileUploadController {
     final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
-    final private DrafterService drafterService;
+    final private OaiDrafterService oaiDrafterService;
 
-    public FileUploadController(DrafterService drafterService) {
-        this.drafterService = drafterService;
+    public FileUploadController(OaiDrafterService oaiDrafterService) {
+        this.oaiDrafterService = oaiDrafterService;
     }
 
 
@@ -93,7 +94,7 @@ public class FileUploadController {
                     .append("Here is my resume: \n")
                     .append(resume);
 
-            String resp = this.drafterService
+            String resp = this.oaiDrafterService
                     .setContent(userContent.toString())
                     .ask();
             if (resp.contains("https://platform.openai.com/account/api-keys")) {
@@ -134,7 +135,7 @@ public class FileUploadController {
                     .append("Here is my resume: \n")
                     .append(resume);
 
-            String resp = this.drafterService
+            String resp = this.oaiDrafterService
                     .setContent(userContent.toString())
                     .ask();
             if (resp.contains("https://platform.openai.com/account/api-keys")) {
@@ -159,7 +160,7 @@ public class FileUploadController {
 
         File file = null;
         try {
-            file = new File(mf.getOriginalFilename());
+            file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
             file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(mf.getBytes());

@@ -15,14 +15,15 @@ import java.util.List;
 import java.util.concurrent.CompletionService;
 
 /**
- * <h4>DrafterService is the bridge between Drafter and OpenAI</h4>
+ * <h2>Oai: OpenAI</h2>
+ * <h4>OaiDrafterService is the bridge between Drafter and OpenAI</h4>
  * <hr>
  * The service is using Theo Kanning's
  * <p>
  * see {@link<a href=" https://github.com/TheoKanning/openai-java"> OpenAI Java library</a>}
  */
 @Service
-public class DrafterService {
+public class OaiDrafterService implements AIDraftable{
     final private static Logger log = LoggerFactory.getLogger(CompletionService.class);
     private String promptContent;
     private int durationSecs;
@@ -36,7 +37,7 @@ public class DrafterService {
 //	@Value("${api.openai}") // for application.yml variable
     private String apiKey;
 
-    public DrafterService() {
+    public OaiDrafterService() {
 
 
 //        this.messageHeader = header.toString();
@@ -47,15 +48,12 @@ public class DrafterService {
         System.out.println(apiKey);
     }
 
-    private void promptInitialHeader() {
+    public void promptInitialHeader() {
         StringBuilder header = new StringBuilder();
         header.append("You will help me to draft a NEW cover letter and help me to land an interview. ")
                 .append("first paragraph about me, and why I am interested in the position, and education background and GPA. ")
                 .append("second paragraph is about how good the company culture is ")
                 .append("third paragraph work experience and skill set will contribute to the company ")
-                .append("fourth paragraph soft skills good fit for the company ")
-                .append("fifth paragraph looking forward to the interview and opportunity to work with the company. ")
-                .append("last paragraph thanks the hiring manager for taking the time, and including the my contact information and as them to contact me. ")
                 .append("but don't output anything, wait for my input.");
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
@@ -85,8 +83,44 @@ public class DrafterService {
         }
 
     }
+    public void promptHeaderDesc() {
+        StringBuilder header = new StringBuilder();
+        header.append("fourth paragraph soft skills good fit for the company ")
+                .append("fifth paragraph looking forward to the interview and opportunity to work with the company. ")
+                .append("last paragraph thanks the hiring manager for taking the time, and including the my contact information and as them to contact me. ")
+                .append("but don't output anything, wait for my input.");
 
-    public DrafterService setContent(String promptContent) {
+        OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
+        this.messages.add(systemMessages);
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("gpt-3.5-turbo")
+                .messages(messages)
+                .n(1)
+//				.maxTokens(10)
+                .logitBias(new HashMap<>())
+                .build();
+        System.out.println("OpenAI Service setting header description.");
+        try {
+            var value = service.streamChatCompletion(chatCompletionRequest)
+                    .doOnError(Throwable::printStackTrace)
+                    .filter(el -> el.getChoices().get(0).getMessage().getContent() != null)
+                    .map(el -> el.getChoices().get(0).getMessage().getContent())
+                    .reduce((str1, str2) -> str1 + str2)
+                    .blockingGet();
+
+            log.info("Initial Header: " + value);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            service.shutdownExecutor();
+        }
+
+    }
+
+
+
+    public OaiDrafterService setContent(String promptContent) {
         this.promptContent = promptContent + "\n start drafting. And start with the word 'DRAFT\n' ";
         return this;
     }
@@ -100,7 +134,7 @@ public class DrafterService {
      *
      * @param durationSecs input for custom seconds.
      */
-    public DrafterService setDurationSecs(int durationSecs) {
+    public OaiDrafterService setDurationSecs(int durationSecs) {
         this.durationSecs = durationSecs;
         return this;
     }
@@ -109,6 +143,7 @@ public class DrafterService {
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         this.promptInitialHeader();
+        this.promptHeaderDesc();
         ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.promptContent);
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
@@ -128,11 +163,11 @@ public class DrafterService {
                     .map(el -> el.getChoices().get(0).getMessage().getContent())
                     .reduce((str1, str2) -> str1 + str2)
                     .blockingGet();
-        if(!result.contains("DRAFT")) {
-            throw new RuntimeException("This is an invalid response. Please try again.");
-        }else {
-            return result;
-        }
+            if (!result.contains("DRAFT")) {
+                throw new RuntimeException("This is an invalid response. Please try again.");
+            } else {
+                return result;
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
             return e.getMessage();
