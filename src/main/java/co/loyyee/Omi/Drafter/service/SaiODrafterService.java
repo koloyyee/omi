@@ -15,7 +15,7 @@ public class SaiODrafterService implements AIDraftable {
     }
 
     @Override
-    public void ask() {
-
+    public String ask() {
+            return null;
     }
 }

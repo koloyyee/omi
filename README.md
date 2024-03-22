@@ -22,3 +22,22 @@ time worth more than money, don't waste it.
 [//]: # (- **Mesure**: A food and beverage industry focus cost management app.)
 
 [//]: # (- **Invoice**: A invoice management system.)
+
+
+## TODOs
+### Drafter
+#### Bug fix
+1. Chunking inputs
+2. Handle exceed token
+3. Handl maximum context length 
+4. Limit retry
+5. Rate limit reached error 
+6. Restrict retry to 1 minute for each retry.
+
+#### Important features
+1. Spring security:
+   a. CORS
+   b. API security
+2. Spring test:
+   a. Integration
+   b. Unit test.
