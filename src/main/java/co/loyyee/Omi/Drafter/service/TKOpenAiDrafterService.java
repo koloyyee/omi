@@ -23,7 +23,7 @@ import java.util.concurrent.CompletionService;
  * see {@link<a href=" https://github.com/TheoKanning/openai-java"> OpenAI Java library</a>}
  */
 @Service
-public class OaiDrafterService implements AIDraftable{
+public class TKOpenAiDrafterService implements AIDraftable{
     final private static Logger log = LoggerFactory.getLogger(CompletionService.class);
     private String promptContent;
     private int durationSecs;
@@ -37,9 +37,7 @@ public class OaiDrafterService implements AIDraftable{
 //	@Value("${api.openai}") // for application.yml variable
     private String apiKey;
 
-    public OaiDrafterService() {
-
-
+    public TKOpenAiDrafterService() {
 //        this.messageHeader = header.toString();
         this.durationSecs = 30;
         this.messages = new ArrayList<>();
@@ -118,9 +116,36 @@ public class OaiDrafterService implements AIDraftable{
 
     }
 
+    public String preloadPdf(String resume) {
+        OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), resume);
+        this.messages.add(systemMessages);
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model("gpt-3.5-turbo")
+                .messages(messages)
+                .n(1)
+                .maxTokens(200)
+                .logitBias(new HashMap<>())
+                .build();
+        log.info("Preloading Resume");
+        try {
+            var value = service.streamChatCompletion(chatCompletionRequest)
+                    .doOnError(Throwable::printStackTrace)
+                    .filter(el -> el.getChoices().get(0).getMessage().getContent() != null)
+                    .map(el -> el.getChoices().get(0).getMessage().getContent())
+                    .reduce((str1, str2) -> str1 + str2)
+                    .blockingGet();
 
-
-    public OaiDrafterService setContent(String promptContent) {
+            log.info("Initial Header: " + value);
+            return value;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            service.shutdownExecutor();
+        }
+        return "Something wrong";
+    }
+    public TKOpenAiDrafterService setContent(String promptContent) {
         this.promptContent = promptContent + "\n start drafting. And start with the word 'DRAFT\n' ";
         return this;
     }
@@ -134,7 +159,7 @@ public class OaiDrafterService implements AIDraftable{
      *
      * @param durationSecs input for custom seconds.
      */
-    public OaiDrafterService setDurationSecs(int durationSecs) {
+    public TKOpenAiDrafterService setDurationSecs(int durationSecs) {
         this.durationSecs = durationSecs;
         return this;
     }

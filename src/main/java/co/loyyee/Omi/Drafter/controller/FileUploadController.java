@@ -1,6 +1,6 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.OaiDrafterService;
+import co.loyyee.Omi.Drafter.service.TKOpenAiDrafterService;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -39,16 +42,58 @@ import java.util.Objects;
 public class FileUploadController {
     final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
-    final private OaiDrafterService oaiDrafterService;
+    final private TKOpenAiDrafterService drafterService;
 
-    public FileUploadController(OaiDrafterService oaiDrafterService) {
-        this.oaiDrafterService = oaiDrafterService;
+    public FileUploadController(TKOpenAiDrafterService drafterService) {
+        this.drafterService = drafterService;
     }
 
+    /**
+     * Avoid large PDF file and speed up the generation process
+     * Experimenting with preload PDF
+     */
+    @PostMapping(value = "/preload/pdf", consumes = "multipart/form-data")
+    public void preloadPdf(@NotNull @RequestParam("resume") MultipartFile mf) {
 
-    @GetMapping
-    public ResponseEntity testEndpoint() {
-        return ResponseEntity.ok("I am HERE!");
+        File file = convertToFile(mf);
+        try (PDDocument document = Loader.loadPDF(file)) {
+            String resume = pdfToText(document);
+            StringBuilder sb = new StringBuilder();
+            var preloadPdf = sb.append("Record the following resume content do not output anything yet.\n")
+                    .append("I'll follow up with job title, company, and job description.\n")
+                    .append(resume);
+            this.drafterService.preloadPdf(resume);
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            file.delete();
+        }
+
+    }
+
+    @PostMapping(value = "/upload/job_desc", consumes = "multipart/form-data")
+    public ResponseEntity uploadPdf(
+            @NotNull @RequestParam("company") String company,
+            @NotNull @RequestParam("title") String title,
+            @NotNull @RequestParam("description") String description) {
+
+            StringBuilder userContent = new StringBuilder();
+            userContent.append("Here is the company: ")
+                    .append(company)
+                    .append("The job title: ")
+                    .append(title + "\n")
+                    .append("The job description: ")
+                    .append(description + "\n");
+
+            String resp = this.drafterService
+                    .setContent(userContent.toString())
+                    .ask();
+            if (resp.contains("https://platform.openai.com/account/api-keys")) {
+                return ResponseEntity.badRequest().build();
+            } else {
+                return ResponseEntity.ok(resp);
+            }
     }
 
     /**
@@ -76,13 +121,7 @@ public class FileUploadController {
          *
          * */
         try (PDDocument document = Loader.loadPDF(file)) {
-
-            /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
-            PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
-            stripperByArea.setSortByPosition(true);
-            PDFTextStripper stripper = new PDFTextStripper();
-            /* extract all text from the PDF */
-            String resume = stripper.getText(document);
+            String resume = pdfToText(document);
 
             StringBuilder userContent = new StringBuilder();
             userContent.append("Here is the company: ")
@@ -94,7 +133,7 @@ public class FileUploadController {
                     .append("Here is my resume: \n")
                     .append(resume);
 
-            String resp = this.oaiDrafterService
+            String resp = this.drafterService
                     .setContent(userContent.toString())
                     .ask();
             if (resp.contains("https://platform.openai.com/account/api-keys")) {
@@ -135,7 +174,7 @@ public class FileUploadController {
                     .append("Here is my resume: \n")
                     .append(resume);
 
-            String resp = this.oaiDrafterService
+            String resp = this.drafterService
                     .setContent(userContent.toString())
                     .ask();
             if (resp.contains("https://platform.openai.com/account/api-keys")) {
@@ -151,6 +190,7 @@ public class FileUploadController {
             file.delete();
         }
     }
+
     /**
      * @param mf Spring Boot file type MultipartFile from client post request
      *
@@ -171,5 +211,13 @@ public class FileUploadController {
         return file;
     }
 
+    private String pdfToText(PDDocument document) throws IOException {
+        /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
+        PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
+        stripperByArea.setSortByPosition(true);
+        PDFTextStripper stripper = new PDFTextStripper();
+        /* extract all text from the PDF */
+        return stripper.getText(document);
 
+    }
 }
