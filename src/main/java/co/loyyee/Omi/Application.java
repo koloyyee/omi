@@ -23,7 +23,12 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    /*** Breakfast JdbcClient and JdbcTemplate ***/
+    /*** Breakfast JdbcClient and JdbcTemplate
+     * With custom Data Source Configuration
+     * we will need to define a @Bean in here for it to work.
+     * {@link co.loyyee.Omi.config.DataSourceConfiguration }
+     * @author Loy Yee Ko
+     * ***/
     @Bean
     JdbcClient breakfastJdbcClient(@Qualifier("breakfastDataSource") DataSource dataSource) {
         return JdbcClient.create(dataSource);
@@ -43,7 +48,7 @@ public class Application {
             System.out.println("MESURE: " + System.getenv("PGMESURE"));
         };
     }
-    @Bean
+//    @Bean
     CommandLineRunner blogDsRunner(
 //            @Qualifier("blogDataSource") DataSource blogDataSource,
 //            @Qualifier("subscriberDataSource") DataSource subscriberDataSource,

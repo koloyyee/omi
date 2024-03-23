@@ -153,8 +153,7 @@ public class FileUploadController {
     }
     /**
      * @param mf Spring Boot file type MultipartFile from client post request
-     *
-     *           <p> It will convert file from MultipartFile to File parsing into Text</p>
+     * <p> It will convert file from MultipartFile to File parsing into Text</p>
      */
     private File convertToFile(@NotNull MultipartFile mf) {
 
