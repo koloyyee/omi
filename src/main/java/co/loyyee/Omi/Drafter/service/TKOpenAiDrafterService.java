@@ -43,7 +43,6 @@ public class TKOpenAiDrafterService implements AIDraftable{
         this.messages = new ArrayList<>();
         /* different ways of getting the environment variables */
         this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
-        System.out.println(apiKey);
     }
 
     public void promptInitialHeader() {
@@ -52,7 +51,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .append("first paragraph about me, and why I am interested in the position, and education background and GPA. ")
                 .append("second paragraph is about how good the company culture is ")
                 .append("third paragraph work experience and skill set will contribute to the company ")
-                .append("but don't output anything, wait for my input.");
+                .append("STOP output anything, wait for my input.");
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
@@ -61,7 +60,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .n(1)
-//				.maxTokens(10)
+				.maxTokens(1)
                 .logitBias(new HashMap<>())
                 .build();
         System.out.println("OpenAI Service setting header.");
@@ -72,7 +71,6 @@ public class TKOpenAiDrafterService implements AIDraftable{
                     .map(el -> el.getChoices().get(0).getMessage().getContent())
                     .reduce((str1, str2) -> str1 + str2)
                     .blockingGet();
-
             log.info("Initial Header: " + value);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -86,7 +84,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
         header.append("fourth paragraph soft skills good fit for the company ")
                 .append("fifth paragraph looking forward to the interview and opportunity to work with the company. ")
                 .append("last paragraph thanks the hiring manager for taking the time, and including the my contact information and as them to contact me. ")
-                .append("but don't output anything, wait for my input.");
+                .append("STOP output anything, wait for my input.");
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
@@ -95,7 +93,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .n(1)
-//				.maxTokens(10)
+				.maxTokens(1)
                 .logitBias(new HashMap<>())
                 .build();
         System.out.println("OpenAI Service setting header description.");
@@ -107,7 +105,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                     .reduce((str1, str2) -> str1 + str2)
                     .blockingGet();
 
-            log.info("Initial Header: " + value);
+            log.info("Header Desc: " + value);
         } catch (Exception e) {
             log.error(e.getMessage());
         } finally {
@@ -116,7 +114,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
 
     }
 
-    public String preloadPdf(String resume) {
+    public String preload(String resume) {
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), resume);
         this.messages.add(systemMessages);
@@ -124,7 +122,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .n(1)
-                .maxTokens(200)
+                .maxTokens(1)
                 .logitBias(new HashMap<>())
                 .build();
         log.info("Preloading Resume");
@@ -175,6 +173,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .model("gpt-3.5-turbo")
                 .messages(messages)
                 .n(1)
+                .temperature(0.7)
                 .maxTokens(4000)
                 .logitBias(new HashMap<>())
                 .build();

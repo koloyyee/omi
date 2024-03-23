@@ -35,6 +35,18 @@ import java.util.Objects;
  * We will be handling both PDF and Docx file formats.
  * <p>{@link PDFTextStripper#getText(PDDocument)} will be used to extract text from PDF</p>
  * <p>{@link Loader#loadPDF(File)} will be used to load the PDF file</p>
+ * <p>
+ * <h3Workflow:</h3>
+ * <p>
+ * User first upload file processed by either
+ * {@link #preloadPdf(MultipartFile)} or {@link #preloadDocx(MultipartFile)}.
+ * </p>
+ * <p>
+ * Then after user submit the company,
+ * job title, and job description
+ * it will be processed by
+ * {@link #generate(String, String, String)}
+ * </p>
  */
 @RestController
 @RequestMapping("/drafter")
@@ -49,20 +61,59 @@ public class FileUploadController {
     }
 
     /**
-     * Avoid large PDF file and speed up the generation process
-     * Experimenting with preload PDF
+     * @param mf Spring Boot file type MultipartFile from client post request
+     *
+     *           <p> It will convert file from MultipartFile to File parsing into Text</p>
      */
+    private File convertToFile(@NotNull MultipartFile mf) {
+
+        File file = null;
+        try {
+            file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(mf.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            log.error("File conversion Error: " + e.getMessage());
+        }
+        return file;
+    }
+
+    /**
+     * Preload PDF is a method preload the file before submitting
+     * the job title, job description, and company.
+     * <p>
+     * Ideally this will speed up the generating time,
+     * and reduce the chance of exceeding
+     * the tokens quota in a
+     * short period of time.
+     * <p>
+     * The uploaded pdf will be process first,
+     * then after user input other information
+     * they invoke "/generate"
+     *
+     * @param mf Multipart file - file uploaded from the frontend
+     * @see #generate(String, String, String)
+     **/
     @PostMapping(value = "/preload/pdf", consumes = "multipart/form-data")
     public void preloadPdf(@NotNull @RequestParam("resume") MultipartFile mf) {
 
         File file = convertToFile(mf);
         try (PDDocument document = Loader.loadPDF(file)) {
-            String resume = pdfToText(document);
+            /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
+            PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
+            stripperByArea.setSortByPosition(true);
+            PDFTextStripper stripper = new PDFTextStripper();
+            /* extract all text from the PDF */
+            String resume = stripper.getText(document);
+
             StringBuilder sb = new StringBuilder();
-            var preloadPdf = sb.append("Record the following resume content do not output anything yet.\n")
+            var preloadPdf = sb.append("Record the following resume content.\n")
                     .append("I'll follow up with job title, company, and job description.\n")
+                    .append("DO NOT output anything yet, wait for my command.\n")
                     .append(resume);
-            this.drafterService.preloadPdf(resume);
+            this.drafterService.preload(preloadPdf.toString());
 
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -72,28 +123,70 @@ public class FileUploadController {
 
     }
 
-    @PostMapping(value = "/upload/job_desc", consumes = "multipart/form-data")
-    public ResponseEntity uploadPdf(
+    /**
+     * Preload Docx is a method preload the file before submitting
+     * the job title, job description, and company.
+     * <p>
+     * Ideally this will speed up the generating time,
+     * and reduce the chance of exceeding
+     * the tokens quota in a
+     * short period of time.
+     * <p>
+     * The uploaded docx will be process first
+     * then after user input other information
+     * they invoke "/generate"
+     *
+     * @param mf Multipart file - file uploaded from the frontend
+     * @see #generate(String, String, String)
+     **/
+    @PostMapping(value = "/preload/docx", consumes = "multipart/form-data")
+    public void preloadDocx(@NotNull @RequestParam("resume") MultipartFile mf) {
+
+        File file = convertToFile(mf);
+        try {
+            XWPFDocument document = new XWPFDocument(new FileInputStream(file));
+            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+            var resume = extractor.getText();
+
+            String resp = this.drafterService.preload(resume);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        } finally {
+            file.delete();
+        }
+    }
+
+    /**
+     * After preloading files to OpenAI
+     * user will upload job title, company, and job description
+     * then send it to OpenAI API.
+     *
+     * @param company     Company name of the user applying for the job
+     * @param title       Title of the job the user is applying for
+     * @param description The job description
+     */
+    @PostMapping(value = "/generate", consumes = "multipart/form-data")
+    public ResponseEntity generate(
             @NotNull @RequestParam("company") String company,
             @NotNull @RequestParam("title") String title,
             @NotNull @RequestParam("description") String description) {
 
-            StringBuilder userContent = new StringBuilder();
-            userContent.append("Here is the company: ")
-                    .append(company)
-                    .append("The job title: ")
-                    .append(title + "\n")
-                    .append("The job description: ")
-                    .append(description + "\n");
+        StringBuilder userContent = new StringBuilder();
+        userContent.append("Here is the company: ")
+                .append(company)
+                .append("The job title: ")
+                .append(title + "\n")
+                .append("The job description: ")
+                .append(description + "\n");
 
-            String resp = this.drafterService
-                    .setContent(userContent.toString())
-                    .ask();
-            if (resp.contains("https://platform.openai.com/account/api-keys")) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                return ResponseEntity.ok(resp);
-            }
+        String resp = this.drafterService
+                .setContent(userContent.toString())
+                .ask();
+        if (resp.contains("https://platform.openai.com/account/api-keys")) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(resp);
+        }
     }
 
     /**
@@ -106,6 +199,7 @@ public class FileUploadController {
      * @param title       Title of the job the user is applying for
      * @param description The job description
      */
+    @Deprecated
     @PostMapping(value = "/upload/pdf", consumes = "multipart/form-data")
     public ResponseEntity uploadPdf(@NotNull @RequestParam("resume") MultipartFile mf,
                                     @NotNull @RequestParam("company") String company,
@@ -121,7 +215,14 @@ public class FileUploadController {
          *
          * */
         try (PDDocument document = Loader.loadPDF(file)) {
-            String resume = pdfToText(document);
+            /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
+            PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
+            stripperByArea.setSortByPosition(true);
+            PDFTextStripper stripper = new PDFTextStripper();
+            /* extract all text from the PDF */
+            String resume = stripper.getText(document);
+
+            StringBuilder sb = new StringBuilder();
 
             StringBuilder userContent = new StringBuilder();
             userContent.append("Here is the company: ")
@@ -151,7 +252,8 @@ public class FileUploadController {
         }
     }
 
-    @PostMapping("/upload/docx")
+    @Deprecated
+    @PostMapping(value = "/upload/docx", consumes = "multipart/form-data")
     public ResponseEntity uploadDocx(
             @NotNull @RequestParam("resume") MultipartFile mf,
             @NotNull @RequestParam("company") String company,
@@ -191,33 +293,5 @@ public class FileUploadController {
         }
     }
 
-    /**
-     * @param mf Spring Boot file type MultipartFile from client post request
-     *
-     *           <p> It will convert file from MultipartFile to File parsing into Text</p>
-     */
-    private File convertToFile(@NotNull MultipartFile mf) {
 
-        File file = null;
-        try {
-            file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(mf.getBytes());
-            fos.close();
-        } catch (IOException e) {
-            log.error("File conversion Error: " + e.getMessage());
-        }
-        return file;
-    }
-
-    private String pdfToText(PDDocument document) throws IOException {
-        /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
-        PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
-        stripperByArea.setSortByPosition(true);
-        PDFTextStripper stripper = new PDFTextStripper();
-        /* extract all text from the PDF */
-        return stripper.getText(document);
-
-    }
 }
