@@ -23,7 +23,7 @@ import java.util.concurrent.CompletionService;
  * see {@link<a href=" https://github.com/TheoKanning/openai-java"> OpenAI Java library</a>}
  */
 @Service
-public class OaiDrafterService implements AIDraftable{
+public class OaiDrafterService {
     final private static Logger log = LoggerFactory.getLogger(CompletionService.class);
     private String promptContent;
     private int durationSecs;

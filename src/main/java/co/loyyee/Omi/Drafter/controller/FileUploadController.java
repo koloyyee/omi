@@ -1,6 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
 import co.loyyee.Omi.Drafter.service.OaiDrafterService;
+import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -10,11 +11,16 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.ChatResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Flux;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -40,11 +46,12 @@ public class FileUploadController {
     final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
     final private OaiDrafterService oaiDrafterService;
+    final private SpringOpenAiService aiService;
 
-    public FileUploadController(OaiDrafterService oaiDrafterService) {
+    public FileUploadController(OaiDrafterService oaiDrafterService, SpringOpenAiService aiService) {
         this.oaiDrafterService = oaiDrafterService;
+        this.aiService = aiService;
     }
-
 
     @GetMapping
     public ResponseEntity testEndpoint() {
@@ -93,15 +100,9 @@ public class FileUploadController {
                     .append(description + "\n")
                     .append("Here is my resume: \n")
                     .append(resume);
-
-            String resp = this.oaiDrafterService
-                    .setContent(userContent.toString())
-                    .ask();
-            if (resp.contains("https://platform.openai.com/account/api-keys")) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                return ResponseEntity.ok(resp);
-            }
+//        return openAiResp(userContent.toString());
+            springAiResp(userContent.toString());
+            return ResponseEntity.ok("testing");
         } catch (IOException e) {
             log.error("PDFBox extraction: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -134,15 +135,8 @@ public class FileUploadController {
                     .append(description + "\n")
                     .append("Here is my resume: \n")
                     .append(resume);
+            return openAiResp(userContent.toString());
 
-            String resp = this.oaiDrafterService
-                    .setContent(userContent.toString())
-                    .ask();
-            if (resp.contains("https://platform.openai.com/account/api-keys")) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                return ResponseEntity.ok(resp);
-            }
         } catch (IOException e) {
             log.error("PDFBox extraction: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -170,5 +164,22 @@ public class FileUploadController {
         return file;
     }
 
+    private void springAiResp(String userContent ) {
+        Flux<ChatResponse> resp = this.aiService.setContent(userContent).ask();
+        System.out.println(resp.collectList());
+
+    }
+
+    private ResponseEntity openAiResp(String userContent)  {
+
+        String resp = this.oaiDrafterService
+                .setContent(userContent)
+                .ask();
+        if (resp.contains("https://platform.openai.com/account/api-keys")) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(resp);
+        }
+    }
 
 }
