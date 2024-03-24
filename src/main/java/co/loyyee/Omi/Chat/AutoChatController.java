@@ -41,8 +41,11 @@ public class AutoChatController {
     @GetMapping("/ai/auto/generateStream")
     public Flux<ChatResponse> generateStream( @RequestParam(value = "message") String message) {
         Prompt prompt = new Prompt( new UserMessage(message ));
-        var val  = chatClient.stream(prompt);
-        System.out.println(val);
+        Flux<ChatResponse> val  = chatClient.stream(prompt);
+        val.collectList().map( list -> {
+            System.out.println(list);
+            return list;
+        });
         return val;
     }
 }
