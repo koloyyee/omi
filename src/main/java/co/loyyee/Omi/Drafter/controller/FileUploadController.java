@@ -199,7 +199,6 @@ public class FileUploadController {
      * @param title       Title of the job the user is applying for
      * @param description The job description
      */
-    @Deprecated
     @PostMapping(value = "/upload/pdf", consumes = "multipart/form-data")
     public ResponseEntity uploadPdf(@NotNull @RequestParam("resume") MultipartFile mf,
                                     @NotNull @RequestParam("company") String company,
@@ -252,7 +251,6 @@ public class FileUploadController {
         }
     }
 
-    @Deprecated
     @PostMapping(value = "/upload/docx", consumes = "multipart/form-data")
     public ResponseEntity uploadDocx(
             @NotNull @RequestParam("resume") MultipartFile mf,

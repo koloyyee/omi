@@ -36,6 +36,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
     //	@Value("${OPENAI_KEY}") // for environment variables
 //	@Value("${api.openai}") // for application.yml variable
     private String apiKey;
+    private OpenAiService service;
 
     public TKOpenAiDrafterService() {
 //        this.messageHeader = header.toString();
@@ -43,6 +44,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
         this.messages = new ArrayList<>();
         /* different ways of getting the environment variables */
         this.apiKey = System.getenv("OPENAI_KEY"); // the default way to get environment variables
+        this.service =  new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
     }
 
     public void promptInitialHeader() {
@@ -51,9 +53,11 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .append("first paragraph about me, and why I am interested in the position, and education background and GPA. ")
                 .append("second paragraph is about how good the company culture is ")
                 .append("third paragraph work experience and skill set will contribute to the company ")
+                .append("fourth paragraph soft skills good fit for the company ")
+                .append("fifth paragraph looking forward to the interview and opportunity to work with the company. ")
+                .append("last paragraph thanks the hiring manager for taking the time, and including the my contact information and as them to contact me. ")
                 .append("STOP output anything, wait for my input.");
 
-        OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
@@ -87,7 +91,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
                 .append("STOP output anything, wait for my input.");
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
-        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), header.toString());
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.USER.value(), header.toString());
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
@@ -116,7 +120,7 @@ public class TKOpenAiDrafterService implements AIDraftable{
 
     public String preload(String resume) {
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
-        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), resume);
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.USER.value(), resume);
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
@@ -166,8 +170,8 @@ public class TKOpenAiDrafterService implements AIDraftable{
 
         OpenAiService service = new OpenAiService(this.apiKey, Duration.ofSeconds(this.durationSecs));
         this.promptInitialHeader();
-        this.promptHeaderDesc();
-        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.SYSTEM.value(), this.promptContent);
+//        this.promptHeaderDesc();
+        ChatMessage systemMessages = new ChatMessage(ChatMessageRole.USER.value(), this.promptContent);
         this.messages.add(systemMessages);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
                 .model("gpt-3.5-turbo")
@@ -181,6 +185,11 @@ public class TKOpenAiDrafterService implements AIDraftable{
         log.info("OpenAI Service Launching.");
         /** joining the message. */
         try {
+
+//            service.streamChatCompletion(chatCompletionRequest).doOnError(Throwable::printStackTrace).blockingIterable().forEach(System.out::println);
+//            if (chat.getChoices().get(0).getFinishReason() == null ) {
+//                throw new RuntimeException("This is an invalid response. Please try again.");
+//            }
             var result = service.streamChatCompletion(chatCompletionRequest)
                     .doOnError(Throwable::printStackTrace)
                     .filter(el -> el.getChoices().get(0).getMessage().getContent() != null)
