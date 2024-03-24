@@ -6,6 +6,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -37,6 +38,16 @@ public class AutoChatController {
        var val = Map.of("generation", chatClient.call(message));
         System.out.println(val);
        return val;
+    }@PostMapping("/ai/generate/letter")
+    public Map generateLetter(
+            @RequestParam(value = "message") String message
+
+    ) {
+
+        System.out.println(message);
+        var val = Map.of("generation", chatClient.call(message));
+        System.out.println(val);
+        return val;
     }
     @GetMapping("/ai/auto/generateStream")
     public Flux<ChatResponse> generateStream( @RequestParam(value = "message") String message) {

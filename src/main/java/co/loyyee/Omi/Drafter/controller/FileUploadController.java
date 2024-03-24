@@ -15,7 +15,6 @@ import org.springframework.ai.chat.ChatResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -165,8 +164,8 @@ public class FileUploadController {
     }
 
     private void springAiResp(String userContent ) {
-        Flux<ChatResponse> resp = this.aiService.setContent(userContent).ask();
-        System.out.println(resp.collectList());
+        ChatResponse resp = this.aiService.setContent(userContent).ask();
+        System.out.println(resp);
 
     }
 
