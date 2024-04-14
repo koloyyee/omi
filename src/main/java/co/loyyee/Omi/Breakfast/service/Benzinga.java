@@ -20,46 +20,50 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class Benzinga implements Runnable, Scraper<TickerNews> {
-    private List<TickerNews> tickerNewsList;
-    private String ticker;
-    private Thread thread;
-    private String url;
-    final static private String BASE_URL = "https://www.benzinga.com/quote/";
-    final static private String END = "/news";
+        private List<TickerNews> tickerNewsList;
+        private String ticker;
+        private Thread thread;
+        private String url;
+        final static private String BASE_URL = "https://www.benzinga.com/quote/";
+        final static private String END = "/news";
 
-    final private Logger log = LoggerFactory.getLogger(Benzinga.class);
-    public Benzinga(String ticker) {
-        tickerNewsList = new ArrayList<>();
-        this.ticker = ticker;
-        // Platform thread
+        final private Logger log = LoggerFactory.getLogger(Benzinga.class);
+
+        public Benzinga(String ticker) {
+                tickerNewsList = new ArrayList<>();
+                this.ticker = ticker;
+                // Platform thread
 //        thread = new Thread(this);
 //        thread.start();
-        url = BASE_URL + ticker + END;
-        thread = Thread.ofVirtual().start(this);
-    }
-
-    private LocalDate formatDate(String date) {
-        DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
-        LocalDate localDate = LocalDate.parse(date, parseFormatter);
-        return localDate;
-    }
-    private boolean isIntMonth(String first) {
-        try{
-            Integer.parseInt(first);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+                url = BASE_URL + ticker + END;
+                thread = Thread.ofVirtual().start(this);
         }
-    }
-/**
- * edge cases: Aug 30, 2023, 11:58AM
- * */
-    private LocalDateTime recentPastToMins(String recentPast) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
 
-        String[] split = recentPast.split(" ");
-        int whileAgo;
-        /** TODO: unable to solve the "Aug 30, 2023, 11:58AM" error yet */
+        private LocalDate formatDate(String date) {
+                DateTimeFormatter parseFormatter = DateTimeFormatter
+                        .ofPattern("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
+                LocalDate localDate = LocalDate.parse(date, parseFormatter);
+                return localDate;
+        }
+
+        private boolean isIntMonth(String first) {
+                try {
+                        Integer.parseInt(first);
+                        return true;
+                } catch (NumberFormatException e) {
+                        return false;
+                }
+        }
+
+        /**
+         * edge cases: Aug 30, 2023, 11:58AM
+         */
+        private LocalDateTime recentPastToMins(String recentPast) {
+                LocalDateTime currentDateTime = LocalDateTime.now();
+
+                String[] split = recentPast.split(" ");
+                int whileAgo;
+                /** TODO: unable to solve the "Aug 30, 2023, 11:58AM" error yet */
 //        if( !isIntMonth(split[0])) {
 //            String test = "May 6, 2023, 5:10PM";
 //            log.info(test);
@@ -70,106 +74,123 @@ public class Benzinga implements Runnable, Scraper<TickerNews> {
 //                return localDateTime;
 //        }
 
-        if( isIntMonth(split[0])) {
-            {
-                whileAgo = Integer.parseInt(split[0]);
-                String time = split[1];
-                LocalDateTime result = switch (time) {
-                    case "day", "days" -> currentDateTime.minusDays(whileAgo);
-                    case "hour", "hours" -> currentDateTime.minusHours(whileAgo);
-                    default -> currentDateTime.minusMinutes(whileAgo);
-                };
-                return result;
-            }
-        } else {
-        return null;
-        }
-    }
-
-    public List<TickerNews> scrape() {
-
-        try {
-            Document document = Jsoup.connect(url)
-                    .userAgent("Mozilla")
-                    .get();
-            Elements headlines = document.select("a.content-headline");
-
-            for (Element element : headlines) {
-                String href = element.attr("href");
-                String title = element.select("div.content-title").first().text();
-                String[] contentFooter = element.select("div.text-gray-400.text-sm").text().trim().split("-");
-                String source = contentFooter[0].trim();
-                if(contentFooter[1].contains("Sponsor")) {
-                    break;
+                if (isIntMonth(split[0])) {
+                        {
+                                whileAgo = Integer.parseInt(split[0]);
+                                String time = split[1];
+                                LocalDateTime result = switch (time) {
+                                        case "day", "days" -> currentDateTime.minusDays(whileAgo);
+                                        case "hour", "hours" -> currentDateTime.minusHours(whileAgo);
+                                        default -> currentDateTime.minusMinutes(whileAgo);
+                                };
+                                return result;
+                        }
+                } else {
+                        return null;
                 }
-                LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
-
-                TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.BENZINGA, source, issuedDate);
-                tickerNewsList.add(tickerNews);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-        return getTickerNewsList();
-    }
 
+        public List<TickerNews> scrape() {
 
-    /**
-     * Reference to parallelStream and multithreaded scraping
-     * source: https://stackoverflow.com/questions/63022139/web-scraping-using-multithreading/63022373#63022373
-     * */
-    public List<TickerNews> streamScrape() {
+                try {
+                        Document document = Jsoup.connect(url)
+                                .userAgent("Mozilla")
+                                .get();
+                        Elements headlines = document.select("a.content-headline");
 
-        try {
-            Document document = Jsoup.connect(url)
-                    .userAgent("Mozilla")
-                    .get();
-            Elements headlines = document.select("a.content-headline");
+                        for (Element element : headlines) {
+                                String href = element.attr("href");
+                                String title = element.select("div.content-title").first().text();
+                                String[] contentFooter = element
+                                        .select("div.text-gray-400.text-sm")
+                                        .text()
+                                        .trim()
+                                        .split("-");
+                                String source = contentFooter[0].trim();
+                                if (contentFooter[1].contains("Sponsor")) {
+                                        break;
+                                }
+                                LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
 
-            tickerNewsList = headlines.parallelStream()
-                .filter(element -> {
-                    String[] contentFooter = element.select("div.text-gray-400.text-sm").text().trim().split("-");
-                    return !contentFooter[1].contains("Sponsor");
-                })
-                    .map(element -> {
-                        String href = element.attr("href");
-                        String title = element.select("div.content-title").first().text();
-                        String[] contentFooter = element.select("div.text-gray-400.text-sm").text().trim().split("-");
-                        String source = contentFooter[0].trim();
-                        LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
-                        TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.BENZINGA, source, issuedDate);
-
-                        return tickerNews;
-                    }).collect(Collectors.toList());
-            return getTickerNewsList();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                                TickerNews tickerNews = new TickerNews(ticker, title, href, Outlet.BENZINGA, source, issuedDate);
+                                tickerNewsList.add(tickerNews);
+                        }
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
+                }
+                return getTickerNewsList();
         }
-    }
 
-    public List<TickerNews> getTickerNewsList(){
-        return tickerNewsList;
-    }
 
-    public String getTicker() {
-        return ticker;
-    }
+        /**
+         * Reference to parallelStream and multithreaded scraping
+         * source: https://stackoverflow.com/questions/63022139/web-scraping-using-multithreading/63022373#63022373
+         */
+        public List<TickerNews> streamScrape() {
 
-    public Thread getThread() {
-        return thread;
-    }
+                try {
+                        Document document = Jsoup.connect(url)
+                                .userAgent("Mozilla")
+                                .get();
+                        Elements headlines = document.select("a.content-headline");
 
-    @Override
-    public void run() {
-        streamScrape();
+                        tickerNewsList = headlines.parallelStream()
+                                .filter(element -> {
+                                        String[] contentFooter = element
+                                                .select("div.text-gray-400.text-sm")
+                                                .text().trim()
+                                                .split("-");
+                                        return !contentFooter[1].contains("Sponsor");
+                                })
+                                .map(element -> {
+                                        String href = element.attr("href");
+                                        String title = element.select("div.content-title").first().text();
+                                        String[] contentFooter = element
+                                                .select("div.text-gray-400.text-sm")
+                                                .text()
+                                                .trim()
+                                                .split("-");
+                                        String source = contentFooter[0].trim();
+                                        LocalDateTime issuedDate = recentPastToMins(contentFooter[1].trim());
+                                        TickerNews tickerNews =
+                                                new TickerNews(ticker,
+                                                        title,
+                                                        href,
+                                                        Outlet.BENZINGA,
+                                                        source,
+                                                        issuedDate);
+
+                                        return tickerNews;
+                                }).collect(Collectors.toList());
+                        return getTickerNewsList();
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
+                }
+        }
+
+        public List<TickerNews> getTickerNewsList() {
+                return tickerNewsList;
+        }
+
+        public String getTicker() {
+                return ticker;
+        }
+
+        public Thread getThread() {
+                return thread;
+        }
+
+        @Override
+        public void run() {
+                streamScrape();
 //        scrape();
-    }
+        }
 
-    public static void main(String[] args) {
-        Benzinga b = new Benzinga("AAPL");
-        b.scrape();
+        public static void main(String[] args) {
+                Benzinga b = new Benzinga("AAPL");
+                b.scrape();
 //        System.out.println(b.getTickerNewsList());
 
-    }
+        }
 
 }

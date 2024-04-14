@@ -1,7 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.OaiDrafterService;
-import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.repository.OaiDrafterRepository;
+import co.loyyee.Omi.Drafter.repository.SpringOpenAiRepository;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -42,14 +42,20 @@ import java.util.Objects;
 @RequestMapping("/drafter")
 @CrossOrigin
 public class FileUploadController {
-    final private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
-    final private OaiDrafterService oaiDrafterService;
-    final private SpringOpenAiService aiService;
+    private static final Logger log = LoggerFactory.getLogger(
+        FileUploadController.class
+    );
 
-    public FileUploadController(OaiDrafterService oaiDrafterService, SpringOpenAiService aiService) {
-        this.oaiDrafterService = oaiDrafterService;
-        this.aiService = aiService;
+    private final OaiDrafterRepository oaiRepository;
+    private final SpringOpenAiRepository repository;
+
+    public FileUploadController(
+        OaiDrafterRepository oaiRepository,
+        SpringOpenAiRepository repository
+    ) {
+        this.oaiRepository = oaiRepository;
+        this.repository = repository;
     }
 
     @GetMapping
@@ -68,11 +74,12 @@ public class FileUploadController {
      * @param description The job description
      */
     @PostMapping(value = "/upload/pdf", consumes = "multipart/form-data")
-    public ResponseEntity uploadPdf(@NotNull @RequestParam("resume") MultipartFile mf,
-                                    @NotNull @RequestParam("company") String company,
-                                    @NotNull @RequestParam("title") String title,
-                                    @NotNull @RequestParam("description") String description) {
-
+    public ResponseEntity uploadPdf(
+        @NotNull @RequestParam("resume") MultipartFile mf,
+        @NotNull @RequestParam("company") String company,
+        @NotNull @RequestParam("title") String title,
+        @NotNull @RequestParam("description") String description
+    ) {
         /* Multipart File conversion because PDDocument only take  File. */
         File file = convertToFile(mf);
         /**
@@ -82,7 +89,6 @@ public class FileUploadController {
          *
          * */
         try (PDDocument document = Loader.loadPDF(file)) {
-
             /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
             PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
             stripperByArea.setSortByPosition(true);
@@ -91,15 +97,16 @@ public class FileUploadController {
             String resume = stripper.getText(document);
 
             StringBuilder userContent = new StringBuilder();
-            userContent.append("Here is the company: ")
-                    .append(company)
-                    .append("The job title: ")
-                    .append(title + "\n")
-                    .append("The job description: ")
-                    .append(description + "\n")
-                    .append("Here is my resume: \n")
-                    .append(resume);
-//        return openAiResp(userContent.toString());
+            userContent
+                .append("Here is the company: ")
+                .append(company)
+                .append("The job title: ")
+                .append(title + "\n")
+                .append("The job description: ")
+                .append(description + "\n")
+                .append("Here is my resume: \n")
+                .append(resume);
+            //        return openAiResp(userContent.toString());
             springAiResp(userContent.toString());
             return ResponseEntity.ok("testing");
         } catch (IOException e) {
@@ -108,16 +115,15 @@ public class FileUploadController {
         } finally {
             log.info("Deleting file: " + file.getName());
             file.delete();
-
         }
     }
 
     @PostMapping("/upload/docx")
     public ResponseEntity uploadDocx(
-            @NotNull @RequestParam("resume") MultipartFile mf,
-            @NotNull @RequestParam("company") String company,
-            @NotNull @RequestParam("title") String title,
-            @NotNull @RequestParam("description") String description
+        @NotNull @RequestParam("resume") MultipartFile mf,
+        @NotNull @RequestParam("company") String company,
+        @NotNull @RequestParam("title") String title,
+        @NotNull @RequestParam("description") String description
     ) {
         File file = convertToFile(mf);
         try {
@@ -126,16 +132,16 @@ public class FileUploadController {
             var resume = extractor.getText();
 
             StringBuilder userContent = new StringBuilder();
-            userContent.append("Here is the company: ")
-                    .append(company)
-                    .append("The job title: ")
-                    .append(title + "\n")
-                    .append("The job description: ")
-                    .append(description + "\n")
-                    .append("Here is my resume: \n")
-                    .append(resume);
+            userContent
+                .append("Here is the company: ")
+                .append(company)
+                .append("The job title: ")
+                .append(title + "\n")
+                .append("The job description: ")
+                .append(description + "\n")
+                .append("Here is my resume: \n")
+                .append(resume);
             return openAiResp(userContent.toString());
-
         } catch (IOException e) {
             log.error("PDFBox extraction: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -144,12 +150,12 @@ public class FileUploadController {
             file.delete();
         }
     }
+
     /**
      * @param mf Spring Boot file type MultipartFile from client post request
      * <p> It will convert file from MultipartFile to File parsing into Text</p>
      */
     private File convertToFile(@NotNull MultipartFile mf) {
-
         File file = null;
         try {
             file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
@@ -163,22 +169,17 @@ public class FileUploadController {
         return file;
     }
 
-    private void springAiResp(String userContent ) {
-        ChatResponse resp = this.aiService.setContent(userContent).ask();
+    private void springAiResp(String userContent) {
+        ChatResponse resp = this.repository.setContent(userContent).ask();
         System.out.println(resp);
-
     }
 
-    private ResponseEntity openAiResp(String userContent)  {
-
-        String resp = this.oaiDrafterService
-                .setContent(userContent)
-                .ask();
+    private ResponseEntity openAiResp(String userContent) {
+        String resp = this.oaiRepository.setContent(userContent).ask();
         if (resp.contains("https://platform.openai.com/account/api-keys")) {
             return ResponseEntity.badRequest().build();
         } else {
             return ResponseEntity.ok(resp);
         }
     }
-
 }
