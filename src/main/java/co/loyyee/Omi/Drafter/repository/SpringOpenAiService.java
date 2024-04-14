@@ -14,23 +14,23 @@ import reactor.core.publisher.Flux;
  * SaiOai: Spring AI - OpenAI implementations
  * */
 @Service
-public class SpringOpenAiRepository
-    implements co.loyyee.Omi.Drafter.service.AIDraftable<SpringOpenAiRepository, ChatResponse> {
+public class SpringOpenAiService
+    implements co.loyyee.Omi.Drafter.service.AIDraftable<SpringOpenAiService, ChatResponse> {
 
     //    private OpenAiChatClient chatClient;
     private OpenAiApi openAiApi;
     private String content = "";
     private static final String MODEL = "gpt-3.5-turbo";
     private static final Logger log = LoggerFactory.getLogger(
-        SpringOpenAiRepository.class
+        SpringOpenAiService.class
     );
 
-    public SpringOpenAiRepository() {
+    public SpringOpenAiService() {
         openAiApi = new OpenAiApi(System.getenv("OPENAI_KEY"));
     }
 
     @Deprecated
-    private SpringOpenAiRepository promptInitialHeader() {
+    private SpringOpenAiService promptInitialHeader() {
         var openAiChatOptions = OpenAiChatOptions.builder()
             .withModel(MODEL)
             .withMaxTokens(1)
@@ -63,7 +63,7 @@ public class SpringOpenAiRepository
     }
 
     @Deprecated
-    private SpringOpenAiRepository promptHeaderDesc() {
+    private SpringOpenAiService promptHeaderDesc() {
         var openAiChatOptions = OpenAiChatOptions.builder()
             .withModel(MODEL)
             .withMaxTokens(4000)
@@ -88,7 +88,7 @@ public class SpringOpenAiRepository
     }
 
     @Override
-    public SpringOpenAiRepository setContent(String content) {
+    public SpringOpenAiService setContent(String content) {
         this.content = content + "\n start drafting and start with DRAFT\n";
         return this;
     }

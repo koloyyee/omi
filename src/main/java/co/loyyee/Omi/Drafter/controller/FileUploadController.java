@@ -1,7 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.repository.OaiDrafterRepository;
-import co.loyyee.Omi.Drafter.repository.SpringOpenAiRepository;
+import co.loyyee.Omi.Drafter.repository.OaiDrafterService;
+import co.loyyee.Omi.Drafter.repository.SpringOpenAiService;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -47,15 +47,15 @@ public class FileUploadController {
         FileUploadController.class
     );
 
-    private final OaiDrafterRepository oaiRepository;
-    private final SpringOpenAiRepository repository;
+    private final OaiDrafterService oaiService;
+    private final SpringOpenAiService service;
 
     public FileUploadController(
-        OaiDrafterRepository oaiRepository,
-        SpringOpenAiRepository repository
+        OaiDrafterService oaiService,
+        SpringOpenAiService service
     ) {
-        this.oaiRepository = oaiRepository;
-        this.repository = repository;
+        this.oaiService = oaiService;
+        this.service = service;
     }
 
     @GetMapping
@@ -170,12 +170,12 @@ public class FileUploadController {
     }
 
     private void springAiResp(String userContent) {
-        ChatResponse resp = this.repository.setContent(userContent).ask();
+        ChatResponse resp = this.service.setContent(userContent).ask();
         System.out.println(resp);
     }
 
     private ResponseEntity openAiResp(String userContent) {
-        String resp = this.oaiRepository.setContent(userContent).ask();
+        String resp = this.oaiService.setContent(userContent).ask();
         if (resp.contains("https://platform.openai.com/account/api-keys")) {
             return ResponseEntity.badRequest().build();
         } else {

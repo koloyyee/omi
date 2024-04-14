@@ -5,6 +5,7 @@ docker-compose-dev.yml
 ### IDE/ Editor ###
 .vscode
 .idea
+.zed
 
 ### mac ###
 .DS_Store

@@ -16,14 +16,14 @@ import java.util.concurrent.CompletionService;
 
 /**
  * <h2>Oai: OpenAI</h2>
- * <h4>OaiDrafterRepository is the bridge between Drafter and OpenAI</h4>
+ * <h4>OaiDrafterService is the bridge between Drafter and OpenAI</h4>
  * <hr>
  * The service is using Theo Kanning's
  * <p>
  * see {@link<a href=" https://github.com/TheoKanning/openai-java"> OpenAI Java library</a>}
  */
 @Service
-public class OaiDrafterRepository {
+public class OaiDrafterService {
 
     private static final Logger log = LoggerFactory.getLogger(
         CompletionService.class
@@ -40,7 +40,7 @@ public class OaiDrafterRepository {
     //	@Value("${api.openai}") // for application.yml variable
     private String apiKey;
 
-    public OaiDrafterRepository() {
+    public OaiDrafterService() {
         //        this.messageHeader = header.toString();
         this.durationSecs = 30;
         this.messages = new ArrayList<>();
@@ -155,7 +155,7 @@ public class OaiDrafterRepository {
         }
     }
 
-    public OaiDrafterRepository setContent(String promptContent) {
+    public OaiDrafterService setContent(String promptContent) {
         this.promptContent = promptContent +
         "\n start drafting. And start with the word 'DRAFT\n' ";
         return this;
@@ -170,7 +170,7 @@ public class OaiDrafterRepository {
      *
      * @param durationSecs input for custom seconds.
      */
-    public OaiDrafterRepository setDurationSecs(int durationSecs) {
+    public OaiDrafterService setDurationSecs(int durationSecs) {
         this.durationSecs = durationSecs;
         return this;
     }
