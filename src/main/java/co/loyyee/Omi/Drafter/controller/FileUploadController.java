@@ -143,7 +143,7 @@ public class FileUploadController {
                 .append(resume);
             return openAiResp(userContent.toString());
         } catch (IOException e) {
-            log.error("PDFBox extraction: " + e.getMessage());
+            log.error("Docx extraction: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
         } finally {
             log.info("Deleting file: " + file.getName());

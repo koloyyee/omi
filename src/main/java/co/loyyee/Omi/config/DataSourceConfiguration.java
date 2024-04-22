@@ -1,6 +1,8 @@
 package co.loyyee.Omi.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import java.util.List;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,9 +12,6 @@ import org.springframework.boot.sql.init.DatabaseInitializationSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
-import java.util.List;
 
 /**
  * <h2>Configuration for multiple datasources</h2>
@@ -54,7 +53,7 @@ import java.util.List;
  * */
 @Configuration(proxyBeanMethods = false)
 public class DataSourceConfiguration {
-    // Breakfast
+    /** Breakfast Data Source Name Configuration  */
     @Bean
     @Primary
     @ConfigurationProperties("app.datasource.breakfast")
@@ -63,7 +62,7 @@ public class DataSourceConfiguration {
     }
     @Bean
     @Primary
-    public HikariDataSource breakfastDataSource( @Qualifier("breakfastDataSourceProperties") DataSourceProperties breakfastDataSourceProperties) {
+    public HikariDataSource breakfastDataSource(@Qualifier("breakfastDataSourceProperties") DataSourceProperties breakfastDataSourceProperties) {
         return breakfastDataSourceProperties.initializeDataSourceBuilder()
                 .type(HikariDataSource.class).build();
     }
@@ -78,6 +77,27 @@ public class DataSourceConfiguration {
 //        settings.setMode(DatabaseInitializationMode.EMBEDDED);
         return new DataSourceScriptDatabaseInitializer(datasource, settings);
     }
+    
+    /** Applied Data Source Name Configuration  */
+    @Bean
+    @ConfigurationProperties("app.datasource.applied")
+    public DataSourceProperties appliedDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    public HikariDataSource appliedDataSource(@Qualifier("appliedDataSourceProperties")DataSourceProperties appliedDataSourceProperties) {
+        return appliedDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    }
+
+    @Bean
+    DataSourceScriptDatabaseInitializer appliedDataSourceInitializer(@Qualifier("appliedDataSource") DataSource datasource ) {
+        var settings = new DatabaseInitializationSettings();
+        settings.setSchemaLocations(List.of("classpath:applied-pg-schema.sql"));
+        settings.setMode(DatabaseInitializationMode.ALWAYS);
+        return new DataSourceScriptDatabaseInitializer(datasource, settings);
+    }
+
     // Programmatically creating a DataSource
 //    @Bean
 //    public DataSource breakfastDataSource(@Qualifier("breakfastDataSourceProperties") DataSourceProperties breakfastDataSourceProperties) {
