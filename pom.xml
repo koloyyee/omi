@@ -35,7 +35,7 @@
             </releases>
         </repository>
     </repositories>
-<!--    Pre-1.0 Spring AI BOM-->
+    <!--    Pre-1.0 Spring AI BOM-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -96,13 +96,13 @@
             <artifactId>service</artifactId>
             <version>0.18.2</version>
         </dependency>
-<!--        Spring AI Pre-1.0 OpenAI-->
+        <!--        Spring AI Pre-1.0 OpenAI-->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-<!--            low-level manual configuration-->
+            <!--            low-level manual configuration-->
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai</artifactId>
         </dependency>
@@ -146,6 +146,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

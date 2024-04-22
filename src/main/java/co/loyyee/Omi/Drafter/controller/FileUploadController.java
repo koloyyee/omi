@@ -2,6 +2,7 @@ package co.loyyee.Omi.Drafter.controller;
 
 import co.loyyee.Omi.Drafter.service.OaiDrafterService;
 import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.util.OpenAiException;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -107,8 +108,17 @@ public class FileUploadController {
                 .append("Here is my resume: \n")
                 .append(resume);
             //        return openAiResp(userContent.toString());
-            springAiResp(userContent.toString());
-            return ResponseEntity.ok("testing");
+            ChatResponse resp = this.service.setContent(userContent.toString()).ask();
+            String finishReason = resp.getResult().getMetadata().getFinishReason();
+            if( resp.getResult().getMetadata().getFinishReason().equalsIgnoreCase("STOP")) {
+                String content = resp.getResult().getOutput().getContent();
+                return ResponseEntity.ok(content);
+            } else {
+                throw new OpenAiException(finishReason);
+            }
+
+        } catch ( OpenAiException e ) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (IOException e) {
             log.error("PDFBox extraction: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
