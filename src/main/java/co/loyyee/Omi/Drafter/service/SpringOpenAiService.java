@@ -102,10 +102,10 @@ public class SpringOpenAiService
                 .append("avoid empty placeholder and 'undefined' ")
             .append(this.content)
             .toString();
-    log.info("Message: " + message);
-    var resp = chatClient.call(new Prompt(message));
-    log.info("with resume: " + resp);
 
+    log.info("Preparing draft");
+    var resp = chatClient.call(new Prompt(message));
+    log.info("Responding (finish reason): " + resp.getResult().getMetadata().getFinishReason());
     return resp;
   }
 
@@ -132,9 +132,9 @@ public class SpringOpenAiService
                 "last paragraph thanks the manager for taking the time, and including the my contact and ask them to contact.\n")
             .append(this.content)
             .toString();
-    log.info("Message: " + message);
+    log.info("Preparing draft");
     var resp = chatClient.stream(new Prompt(message));
-    log.info("with resume: " + resp);
+    log.info("Responding (finish reason): " );
 
     return resp;
   }
