@@ -1,7 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.repository.OaiDrafterService;
-import co.loyyee.Omi.Drafter.repository.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.OaiDrafterService;
+import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
 import jakarta.validation.constraints.NotNull;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;

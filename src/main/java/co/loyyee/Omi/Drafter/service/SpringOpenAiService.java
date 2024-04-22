@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.repository;
+package co.loyyee.Omi.Drafter.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class SpringOpenAiService
   private String content = "";
 
   public SpringOpenAiService() {
-    openAiApi = new OpenAiApi(System.getenv("SPRING_AI_OPENAI_API_KEY"));
+    openAiApi = new OpenAiApi(System.getenv("OPENAI_KEY"));
   }
 
   @Deprecated

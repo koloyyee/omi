@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.repository;
+package co.loyyee.Omi.Drafter.service;
 
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
