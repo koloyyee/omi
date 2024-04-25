@@ -2,7 +2,7 @@ package co.loyyee.Omi.Drafter.controller;
 
 import co.loyyee.Omi.Drafter.service.OaiDrafterService;
 import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
-import co.loyyee.Omi.Drafter.util.*;
+import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  *
  *
- * <h3>FileUploadController</h3>
+ * <h3>DraftController</h3>
  *
  * <hr>
  *
@@ -36,21 +36,27 @@ import org.springframework.web.multipart.MultipartFile;
  * user's resume. <br>
  * We will be handling both PDF and Docx file formats.
  *
+ * <h2> PDF Handler </h2>
+ * Handle PDF uploads
+ * <p>{@link DraftController#uploadPdf(MultipartFile, String, String, String)}  }</p>
  * <p>{@link PDFTextStripper#getText(PDDocument)} will be used to extract text from PDF
- *
  * <p>{@link Loader#loadPDF(File)} will be used to load the PDF file
+ *
+ * <h2> Docx Handler </h2>
+ * Handle Window Office Docx files
+ * <p>{@link DraftController#uploadDocx(MultipartFile, String, String, String)}</p>
  */
 @RestController
 @RequestMapping("/drafter")
 @CrossOrigin
-public class FileUploadController {
+public class DraftController {
 
-  private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
+  private static final Logger log = LoggerFactory.getLogger(DraftController.class);
 
   private final OaiDrafterService oaiService;
   private final SpringOpenAiService service;
 
-  public FileUploadController(OaiDrafterService oaiService, SpringOpenAiService service) {
+  public DraftController(OaiDrafterService oaiService, SpringOpenAiService service) {
     this.oaiService = oaiService;
     this.service = service;
   }
@@ -63,6 +69,14 @@ public class FileUploadController {
   /**
    * uploadPdf handles the PDF file uploaded from the client we will extract with PDFBox and package
    * it into a JSON object and send it to OpenAI API.
+   *<br>
+   * <h2>PDFBox 3.0 </h2>
+   *  reference: <a href="https://pdfbox.apache.org"> Apache PDF Box</a>
+   *  <br>
+   * <strong>Note: </strong>Replace PDDocument.load with Loader.loadPDF
+   * <br>
+   * reference: https://pdfbox.apache.org/3.0/migration.html check - <strong>Use Loader to get a PDF
+   * document</strong>
    *
    * @param mf MultipartFile from client, it will be in pdf format
    * @param company Company name of the user applying for the job
@@ -78,11 +92,6 @@ public class FileUploadController {
     /* Multipart File conversion because PDDocument only take  File. */
     File file = convertToFile(mf);
 
-    /**
-     * PDFBox 3.0 has replaced PDDocument.load with Loader.loadPDF reference:
-     * https://pdfbox.apache.org/3.0/migration.html check - <strong>Use Loader to get a PDF
-     * document</strong>
-     */
     try (PDDocument document = Loader.loadPDF(file)) {
       /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
       PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
@@ -104,8 +113,9 @@ public class FileUploadController {
       
       ChatResponse resp = this.service.setContent(userContent.toString()).ask();
       String finishReason = resp.getResult().getMetadata().getFinishReason();
-      if (resp.getResult().getMetadata().getFinishReason().equalsIgnoreCase("STOP")) {
+      if (finishReason.equalsIgnoreCase("stop")) {
         String content = resp.getResult().getOutput().getContent();
+        System.out.println(resp.getResults());
         return ResponseEntity.ok(content);
       } else {
         if (finishReason.equalsIgnoreCase("length")) {
@@ -130,6 +140,15 @@ public class FileUploadController {
     }
   }
 
+  /**
+   * uploadDocx
+   * <p> handles Window Docx files with Apache {@link XWPFDocument}</p>
+   * reference: <a href="https://poi.apache.org">Apache Poi </a>
+   * @param mf MultipartFile from client, it will be in pdf format
+   * @param company Company name of the user applying for the job
+   * @param title Title of the job the user is applying for
+   * @param description The job description
+   * */
   @PostMapping("/upload/docx")
   public ResponseEntity uploadDocx(
       @NotNull @RequestParam("resume") MultipartFile mf,
@@ -179,6 +198,13 @@ public class FileUploadController {
       file.delete();
     }
   }
+
+  @PostMapping("/update")
+  public ResponseEntity updateDraft(@NotNull @RequestParam("changes") String changes) {
+
+    return ResponseEntity.ok(null) ;
+  }
+
 
   /**
    * @param mf Spring Boot file type MultipartFile from client post request
