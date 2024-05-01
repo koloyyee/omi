@@ -63,7 +63,7 @@ public class DraftController {
     this.service = service;
   }
 
-  @GetMapping
+  @GetMapping("/private")
   public ResponseEntity testEndpoint(Principal principal) {
     return ResponseEntity.ok(principal.getName() + " is HERE!");
   }

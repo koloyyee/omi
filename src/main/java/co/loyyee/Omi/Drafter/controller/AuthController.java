@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/drafter/auth")
+@RequestMapping("/drafter/private/auth")
 public class AuthController {
 	private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 	private final TokenService tokenService;

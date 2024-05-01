@@ -18,7 +18,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,12 +48,11 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth ->
             auth
-//                .requestMatchers("/drafter/upload/**").permitAll()
-//                .requestMatchers("/drafter/**").authenticated()
-                .anyRequest().authenticated()
+                .requestMatchers("/drafter/upload/**").permitAll()
+                .requestMatchers("/drafter/private/**").authenticated()
+//                .anyRequest().authenticated()
         )
-//        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
-        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
         .sessionManagement( session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .httpBasic(Customizer.withDefaults())
         .formLogin(Customizer.withDefaults())
