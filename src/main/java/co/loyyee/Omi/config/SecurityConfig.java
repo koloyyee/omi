@@ -48,7 +48,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth ->
             auth
-                .requestMatchers("/drafter/upload/**").permitAll()
+                .requestMatchers("/drafter/public/**").permitAll()
                 .requestMatchers("/drafter/private/**").authenticated()
 //                .anyRequest().authenticated()
         )

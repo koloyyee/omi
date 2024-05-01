@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Objects;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -40,32 +39,31 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * <h2> PDF Handler </h2>
  * Handle PDF uploads
- * <p>{@link DraftController#uploadPdf(MultipartFile, String, String, String)}  }</p>
+ * <p>{@link DraftPublicController#uploadPdf(MultipartFile, String, String, String)}  }</p>
  * <p>{@link PDFTextStripper#getText(PDDocument)} will be used to extract text from PDF
  * <p>{@link Loader#loadPDF(File)} will be used to load the PDF file
  *
  * <h2> Docx Handler </h2>
  * Handle Window Office Docx files
- * <p>{@link DraftController#uploadDocx(MultipartFile, String, String, String)}</p>
+ * <p>{@link DraftPublicController#uploadDocx(MultipartFile, String, String, String)}</p>
  */
 @RestController
-@RequestMapping("/drafter")
+@RequestMapping("/drafter/public")
 @CrossOrigin
-public class DraftController {
+public class DraftPublicController {
 
-  private static final Logger log = LoggerFactory.getLogger(DraftController.class);
+  private static final Logger log = LoggerFactory.getLogger(DraftPublicController.class);
 
   private final OaiDrafterService oaiService;
   private final SpringOpenAiService service;
 
-  public DraftController(OaiDrafterService oaiService, SpringOpenAiService service) {
+  public DraftPublicController(OaiDrafterService oaiService, SpringOpenAiService service) {
     this.oaiService = oaiService;
     this.service = service;
   }
-
-  @GetMapping("/private")
-  public ResponseEntity testEndpoint(Principal principal) {
-    return ResponseEntity.ok(principal.getName() + " is HERE!");
+  @GetMapping
+  public ResponseEntity publicTest() {
+    return ResponseEntity.ok("public is HERE!");
   }
 
   /**
