@@ -27,6 +27,11 @@ application.yml
 BreakfastDatasourceConfiguration.java
 MesureDatasourceConfiguration.java
 
+## jwt
+*.pem
+
+###################################################3
+
 *#
 *.iml
 *.ipr

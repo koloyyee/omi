@@ -48,12 +48,12 @@ public class Application {
 
   /** PG DB Applied Data Source Configuration */
   @Bean
-  JdbcClient appliedJdbcClient(@Qualifier("appliedDataSource") DataSource dataSource) {
+  JdbcClient appliedJdbcClient(@Qualifier("drafterDataSource") DataSource dataSource) {
     return JdbcClient.create(dataSource);
   }
 
   @Bean
-  public JdbcTemplate appliedJdbcTemplate(@Qualifier("appliedDataSource") DataSource dataSource) {
+  public JdbcTemplate appliedJdbcTemplate(@Qualifier("drafterDataSource") DataSource dataSource) {
     return new JdbcTemplate(dataSource);
   }
 
@@ -65,7 +65,7 @@ public class Application {
           "jdbc:postgresql://%s:%s/%s%n",
           System.getenv("PGHOST"), System.getenv("PGPORT"), System.getenv("PGDATABASE"));
       System.out.println("BRKF: " + System.getenv("PGBREAKFAST"));
-      System.out.println("Applied: " + System.getenv("PGAPPLIED"));
+      System.out.println("PGDRAFTER: " + System.getenv("PGDRAFTER"));
     };
   }
 

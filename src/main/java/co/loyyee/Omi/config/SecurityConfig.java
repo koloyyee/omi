@@ -11,6 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,12 +28,17 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain drafterSecurityFilterChain(HttpSecurity http) throws Exception {
-    return http.authorizeHttpRequests(auth -> 
+    return http
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth ->
             auth
 //                .requestMatchers("/drafter/upload/**").permitAll()
-                .requestMatchers("/drafter/**").authenticated()
-                .anyRequest().authenticated()
+//                .requestMatchers("/drafter/**").authenticated()
+                .anyRequest().permitAll()
         )
+        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+//        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+        .sessionManagement( session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .httpBasic(Customizer.withDefaults())
         .formLogin(Customizer.withDefaults())
         .build();
@@ -44,7 +50,7 @@ public class SecurityConfig {
    */
   @Bean
   JdbcUserDetailsManager drafterDefaultUser(
-      @Qualifier("appliedDataSource") DataSource dataSource) throws SQLException {
+      @Qualifier("drafterDataSource") DataSource dataSource) throws SQLException {
 
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
     if (!manager.userExists("david")) {
