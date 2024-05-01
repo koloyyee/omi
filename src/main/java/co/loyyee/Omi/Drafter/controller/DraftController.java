@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Objects;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -63,8 +64,8 @@ public class DraftController {
   }
 
   @GetMapping
-  public ResponseEntity testEndpoint() {
-    return ResponseEntity.ok("I am HERE!");
+  public ResponseEntity testEndpoint(Principal principal) {
+    return ResponseEntity.ok(principal.getName() + " is HERE!");
   }
 
   /**

@@ -43,7 +43,7 @@ public class SecurityConfig {
    * Register user will be done in the similar fashion but UserDTO or User Model is needed.
    */
   @Bean
-  JdbcUserDetailsManager drafterJdbcUserDetailsManager(
+  JdbcUserDetailsManager drafterDefaultUser(
       @Qualifier("appliedDataSource") DataSource dataSource) throws SQLException {
 
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
