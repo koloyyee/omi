@@ -1,7 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
 import co.loyyee.Omi.Drafter.service.OaiDrafterService;
-import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
 import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
@@ -18,6 +18,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.ChatResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,6 +90,9 @@ public class DraftController {
       @NotNull @RequestParam("company") String company,
       @NotNull @RequestParam("title") String title,
       @NotNull @RequestParam("description") String description) {
+    /**  Deal with the issue of showing previous input value */
+    HttpHeaders headers = new HttpHeaders();
+    headers.setCacheControl("no-cache, no-store, must-revalidate");
     /* Multipart File conversion because PDDocument only take  File. */
     File file = convertToFile(mf);
 
