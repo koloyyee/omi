@@ -1,5 +1,12 @@
 package co.loyyee.Omi.config;
 
+import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -16,6 +23,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,16 +36,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
   private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
-
-  @Bean
+  private final DrafterRsaKeyProperties drafterRsaKey;
+	
+	public SecurityConfig(DrafterRsaKeyProperties drafterRsaKey) {
+		this.drafterRsaKey = drafterRsaKey;
+	}
+	
+	@Bean
   SecurityFilterChain drafterSecurityFilterChain(HttpSecurity http) throws Exception {
     return http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth ->
             auth
 //                .requestMatchers("/drafter/upload/**").permitAll()
-//                .requestMatchers("/drafter/**").authenticated()
-                .anyRequest().permitAll()
+                .requestMatchers("/drafter/**").authenticated()
+//                .anyRequest().permitAll()
         )
         .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
 //        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -55,7 +71,7 @@ public class SecurityConfig {
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
     if (!manager.userExists("david")) {
       UserDetails admin =
-          User.withUsername("david").password(encoder().encode("password")).roles("ADMIN").build();
+          User.withUsername("david").password(passwordEncoder().encode("password")).roles("ADMIN").build();
       manager.createUser(admin);
     }
 
@@ -63,7 +79,26 @@ public class SecurityConfig {
   }
 
   @Bean
-  PasswordEncoder encoder() {
+  PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+  
+  
+  /**
+   * JWT setup tutorial <br>
+   * <a href="https://www.danvega.dev/blog/spring-security-jwt"> Dan Vega's Spring Security JWT (backend only)</a>
+   * */
+  
+  
+  @Bean
+  JwtDecoder jwtDecoder(){
+    return NimbusJwtDecoder.withPublicKey(drafterRsaKey.publicKey()).build();
+  }
+  
+  @Bean
+  JwtEncoder jwtEncoder() {
+    JWK jwk = new RSAKey.Builder(drafterRsaKey.publicKey()).privateKey(drafterRsaKey.privateKey()).build();
+    JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+    return new NimbusJwtEncoder(jwks);
   }
 }
