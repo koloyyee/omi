@@ -202,7 +202,7 @@ public class DraftPublicController {
     }
   }
 
-  @PostMapping("/update")
+//  @PostMapping("/update")
   public ResponseEntity updateDraft(@NotNull @RequestParam("changes") String changes) {
 
     return ResponseEntity.ok(null) ;
