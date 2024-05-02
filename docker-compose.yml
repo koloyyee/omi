@@ -12,7 +12,7 @@ services:
       - POSTGRES_USER=$PGUSE
       - POSTGRES_PASSWORD=$PGPASSWORD
 #      - POSTGRES_DB=breakfast
-      - POSTGRES_MULTIPLE_DATABASES=breakfast, mesure, applied
+      - POSTGRES_MULTIPLE_DATABASES=breakfast, mesure, drafter
     ports:
       - 5432:5432
 
