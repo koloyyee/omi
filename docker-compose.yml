@@ -7,7 +7,7 @@ services:
     container_name: omi_pg
     volumes:
       - ./docker/pg_init:/docker-entrypoint-initdb.d
-      - "./pg_data/:/var/lib/postgresql/data"
+      - "/pg_data/:/var/lib/postgresql/data"
     environment:
       - POSTGRES_USER=$PGUSE
       - POSTGRES_PASSWORD=$PGPASSWORD
