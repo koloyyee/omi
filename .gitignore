@@ -27,6 +27,9 @@ application.yml
 BreakfastDatasourceConfiguration.java
 MesureDatasourceConfiguration.java
 
+### pem ###
+*.pem
+
 *#
 *.iml
 *.ipr
