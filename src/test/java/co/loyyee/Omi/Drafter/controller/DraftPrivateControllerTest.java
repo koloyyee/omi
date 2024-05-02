@@ -20,10 +20,9 @@ import org.springframework.test.web.servlet.MvcResult;
 
 /**
  * This is a Mock test for the private auth endpoints<br>
- * for the @Import since we have more than 1 data source,
- * the @Qualifier couldn't find drafterDatasource unless we include
- * the DataSourceConfiguration class
- * */
+ * for the @Import since we have more than 1 data source, the @Qualifier couldn't find
+ * drafterDatasource unless we include the DataSourceConfiguration class
+ */
 @WebMvcTest({DraftPrivateController.class, AuthController.class})
 @Import({DataSourceConfiguration.class, SecurityConfig.class, TokenService.class})
 class DraftPrivateControllerTest {
@@ -34,18 +33,21 @@ class DraftPrivateControllerTest {
   void shouldGetUnauthorizedWithPrivateRoot() throws Exception {
     this.mvc.perform(get("/drafter/private")).andExpect(status().isUnauthorized());
   }
-  
+
   @Test
   void shouldWelcomeBackPrincipalIsHereAfterAuthenticated() throws Exception {
-    
-    MvcResult result = this.mvc.perform(post("/drafter/private/auth/token").with(httpBasic("david", "password")))
-        .andExpect(status().isOk()).andReturn();
-   String token = result.getResponse().getContentAsString();
-   this.mvc.perform(get("/drafter/private")
-       .header("Authorization","Bearer " + token))
-       .andExpect(content().string("Welcome back david"));
+
+    MvcResult result =
+        this.mvc
+            .perform(post("/drafter/private/auth/token").with(httpBasic("david", "password")))
+            .andExpect(status().isOk())
+            .andReturn();
+    String token = result.getResponse().getContentAsString();
+    this.mvc
+        .perform(get("/drafter/private").header("Authorization", "Bearer " + token))
+        .andExpect(content().string("Welcome back david"));
   }
-  
+
   @Test
   @WithMockUser
   public void rootWithMockUserStatusIsOK() throws Exception {
