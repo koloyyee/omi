@@ -1,5 +1,6 @@
 package co.loyyee.Omi;
 
+import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,11 +8,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 // @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@EnableConfigurationProperties(DrafterRsaKeyProperties.class)
 @SpringBootApplication(
     exclude = {
       org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
@@ -48,12 +51,12 @@ public class Application {
 
   /** PG DB Applied Data Source Configuration */
   @Bean
-  JdbcClient appliedJdbcClient(@Qualifier("appliedDataSource") DataSource dataSource) {
+  JdbcClient appliedJdbcClient(@Qualifier("drafterDataSource") DataSource dataSource) {
     return JdbcClient.create(dataSource);
   }
 
   @Bean
-  public JdbcTemplate appliedJdbcTemplate(@Qualifier("appliedDataSource") DataSource dataSource) {
+  public JdbcTemplate appliedJdbcTemplate(@Qualifier("drafterDataSource") DataSource dataSource) {
     return new JdbcTemplate(dataSource);
   }
 
@@ -65,7 +68,7 @@ public class Application {
           "jdbc:postgresql://%s:%s/%s%n",
           System.getenv("PGHOST"), System.getenv("PGPORT"), System.getenv("PGDATABASE"));
       System.out.println("BRKF: " + System.getenv("PGBREAKFAST"));
-      System.out.println("Applied: " + System.getenv("PGAPPLIED"));
+      System.out.println("PGDRAFTER: " + System.getenv("PGDRAFTER"));
     };
   }
 

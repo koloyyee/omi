@@ -11,6 +11,7 @@ docker-compose-dev.yml
 .DS_Store
 
 omi_pg_data/
+*pg_data/
 .env
 *.txt
 *.pdf
@@ -27,8 +28,10 @@ application.yml
 BreakfastDatasourceConfiguration.java
 MesureDatasourceConfiguration.java
 
-### pem ###
+## jwt
 *.pem
+
+###################################################3
 
 *#
 *.iml

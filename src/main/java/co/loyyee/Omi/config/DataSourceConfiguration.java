@@ -80,20 +80,20 @@ public class DataSourceConfiguration {
     
     /** Applied Data Source Name Configuration  */
     @Bean
-    @ConfigurationProperties("app.datasource.applied")
-    public DataSourceProperties appliedDataSourceProperties() {
+    @ConfigurationProperties("app.datasource.drafter")
+    public DataSourceProperties drafterDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    public HikariDataSource appliedDataSource(@Qualifier("appliedDataSourceProperties")DataSourceProperties appliedDataSourceProperties) {
-        return appliedDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    public HikariDataSource drafterDataSource(@Qualifier("drafterDataSourceProperties")DataSourceProperties drafterDataSourceProperties) {
+        return drafterDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
-    DataSourceScriptDatabaseInitializer appliedDataSourceInitializer(@Qualifier("appliedDataSource") DataSource datasource ) {
+    DataSourceScriptDatabaseInitializer drafterDataSourceInitializer(@Qualifier("drafterDataSource") DataSource datasource ) {
         var settings = new DatabaseInitializationSettings();
-        settings.setSchemaLocations(List.of("classpath:applied-pg-schema.sql"));
+        settings.setSchemaLocations(List.of("classpath:drafter-pg-schema.sql"));
         settings.setMode(DatabaseInitializationMode.ALWAYS);
         return new DataSourceScriptDatabaseInitializer(datasource, settings);
     }

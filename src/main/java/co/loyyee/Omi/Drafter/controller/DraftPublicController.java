@@ -1,6 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.OaiDrafterService;
+import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
 import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
@@ -17,6 +18,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.ChatResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,30 +39,31 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * <h2> PDF Handler </h2>
  * Handle PDF uploads
- * <p>{@link DraftController#uploadPdf(MultipartFile, String, String, String)}  }</p>
+ * <p>{@link DraftPublicController#uploadPdf(MultipartFile, String, String, String)}  }</p>
  * <p>{@link PDFTextStripper#getText(PDDocument)} will be used to extract text from PDF
  * <p>{@link Loader#loadPDF(File)} will be used to load the PDF file
  *
  * <h2> Docx Handler </h2>
  * Handle Window Office Docx files
- * <p>{@link DraftController#uploadDocx(MultipartFile, String, String, String)}</p>
+ * <p>{@link DraftPublicController#uploadDocx(MultipartFile, String, String, String)}</p>
  */
 @RestController
-@RequestMapping("/drafter")
+@RequestMapping("/drafter/public")
 @CrossOrigin
-public class DraftController {
+public class DraftPublicController {
 
-  private static final Logger log = LoggerFactory.getLogger(DraftController.class);
+  private static final Logger log = LoggerFactory.getLogger(DraftPublicController.class);
 
+  private final OaiDrafterService oaiService;
   private final SpringOpenAiService service;
 
-  public DraftController(SpringOpenAiService service) {
+  public DraftPublicController(OaiDrafterService oaiService, SpringOpenAiService service) {
+    this.oaiService = oaiService;
     this.service = service;
   }
-
   @GetMapping
-  public ResponseEntity testEndpoint() {
-    return ResponseEntity.ok("I am HERE!");
+  public ResponseEntity publicTest() {
+    return ResponseEntity.ok("public is HERE!");
   }
 
   /**
@@ -86,6 +89,9 @@ public class DraftController {
       @NotNull @RequestParam("company") String company,
       @NotNull @RequestParam("title") String title,
       @NotNull @RequestParam("description") String description) {
+    /**  Deal with the issue of showing previous input value */
+    HttpHeaders headers = new HttpHeaders();
+    headers.setCacheControl("no-cache, no-store, must-revalidate");
     /* Multipart File conversion because PDDocument only take  File. */
     File file = convertToFile(mf);
 
@@ -196,7 +202,7 @@ public class DraftController {
     }
   }
 
-  @PostMapping("/update")
+//  @PostMapping("/update")
   public ResponseEntity updateDraft(@NotNull @RequestParam("changes") String changes) {
 
     return ResponseEntity.ok(null) ;
@@ -221,5 +227,19 @@ public class DraftController {
     return file;
   }
 
+  @Deprecated
+  private void springAiResp(String userContent) {
+    ChatResponse resp = this.service.setContent(userContent).ask();
+    //    System.out.println(resp);
+  }
 
+  @Deprecated
+  private ResponseEntity openAiResp(String userContent) {
+    String resp = this.oaiService.setContent(userContent).ask();
+    if (resp.contains("https://platform.openai.com/account/api-keys")) {
+      return ResponseEntity.badRequest().build();
+    } else {
+      return ResponseEntity.ok(resp);
+    }
+  }
 }
