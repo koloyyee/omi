@@ -33,6 +33,7 @@ MesureDatasourceConfiguration.java
 
 ## jwt
 *.pem
+certs/
 
 ###################################################3
 
