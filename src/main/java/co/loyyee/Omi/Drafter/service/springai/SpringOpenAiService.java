@@ -107,7 +107,7 @@ public class SpringOpenAiService
 
     log.info("Preparing draft");
     var resp = chatClient.call(new Prompt(List.of(sysMsg, content)));
-    log.info(resp.getResults().toString());
+//    log.info(resp.getResults().toString());
 //    log.info("Responding (finish reason): " + resp.getResult().getMetadata().getFinishReason());
     log.info("{}", resp.getMetadata().getUsage().getTotalTokens());
     return resp;
