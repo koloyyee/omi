@@ -1,10 +1,6 @@
 package co.loyyee.Omi.Drafter.controller;
 
-<<<<<<< HEAD:src/main/java/co/loyyee/Omi/Drafter/controller/DraftPublicController.java
 import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
-=======
-import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
->>>>>>> ed8020f (remove oai):src/main/java/co/loyyee/Omi/Drafter/controller/DraftController.java
 import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
@@ -59,11 +55,7 @@ public class DraftPublicController {
 
   private final SpringOpenAiService service;
 
-<<<<<<< HEAD:src/main/java/co/loyyee/Omi/Drafter/controller/DraftPublicController.java
   public DraftPublicController(SpringOpenAiService service) {
-=======
-  public DraftController(SpringOpenAiService service) {
->>>>>>> ed8020f (remove oai):src/main/java/co/loyyee/Omi/Drafter/controller/DraftController.java
     this.service = service;
   }
   @GetMapping
@@ -231,5 +223,10 @@ public class DraftPublicController {
     return file;
   }
 
+  @Deprecated
+  private void springAiResp(String userContent) {
+    ChatResponse resp = this.service.setContent(userContent).ask();
+    //    System.out.println(resp);
+  }
 
 }
