@@ -1,6 +1,5 @@
 package co.loyyee.Omi.config;
 
-<<<<<<< HEAD
 import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -17,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-=======
->>>>>>> ed8020f (remove oai)
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,7 +30,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-<<<<<<< HEAD
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -109,15 +105,5 @@ public class SecurityConfig {
             .build();
     JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
     return new NimbusJwtEncoder(jwks);
-=======
-//@Configuration
-//@EnableWebSecurity
-//@EnableMethodSecurity
-public class SecurityConfig {
-
-//  @Bean
-  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).build();
->>>>>>> ed8020f (remove oai)
   }
 }
