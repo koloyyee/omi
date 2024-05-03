@@ -24,7 +24,7 @@ class SpringOpenAiServiceTest {
 	
 //	@Test
 	void shouldAcceptPdf() {
-		ResponseEntity<String> resp = restTemplate.getForEntity("/drafter/upload/pdf", String.class);
+		ResponseEntity<String> resp = restTemplate.getForEntity("/drafter/public/upload/pdf", String.class);
 		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 }
