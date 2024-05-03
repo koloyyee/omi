@@ -1,6 +1,23 @@
 # SET UP for Success.
 
-## Deployment Guide:
+## Deploying without Spring Official support (Current)
+### Deploying without Spring Docker
+reference: https://medium.com/@saygiligozde/using-docker-compose-with-spring-boot-and-postgresql-235031106f9f
+Setting up Dockerfile, docker-compose.yml.
+
+For current setup checkout docker-compose.yml, Dockerfile at root.
+
+### At deploy server after updating.
+`./mvnw clean package -DskipTests` to make sure no cache or not updated files in the `target/` directory.\
+(the reason why we skip the tests it's because it can connect to jdbc, but do run all the test locally before pushing.)\
+then\
+`docker-compose up --build` to check if the application runs properly, `<CR>-c` or `ctrl+c` to terminate\
+lastly\
+`docker-compose up --detach --build`\
+if there are more than 1 docker-compose file such as dev\
+run `docker-compose -f docker-compose-dev.yml up --detach --build`.
+
+## Official Deployment Guide:
 **For deploying on Linux remote servers here is the guide**
 ### Table of Content
 - [Ubuntu](#ubuntu)
@@ -77,14 +94,4 @@ export PG_PASSWORD=[password]
 export PG_BREAKFAST=breakfast
 export PG_MESURE=mesure
 ```
-
-### At deploy server after updating.
-
-`./mvnw clean package -DskipTests` to make sure no cache or not updated files in the `target/` directory.
-then
-`docker-compose up --build` to check if the application runs properly
-lastly
-`docker-compose up --detach --build`
-if there are more than 1 docker-compose file such as dev
-run `docker-compose -f docker-compose-dev.yml up --detach --build`.
 

@@ -5,7 +5,7 @@ api:
 spring:
   datasource:
     url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}"
-  ai: # spring ai autoconfiguration
+  ai: # spring ai autoconfigurationA
     openai:
       api-key: ${OPENAI_KEY}
 app:
