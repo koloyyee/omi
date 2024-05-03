@@ -24,6 +24,8 @@ subscriber-schema.sql
 
 Chat/
 
+omi_pg_data/
+
 ### Dev ###
 openai_doc_note.txt
 application.yml

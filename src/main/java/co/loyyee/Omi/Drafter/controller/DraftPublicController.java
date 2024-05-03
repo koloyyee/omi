@@ -1,6 +1,5 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.OaiDrafterService;
 import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
 import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
@@ -54,11 +53,9 @@ public class DraftPublicController {
 
   private static final Logger log = LoggerFactory.getLogger(DraftPublicController.class);
 
-  private final OaiDrafterService oaiService;
   private final SpringOpenAiService service;
 
-  public DraftPublicController(OaiDrafterService oaiService, SpringOpenAiService service) {
-    this.oaiService = oaiService;
+  public DraftPublicController(SpringOpenAiService service) {
     this.service = service;
   }
   @GetMapping
@@ -232,13 +229,4 @@ public class DraftPublicController {
     //    System.out.println(resp);
   }
 
-  @Deprecated
-  private ResponseEntity openAiResp(String userContent) {
-    String resp = this.oaiService.setContent(userContent).ask();
-    if (resp.contains("https://platform.openai.com/account/api-keys")) {
-      return ResponseEntity.badRequest().build();
-    } else {
-      return ResponseEntity.ok(resp);
-    }
-  }
 }

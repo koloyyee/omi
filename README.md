@@ -50,7 +50,6 @@ time worth more than money, don't waste it.
    a. CORS
    b. API security
 2. Spring test:
-<<<<<<< Updated upstream
    a. Integration
    b. Unit test.
 
@@ -61,7 +60,3 @@ Multiple Docker PG:
 
 Multi DataSource: Dan Vega https://www.youtube.com/watch?v=ZKYFGuukhT4
 Spring JWT: Dan Vega https://www.danvega.dev/blog/spring-security-jwt
-=======
-   a. Integration 
-   b. Unit test. - started
->>>>>>> Stashed changes
