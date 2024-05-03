@@ -1,37 +1,41 @@
 api:
-    frontend: "${FRONTEND_URL}"
-    openai: "${OPENAI_KEY}" # for production with over Linux server environment variable.
+  frontend: "${FRONTEND_URL}"
+  openai: "${OPENAI_KEY}" # for production with over Linux server environment variable.
 
 spring:
-    datasource:
-        url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}"
+  datasource:
+    url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}"
 app:
-    datasource:
-#        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-#        url: jdbc:postgresql://0.0.0.0:5432/postgres
-#        username: ${PGUSER}
-#        password: ${PGPASSWORD}
-#        driver-class-name: org.postgresql.Driver
-        # Breakfast - Scraping App
-        breakfast:
-#            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-#            url: jdbc:${PGBREAKFAST}
-#            url: jdbc:postgresql://0.0.0.0:5432/breakfast
-            url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}"
-            username: "${PGUSER}"
-            password: "${PGPASSWORD}"
-            driver-class-name: org.postgresql.Driver
-        # Mesure - Food Cost App
-        mesure:
-            url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGMESURE}"
-#            username: ${PGUSER}
-#            password: ${PGPASSWORD}
-        drafter:
-            url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDRAFTER}"
+  datasource:
+    #        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    #        url: jdbc:postgresql://0.0.0.0:5432/postgres
+    #        username: ${PGUSER}
+    #        password: ${PGPASSWORD}
+    #        driver-class-name: org.postgresql.Driver
+    # Breakfast - Scraping App
+    breakfast:
+      #            url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+      #            url: jdbc:${PGBREAKFAST}
+      #            url: jdbc:postgresql://0.0.0.0:5432/breakfast
+      url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGBREAKFAST}"
+      username: "${PGUSER}"
+      password: "${PGPASSWORD}"
+      driver-class-name: org.postgresql.Driver
+    # Mesure - Food Cost App
+    mesure:
+      url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGMESURE}"
+      username: ${PGUSER}
+      password: ${PGPASSWORD}
+      driver-class-name: org.postgresql.Driver
+    drafter:
+      url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDRAFTER}"
+      username: ${PGUSER}
+      password: ${PGPASSWORD}
+      driver-class-name: org.postgresql.Driver
 
 sql:
-    init:
-        mode: always
+  init:
+    mode: always
 #logging:
 #    level:
 #        org:
