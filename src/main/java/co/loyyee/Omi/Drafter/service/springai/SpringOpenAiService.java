@@ -34,7 +34,7 @@ public class SpringOpenAiService
 						last paragraph thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
 						""");
   //    private OpenAiChatClient chatClient;
-  private OpenAiApi openAiApi;
+  private final OpenAiApi openAiApi;
   private UserMessage content;
 
   public SpringOpenAiService() {

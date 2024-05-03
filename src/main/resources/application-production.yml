@@ -5,6 +5,9 @@ api:
 spring:
   datasource:
     url: "jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}"
+  ai: # spring ai autoconfiguration
+    openai:
+      api-key: ${OPENAI_KEY}
 app:
   datasource:
     #        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
@@ -36,6 +39,10 @@ app:
 sql:
   init:
     mode: always
+rsa:
+  drafter:
+    public-key: classpath:certs/drafter-public.pem
+    private-key: classpath:certs/drafter-private.pem
 #logging:
 #    level:
 #        org:
