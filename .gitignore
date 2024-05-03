@@ -10,7 +10,8 @@ docker-compose-dev.yml
 ### mac ###
 .DS_Store
 
-pg_data/
+omi_pg_data/
+*pg_data/
 .env
 *.txt
 *.pdf
@@ -22,6 +23,7 @@ blog-schema.sql
 subscriber-schema.sql
 
 Chat/
+
 omi_pg_data/
 
 ### Dev ###
@@ -32,6 +34,7 @@ MesureDatasourceConfiguration.java
 
 ## jwt
 *.pem
+certs/
 
 ###################################################3
 
