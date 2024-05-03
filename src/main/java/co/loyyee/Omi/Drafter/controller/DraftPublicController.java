@@ -118,7 +118,6 @@ public class DraftPublicController {
       String finishReason = resp.getResult().getMetadata().getFinishReason();
       if (finishReason.equalsIgnoreCase("stop")) {
         String content = resp.getResult().getOutput().getContent();
-        System.out.println(resp.getResults());
         return ResponseEntity.ok(content);
       } else {
         if (finishReason.equalsIgnoreCase("length")) {

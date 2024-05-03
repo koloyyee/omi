@@ -22,6 +22,8 @@ Blog/
 blog-schema.sql
 subscriber-schema.sql
 
+Chat/
+
 ### Dev ###
 openai_doc_note.txt
 application.yml

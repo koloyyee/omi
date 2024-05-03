@@ -1,5 +1,6 @@
 package co.loyyee.Omi.Drafter.service.springai;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.ChatResponse;
@@ -13,8 +14,6 @@ import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-import java.util.List;
-
 /** SaiOai: Spring AI - OpenAI implementations */
 @Service
 public class SpringOpenAiService
@@ -22,9 +21,6 @@ public class SpringOpenAiService
 
   private static final String MODEL = "gpt-3.5-turbo";
   private static final Logger log = LoggerFactory.getLogger(SpringOpenAiService.class);
-  //    private OpenAiChatClient chatClient;
-  private OpenAiApi openAiApi;
-  private UserMessage content;
   private final Message sysMsg =
       new SystemMessage(
           """
@@ -37,7 +33,10 @@ public class SpringOpenAiService
 						5th paragraph: looking forward to the interview and contribute to the company.
 						last paragraph thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
 						""");
-  
+  //    private OpenAiChatClient chatClient;
+  private OpenAiApi openAiApi;
+  private UserMessage content;
+
   public SpringOpenAiService() {
     openAiApi = new OpenAiApi(System.getenv("OPENAI_KEY"));
   }
@@ -92,7 +91,7 @@ public class SpringOpenAiService
 
   @Override
   public SpringOpenAiService setContent(String content) {
-    this.content = new UserMessage(content+ "\n start drafting and start with DRAFT\n" );
+    this.content = new UserMessage(content + "\n start drafting and start with DRAFT\n");
     return this;
   }
 
@@ -105,10 +104,12 @@ public class SpringOpenAiService
             .build();
     var chatClient = new OpenAiChatClient(openAiApi, openAiChatOptions);
 
+    log.info("OPENAI_KEY: {}", System.getenv("OPENAI_KEY"));
     log.info("Preparing draft");
     var resp = chatClient.call(new Prompt(List.of(sysMsg, content)));
-//    log.info(resp.getResults().toString());
-//    log.info("Responding (finish reason): " + resp.getResult().getMetadata().getFinishReason());
+    //    log.info(resp.getResults().toString());
+    //    log.info("Responding (finish reason): " +
+    // resp.getResult().getMetadata().getFinishReason());
     log.info("{}", resp.getMetadata().getUsage().getTotalTokens());
     return resp;
   }
