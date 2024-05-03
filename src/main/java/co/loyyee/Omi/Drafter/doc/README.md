@@ -1,8 +1,11 @@
-# Spring AI Autoconfiguration.
+# Configuration Documentation
+
+## Spring AI Autoconfiguration.
 
 When using Spring AI\
-one of the ways to setup the configuration is to include information in the application.properties/.yml file.
-
+one of the ways to set up the configuration is to include information in the application.properties/.yml file.\
+- reference: https://docs.spring.io/spring-ai/reference/api/clients/openai-chat.html#_sample_controller_auto_configuration
+- 
 example in .`yml
 ```yml 
 spring:
@@ -22,3 +25,10 @@ spring.ai.openai.chat.options.temperature="0.4"
 
 #### Note:
 temperature - how creative the model will be.
+
+
+### Manual set up
+- reference: https://docs.spring.io/spring-ai/reference/api/clients/openai-chat.html#_manual_configuration
+We did try it but autoconfig seems to work better.
+
+## LangChain4J (reserved)
