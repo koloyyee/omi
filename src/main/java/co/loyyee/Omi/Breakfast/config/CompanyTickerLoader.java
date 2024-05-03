@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /***
  * Loading all the SEC provided publicly traded company
@@ -20,7 +21,7 @@ import org.springframework.boot.CommandLineRunner;
  *
  * Opt out by commenting out the @Component annotation
  */
-//@Component
+@Component
 public class CompanyTickerLoader implements CommandLineRunner {
     final private Logger log = LoggerFactory.getLogger(CompanyTickerLoader.class);
     final private ObjectMapper mapper;
