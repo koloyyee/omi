@@ -77,3 +77,14 @@ export PG_PASSWORD=[password]
 export PG_BREAKFAST=breakfast
 export PG_MESURE=mesure
 ```
+
+### At deploy server after updating.
+
+`./mvnw clean package -DskipTests` to make sure no cache or not updated files in the `target/` directory.
+then
+`docker-compose up --build` to check if the application runs properly
+lastly
+`docker-compose up --detach --build`
+if there are more than 1 docker-compose file such as dev
+run `docker-compose -f docker-compose-dev.yml up --detach --build`.
+
