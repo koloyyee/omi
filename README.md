@@ -47,16 +47,16 @@ time worth more than money, don't waste it.
 ## TODOs
 #### Important
 1. Spring security:
-   a. CORS
-   b. API security
-2. Spring test:
-   a. Integration
-   b. Unit test.
+   1. CORS 
+   2. API security
+2. Spring test: 
+   1. Integration
+   2. Unit test.
 
 ## References
 Multiple Docker PG: 
 - reference to https://dev.to/bgord/multiple-postgres-databases-in-a-single-docker-container-417l
 - github: https://github.com/mrts/docker-postgresql-multiple-databases
 
-Multi DataSource: Dan Vega https://www.youtube.com/watch?v=ZKYFGuukhT4
+Multi DataSource: Dan Vega https://www.youtube.com/watch?v=ZKYFGuukhT4 \
 Spring JWT: Dan Vega https://www.danvega.dev/blog/spring-security-jwt
