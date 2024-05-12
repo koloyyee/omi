@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -24,6 +25,6 @@ class SpringOpenAiServiceTest {
 //	@Test
 	void shouldAcceptPdf() {
 		ResponseEntity<String> resp = restTemplate.getForEntity("/drafter/public/upload/pdf", String.class);
-    System.out.println(resp);
+		assertEquals(resp.getStatusCode(), HttpStatus.OK);
 	}
 }
