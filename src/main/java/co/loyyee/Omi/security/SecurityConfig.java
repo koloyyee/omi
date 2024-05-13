@@ -54,13 +54,6 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
-    var authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userDetailsService);
-    return new ProviderManager(authProvider);
-  }
-
-  @Bean
   SecurityFilterChain drafterSecurityFilterChain(HttpSecurity http) throws Exception {
     return http.cors(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
@@ -103,9 +96,35 @@ public class SecurityConfig {
     return manager;
   }
 
+  /**
+   * This method is return a UserDetailService based on our JdbcUserDetailsManager
+   * */
+  @Bean
+  public UserDetailsService userDetailsService(
+      @Qualifier("drafterDataSource") DataSource dataSource) {
+    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+
+    // Optional: customize SQL queries
+    manager.setUsersByUsernameQuery(
+        "SELECT username, password, enabled FROM users WHERE username = ?");
+    manager.setAuthoritiesByUsernameQuery(
+        "SELECT username, authority FROM authorities WHERE username = ?");
+
+    return manager;
+  }
+  
+
   @Bean
   PasswordEncoder passwordEncoder() {
+    // when decoding, the password need to start with an id, in this case {bcrypt}
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+    var authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userDetailsService);
+    return new ProviderManager(authProvider);
   }
 
   /**
@@ -127,9 +146,10 @@ public class SecurityConfig {
   }
 
   @Bean
-      JwtDecoder jwtDecoder() throws JOSEException {
+  JwtDecoder jwtDecoder() throws JOSEException {
     return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
   }
+
   /**
    * JWT setup tutorial <br>
    * <a href="https://www.danvega.dev/blog/spring-security-jwt">Dan Vega's Spring Security JWT
