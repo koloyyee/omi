@@ -2,6 +2,7 @@ package co.loyyee.Omi.Drafter.service.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ public class DrafterUserDetailsServiceImpl implements UserDetailsService {
   private final static Logger log = LoggerFactory.getLogger(DrafterUserDetailsServiceImpl.class);
   private final JdbcClient jdbcClient;
 
-  public DrafterUserDetailsServiceImpl(JdbcClient jdbcClient) {
+  public DrafterUserDetailsServiceImpl(@Qualifier("appliedJdbcClient") JdbcClient jdbcClient) {
     this.jdbcClient = jdbcClient;
   }
 
@@ -37,4 +38,5 @@ public class DrafterUserDetailsServiceImpl implements UserDetailsService {
     log.info(builder.build().toString());
     return builder.build();
   }
+  
 }

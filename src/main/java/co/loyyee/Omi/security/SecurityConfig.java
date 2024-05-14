@@ -1,7 +1,6 @@
 package co.loyyee.Omi.security;
 
 import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
-import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -9,6 +8,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import java.sql.SQLException;
+import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +34,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * This the JWT Spring Security setup based on the tutorial by Dan Vega. <hr> Spring Security - How
@@ -47,15 +50,20 @@ public class SecurityConfig {
 
   private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
   private final DrafterRsaKeyProperties drafterRsaKey;
-  private RSAKey rsaKey;
+//  private final DrafterUserDetailsServiceImpl userDetailsService;
+  private RSAKey rsaKey; // for programmatic approach
+  private final String frontendUrl = System.getenv("FRONTEND_URL");
 
   public SecurityConfig(DrafterRsaKeyProperties drafterRsaKey) {
     this.drafterRsaKey = drafterRsaKey;
-  }
+//		this.userDetailsService = userDetailsService;
+    log.info("FRONTEND_URL: {}", frontendUrl);
+	}
 
   @Bean
   SecurityFilterChain drafterSecurityFilterChain(HttpSecurity http) throws Exception {
-    return http.cors(Customizer.withDefaults())
+    return http
+        .cors(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
             auth ->
@@ -65,13 +73,12 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers("/drafter/private/**")
                     .authenticated()
-            //                .anyRequest().authenticated()
             )
         .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         //        .httpBasic(Customizer.withDefaults())
-        //        .formLogin(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
         .build();
   }
 
@@ -112,6 +119,13 @@ public class SecurityConfig {
 
     return manager;
   }
+/**
+ * Own implementation still work on.
+ * */
+//  @Bean
+//  public UserDetailsService userDetailsService() {
+//    return this.userDetailsService;
+//  }
   
 
   @Bean
@@ -123,32 +137,12 @@ public class SecurityConfig {
   @Bean
   public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
     var authProvider = new DaoAuthenticationProvider();
+//    authProvider.setUserDetailsService(this.userDetailsService);
     authProvider.setUserDetailsService(userDetailsService);
     return new ProviderManager(authProvider);
   }
 
-  /**
-   * This is the programmatic approach <br>
-   * <a
-   * href="https://github.com/danvega/jwt-username-password/blob/master/src/main/java/dev/danvega/jwt/security/SecurityConfig.java">
-   * SecurityConfig reference</a>
-   */
-  @Bean
-  public JWKSource<SecurityContext> jwkSource() {
-    rsaKey = Jwks.generateRsa();
-    JWKSet jwkSet = new JWKSet(rsaKey);
-    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
-  }
 
-  @Bean
-  JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
-    return new NimbusJwtEncoder(jwks);
-  }
-
-  @Bean
-  JwtDecoder jwtDecoder() throws JOSEException {
-    return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
-  }
 
   /**
    * JWT setup tutorial <br>
@@ -156,14 +150,12 @@ public class SecurityConfig {
    * (backend only)</a> <br>
    * This is the non-programmatic approach. it is replaced new programmatic approach above.
    */
-  //  @Bean
-  @Deprecated
-  JwtDecoder jwtDecoder(String deprecated) {
+    @Bean
+  JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withPublicKey(drafterRsaKey.publicKey()).build();
   }
 
-  //  @Bean
-  @Deprecated
+    @Bean
   JwtEncoder jwtEncoder() {
     JWK jwk =
         new RSAKey.Builder(drafterRsaKey.publicKey())
@@ -172,4 +164,38 @@ public class SecurityConfig {
     JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
     return new NimbusJwtEncoder(jwks);
   }
+  
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(List.of(this.frontendUrl));
+    configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "PUT", "DELETE"));
+    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
+  
+  /**
+   * This is the programmatic approach <br>
+   * <a
+   * href="https://github.com/danvega/jwt-username-password/blob/master/src/main/java/dev/danvega/jwt/security/SecurityConfig.java">
+   * SecurityConfig reference</a>
+   */
+//  @Bean
+//  public JWKSource<SecurityContext> jwkSource() {
+//    rsaKey = Jwks.generateRsa();
+//    JWKSet jwkSet = new JWKSet(rsaKey);
+//    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
+//  }
+
+//  @Bean
+//  JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
+//    return new NimbusJwtEncoder(jwks);
+//  }
+
+//  @Bean
+//  JwtDecoder jwtDecoder() throws JOSEException {
+//    return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
+//  }
 }
