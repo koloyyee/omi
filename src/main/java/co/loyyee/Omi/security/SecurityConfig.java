@@ -1,6 +1,8 @@
 package co.loyyee.Omi.security;
 
+import co.loyyee.Omi.Drafter.model.CustomUser;
 import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
+import co.loyyee.Omi.Drafter.service.security.DrafterUserDetailsServiceImpl;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -23,7 +25,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,8 +57,6 @@ public class SecurityConfig {
 
   public SecurityConfig(DrafterRsaKeyProperties drafterRsaKey) {
     this.drafterRsaKey = drafterRsaKey;
-//		this.userDetailsService = userDetailsService;
-    log.info("FRONTEND_URL: {}", frontendUrl);
 	}
 
   @Bean
@@ -86,18 +85,25 @@ public class SecurityConfig {
    * Create default user. <br>
    * Register user will be done in the similar fashion but UserDTO or User Model is needed.
    */
-  @Bean
+//  @Bean
   JdbcUserDetailsManager drafterDefaultUser(@Qualifier("drafterDataSource") DataSource dataSource)
       throws SQLException {
-
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
     if (!manager.userExists("david")) {
-      UserDetails admin =
-          User.withUsername("david")
-              .password(passwordEncoder().encode("password"))
-              .roles("ADMIN")
-              .build();
-      manager.createUser(admin);
+      UserDetails defaultAdmin = new CustomUser(
+          null,
+          "david",
+          passwordEncoder().encode("password"),
+          "admin@example.com",
+          true,
+          "ADMIN"
+      );
+      //      UserDetails admin =
+      //          User.withUsername(defaultAdmin.getUsername())
+      //              .password(defaultAdmin.getPassword())
+      //              .roles(defaultAdmin.getRole())
+      //              .build();
+      manager.createUser(defaultAdmin);
     }
 
     return manager;
@@ -106,26 +112,26 @@ public class SecurityConfig {
   /**
    * This method is return a UserDetailService based on our JdbcUserDetailsManager
    * */
-  @Bean
-  public UserDetailsService userDetailsService(
-      @Qualifier("drafterDataSource") DataSource dataSource) {
-    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-
-    // Optional: customize SQL queries
-    manager.setUsersByUsernameQuery(
-        "SELECT username, password, enabled FROM users WHERE username = ?");
-    manager.setAuthoritiesByUsernameQuery(
-        "SELECT username, authority FROM authorities WHERE username = ?");
-
-    return manager;
-  }
+//  @Bean
+//  public UserDetailsService userDetailsService(
+//      @Qualifier("drafterDataSource") DataSource dataSource) {
+//    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+//
+//    // Optional: customize SQL queries
+//    manager.setUsersByUsernameQuery(
+//        "SELECT username, password, enabled FROM users WHERE username = ?");
+//    manager.setAuthoritiesByUsernameQuery(
+//        "SELECT username, authority FROM authorities WHERE username = ?");
+//
+//    return manager;
+//  }
 /**
  * Own implementation still work on.
  * */
-//  @Bean
-//  public UserDetailsService userDetailsService() {
-//    return this.userDetailsService;
-//  }
+  @Bean
+  public DrafterUserDetailsServiceImpl drafterUserDetailsService() {
+    return new DrafterUserDetailsServiceImpl() ;
+  }
   
 
   @Bean
@@ -135,7 +141,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+  public AuthenticationManager authenticationManager(@Qualifier("drafterUserDetailsService") UserDetailsService userDetailsService) {
     var authProvider = new DaoAuthenticationProvider();
 //    authProvider.setUserDetailsService(this.userDetailsService);
     authProvider.setUserDetailsService(userDetailsService);
@@ -168,7 +174,8 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of(this.frontendUrl));
+//    configuration.setAllowedOrigins(List.of(this.frontendUrl));
+    configuration.setAllowedOrigins(List.of(frontendUrl, "*"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "PUT", "DELETE"));
     configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

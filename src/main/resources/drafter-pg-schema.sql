@@ -1,15 +1,25 @@
-create table if not exists users(username varchar(50) not null primary key,password varchar(255) not null,enabled boolean not null);
-create table if not exists authorities (username varchar(50) not null,authority varchar(50) not null,constraint fk_authorities_users foreign key(username) references users(username));
-create unique index if not exists  ix_auth_username on authorities (username,authority);
-
-create TABLE IF NOT EXISTS Applicant (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL unique
---    CONSTRAINT `fk_users_applicant`
---    FOREIGN KEY username
---    REFERENCES users(username)
+    email VARCHAR(255) NOT NULL,
+    enabled BOOLEAN NOT NULL,
+    role VARCHAR(100) NOT NULL
+);
+CREATE TABLE  IF NOT EXISTS authorities (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    authority VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--create unique index if not exists  ix_auth_username on authorities (
+--user_id,
+--authority);
+
+create TABLE IF NOT EXISTS Applicant (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL CONSTRAINT fk_applicant_user REFERENCES users(id)
 );
 create TABLE IF NOT EXISTS Resume (
     id SERIAL PRIMARY KEY,
@@ -49,3 +59,14 @@ create table if not exists applicant_application (
     application_id int not null,
     primary key (applicant_id, application_id)
 );
+
+
+-------------------
+--insert into users
+--(username, password, email, enabled, role)
+--values
+--('david',
+--'{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku',
+--'admin@test.com',
+--true,
+--'ADMIN')
