@@ -1,6 +1,6 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
 import co.loyyee.Omi.Drafter.util.exception.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;

@@ -37,7 +37,10 @@ public class AuthController {
 		log.debug("Token granted: {}", token);
 		return token;
 	}
-	
+/**
+ * TODO: create login
+ * TODO: create register
+ * */
 
 	/**
 	 * This is the Auth Basic approach 
