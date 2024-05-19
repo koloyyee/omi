@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL ,
+    email VARCHAR(255) NOT NULL UNIQUE,
     enabled BOOLEAN NOT NULL,
     role VARCHAR(100) NOT NULL
 );
@@ -14,7 +14,7 @@ CREATE TABLE  IF NOT EXISTS authorities (
 );
 
 --create unique index if not exists  ix_auth_username on authorities (
---user_id,
+--username,
 --authority);
 
 create TABLE IF NOT EXISTS Applicant (
@@ -61,12 +61,14 @@ create table if not exists applicant_application (
 );
 
 
--------------------
---insert into users
---(username, password, email, enabled, role)
---values
---('david',
---'{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku',
---'admin@test.com',
---true,
---'ADMIN')
+INSERT INTO users (username, password, email, enabled, role)
+SELECT 'david',
+'{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku',
+'admin@test.com',
+true,
+'ROLE_ADMIN'
+WHERE NOT EXISTS (
+    SELECT *
+    FROM users
+    WHERE username = 'david'
+);

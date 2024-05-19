@@ -1,6 +1,6 @@
 package co.loyyee.Omi;
 
-import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
+import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

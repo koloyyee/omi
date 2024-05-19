@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.security;
+package co.loyyee.Omi.Drafter.service.security;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;

@@ -1,7 +1,6 @@
 package co.loyyee.Omi.security;
 
-import co.loyyee.Omi.Drafter.model.CustomUser;
-import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
+import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
 import co.loyyee.Omi.Drafter.service.security.DrafterUserDetailsServiceImpl;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -25,7 +24,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,18 +49,16 @@ public class SecurityConfig {
 
   private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
   private final DrafterRsaKeyProperties drafterRsaKey;
-//  private final DrafterUserDetailsServiceImpl userDetailsService;
-  private RSAKey rsaKey; // for programmatic approach
   private final String frontendUrl = System.getenv("FRONTEND_URL");
+  private RSAKey rsaKey; // for programmatic approach
 
   public SecurityConfig(DrafterRsaKeyProperties drafterRsaKey) {
     this.drafterRsaKey = drafterRsaKey;
-	}
+  }
 
   @Bean
   SecurityFilterChain drafterSecurityFilterChain(HttpSecurity http) throws Exception {
-    return http
-        .cors(Customizer.withDefaults())
+    return http.cors(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
             auth ->
@@ -71,13 +67,12 @@ public class SecurityConfig {
                     .requestMatchers("/drafter/public/**")
                     .permitAll()
                     .requestMatchers("/drafter/private/**")
-                    .authenticated()
-            )
+                    .authenticated())
         .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         //        .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+        .formLogin(Customizer.withDefaults())
         .build();
   }
 
@@ -85,54 +80,31 @@ public class SecurityConfig {
    * Create default user. <br>
    * Register user will be done in the similar fashion but UserDTO or User Model is needed.
    */
-//  @Bean
+  //  @Bean
   JdbcUserDetailsManager drafterDefaultUser(@Qualifier("drafterDataSource") DataSource dataSource)
       throws SQLException {
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-    if (!manager.userExists("david")) {
-      UserDetails defaultAdmin = new CustomUser(
-          null,
-          "david",
-          passwordEncoder().encode("password"),
-          "admin@example.com",
-          true,
-          "ADMIN"
-      );
-      //      UserDetails admin =
-      //          User.withUsername(defaultAdmin.getUsername())
-      //              .password(defaultAdmin.getPassword())
-      //              .roles(defaultAdmin.getRole())
-      //              .build();
-      manager.createUser(defaultAdmin);
-    }
 
+    if (!manager.userExists("david")) {
+      //      manager.setCreateUserSql(" insert into users  (username, password, email, enabled,
+      // role)  values  (?, ?, ?, ?, ?)");
+      //      UserDetails customUser = new CustomUser(
+      //          "david","{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku",
+      //          "admin@test.com", true, "ADMIN"
+      //      );
+      //      manager.setCreateAuthoritySql("INSERT INTO user_authorities (username, authority)
+      // VALUES (?, ?)");
+
+      return manager;
+    }
     return manager;
   }
 
-  /**
-   * This method is return a UserDetailService based on our JdbcUserDetailsManager
-   * */
-//  @Bean
-//  public UserDetailsService userDetailsService(
-//      @Qualifier("drafterDataSource") DataSource dataSource) {
-//    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-//
-//    // Optional: customize SQL queries
-//    manager.setUsersByUsernameQuery(
-//        "SELECT username, password, enabled FROM users WHERE username = ?");
-//    manager.setAuthoritiesByUsernameQuery(
-//        "SELECT username, authority FROM authorities WHERE username = ?");
-//
-//    return manager;
-//  }
-/**
- * Own implementation still work on.
- * */
+  /** Own implementation still work on. */
   @Bean
   public DrafterUserDetailsServiceImpl drafterUserDetailsService() {
-    return new DrafterUserDetailsServiceImpl() ;
+    return new DrafterUserDetailsServiceImpl();
   }
-  
 
   @Bean
   PasswordEncoder passwordEncoder() {
@@ -141,14 +113,12 @@ public class SecurityConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(@Qualifier("drafterUserDetailsService") UserDetailsService userDetailsService) {
+  public AuthenticationManager authenticationManager(
+      @Qualifier("drafterUserDetailsService") UserDetailsService userDetailsService) {
     var authProvider = new DaoAuthenticationProvider();
-//    authProvider.setUserDetailsService(this.userDetailsService);
     authProvider.setUserDetailsService(userDetailsService);
     return new ProviderManager(authProvider);
   }
-
-
 
   /**
    * JWT setup tutorial <br>
@@ -156,12 +126,12 @@ public class SecurityConfig {
    * (backend only)</a> <br>
    * This is the non-programmatic approach. it is replaced new programmatic approach above.
    */
-    @Bean
+  @Bean
   JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withPublicKey(drafterRsaKey.publicKey()).build();
   }
 
-    @Bean
+  @Bean
   JwtEncoder jwtEncoder() {
     JWK jwk =
         new RSAKey.Builder(drafterRsaKey.publicKey())
@@ -170,11 +140,10 @@ public class SecurityConfig {
     JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
     return new NimbusJwtEncoder(jwks);
   }
-  
+
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-//    configuration.setAllowedOrigins(List.of(this.frontendUrl));
     configuration.setAllowedOrigins(List.of(frontendUrl, "*"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "PUT", "DELETE"));
     configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
@@ -182,27 +151,27 @@ public class SecurityConfig {
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
-  
+
   /**
    * This is the programmatic approach <br>
    * <a
    * href="https://github.com/danvega/jwt-username-password/blob/master/src/main/java/dev/danvega/jwt/security/SecurityConfig.java">
    * SecurityConfig reference</a>
    */
-//  @Bean
-//  public JWKSource<SecurityContext> jwkSource() {
-//    rsaKey = Jwks.generateRsa();
-//    JWKSet jwkSet = new JWKSet(rsaKey);
-//    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
-//  }
+  //  @Bean
+  //  public JWKSource<SecurityContext> jwkSource() {
+  //    rsaKey = Jwks.generateRsa();
+  //    JWKSet jwkSet = new JWKSet(rsaKey);
+  //    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
+  //  }
 
-//  @Bean
-//  JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
-//    return new NimbusJwtEncoder(jwks);
-//  }
+  //  @Bean
+  //  JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
+  //    return new NimbusJwtEncoder(jwks);
+  //  }
 
-//  @Bean
-//  JwtDecoder jwtDecoder() throws JOSEException {
-//    return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
-//  }
+  //  @Bean
+  //  JwtDecoder jwtDecoder() throws JOSEException {
+  //    return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
+  //  }
 }
