@@ -19,19 +19,20 @@ import reactor.core.publisher.Flux;
 public class SpringOpenAiService
     implements co.loyyee.Omi.Drafter.service.AIDraftable<SpringOpenAiService, ChatResponse> {
 
-  private static final String MODEL = "gpt-3.5-turbo";
+  private static final String MODEL = "gpt-4o";
   private static final Logger log = LoggerFactory.getLogger(SpringOpenAiService.class);
   private final Message sysMsg =
       new SystemMessage(
           """
-						You are a cover letter write,
-						create a 5 paragraphs letter.
+						You are a cover letter writer, be creative, unique and confident,
+						read through the job requirements then
+						create a 5-6 paragraphs letter.
 						1st paragraph: show interest, education, and GPA,
-						2nd paragraph: praise company culture,
+						2nd short paragraph: praise company culture,
 						3rd paragraph: good fit and able to contribute with my work experience and skills.
-						4th paragraph: soft skills good fit for the company
-						5th paragraph: looking forward to the interview and contribute to the company.
-						last paragraph thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
+						4th paragraph: talk about my projects how to be fits the role
+						5th paragraph: soft skills good fit for the company
+						last paragraph:  looking forward to the interview and contribute to the company. thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
 						""");
   //    private OpenAiChatClient chatClient;
   private final OpenAiApi openAiApi;
