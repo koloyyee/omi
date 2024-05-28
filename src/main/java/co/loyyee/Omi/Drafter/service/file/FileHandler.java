@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.service;
+package co.loyyee.Omi.Drafter.service.file;
 
 import jakarta.validation.constraints.NotNull;
 import java.io.File;

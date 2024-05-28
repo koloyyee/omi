@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.service;
+package co.loyyee.Omi.Drafter.service.file;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,9 +1,9 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.DocxHandlerService;
-import co.loyyee.Omi.Drafter.service.PdfHandlerService;
 import co.loyyee.Omi.Drafter.service.PromptContent;
 import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.file.DocxHandlerService;
+import co.loyyee.Omi.Drafter.service.file.PdfHandlerService;
 import co.loyyee.Omi.Drafter.util.exception.*;
 import co.loyyee.Omi.Drafter.util.helpers.Convert;
 import jakarta.validation.constraints.NotNull;
@@ -172,14 +172,6 @@ public class DraftPublicController {
   public ResponseEntity updateDraft(@NotNull @RequestParam("changes") String changes) {
 
     return ResponseEntity.ok(null) ;
-  }
-
-
-
-  @Deprecated
-  private void springAiResp(String userContent) {
-    ChatResponse resp = this.service.setContent(userContent).ask();
-    //    System.out.println(resp);
   }
 
 }
