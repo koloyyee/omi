@@ -3,12 +3,12 @@ package co.loyyee.Omi.Drafter.service.springai;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.openai.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class SpringOpenAiService
 						5th paragraph: looking forward to the interview and contribute to the company.
 						last paragraph thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
 						""");
-  //    private OpenAiChatClient chatClient;
+  //    private OpenAiChatModel chatClient;
   private final OpenAiApi openAiApi;
   private UserMessage content;
 
@@ -44,7 +44,7 @@ public class SpringOpenAiService
   @Deprecated
   private SpringOpenAiService promptInitialHeader() {
     var openAiChatOptions = OpenAiChatOptions.builder().withModel(MODEL).withMaxTokens(1).build();
-    var chatClient = new OpenAiChatClient(openAiApi, openAiChatOptions);
+    var chatClient = new OpenAiChatModel(openAiApi, openAiChatOptions);
     log.info("Spring AI header go. ");
     StringBuilder sb = new StringBuilder();
     var header =
@@ -74,7 +74,7 @@ public class SpringOpenAiService
             .withMaxTokens(4000)
             .withTemperature(0.8F)
             .build();
-    var chatClient = new OpenAiChatClient(openAiApi, openAiChatOptions);
+    var chatClient = new OpenAiChatModel(openAiApi, openAiChatOptions);
     log.info("Header desc");
     StringBuilder sb = new StringBuilder();
     var header =
@@ -102,7 +102,7 @@ public class SpringOpenAiService
             .withMaxTokens(4000)
             .withTemperature(0.8F)
             .build();
-    var chatClient = new OpenAiChatClient(openAiApi, openAiChatOptions);
+    var chatClient = new OpenAiChatModel(openAiApi, openAiChatOptions);
 
     log.info("OPENAI_KEY: {}", System.getenv("OPENAI_KEY"));
     log.info("Preparing draft");
@@ -121,7 +121,7 @@ public class SpringOpenAiService
             .withMaxTokens(4000)
             .withTemperature(0.8F)
             .build();
-    var chatClient = new OpenAiChatClient(openAiApi, openAiChatOptions);
+    var chatClient = new OpenAiChatModel(openAiApi, openAiChatOptions);
     StringBuilder sb = new StringBuilder();
     var message =
         sb.append("Generate new cover letter for job application.\n")

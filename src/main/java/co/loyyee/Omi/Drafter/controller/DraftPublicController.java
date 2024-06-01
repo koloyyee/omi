@@ -16,7 +16,7 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.ChatResponse;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
