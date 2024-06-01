@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.service.springai;
+package co.loyyee.Omi.Drafter.service;
 
 import java.util.List;
 import org.slf4j.Logger;

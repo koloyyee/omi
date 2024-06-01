@@ -1,7 +1,7 @@
 # TODO
 
-1. [ ] System Message
-2. [ ] Token accumulation
+1. [x ] System Message
+2. [x ] Token accumulation
 2. [ ] CRUD accounts
 3. [ ] Update Prompt
 4. [ ] Try using LangChain4J
