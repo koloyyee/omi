@@ -1,6 +1,6 @@
 package co.loyyee.Omi;
 
-import co.loyyee.Omi.Drafter.security.DrafterRsaKeyProperties;
+import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +51,12 @@ public class Application {
 
   /** PG DB Applied Data Source Configuration */
   @Bean
-  JdbcClient appliedJdbcClient(@Qualifier("drafterDataSource") DataSource dataSource) {
+  JdbcClient drafterJdbcClient(@Qualifier("drafterDataSource") DataSource dataSource) {
     return JdbcClient.create(dataSource);
   }
 
   @Bean
-  public JdbcTemplate appliedJdbcTemplate(@Qualifier("drafterDataSource") DataSource dataSource) {
+  public JdbcTemplate drafterJdbcTemplate(@Qualifier("drafterDataSource") DataSource dataSource) {
     return new JdbcTemplate(dataSource);
   }
 

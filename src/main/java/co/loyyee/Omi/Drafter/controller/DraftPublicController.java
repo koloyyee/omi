@@ -1,18 +1,17 @@
 package co.loyyee.Omi.Drafter.controller;
 
-import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.PromptContent;
+import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.file.DocxHandlerService;
+import co.loyyee.Omi.Drafter.service.file.PdfHandlerService;
 import co.loyyee.Omi.Drafter.util.exception.*;
+import co.loyyee.Omi.Drafter.util.helpers.Convert;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Objects;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.text.PDFTextStripperByArea;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,26 +89,11 @@ public class DraftPublicController {
     HttpHeaders headers = new HttpHeaders();
     headers.setCacheControl("no-cache, no-store, must-revalidate");
     /* Multipart File conversion because PDDocument only take  File. */
-    File file = convertToFile(mf);
+    File file = Convert.toFile(mf);
 
-    try (PDDocument document = Loader.loadPDF(file)) {
-      /* reference: https://mkyong.com/java/pdfbox-how-to-read-pdf-file-in-java/ */
-      PDFTextStripperByArea stripperByArea = new PDFTextStripperByArea();
-      stripperByArea.setSortByPosition(true);
-      PDFTextStripper stripper = new PDFTextStripper();
-      /* extract all text from the PDF */
-      String resume = stripper.getText(document);
-
-      StringBuilder userContent = new StringBuilder();
-      userContent
-          .append("Here is the company: ")
-          .append(company)
-          .append("The job title: ")
-          .append(title + "\n")
-          .append("The job description: ")
-          .append(description + "\n")
-          .append("Here is my resume: \n")
-          .append(resume);
+      try {
+      
+      var userContent = PromptContent.setUserContent(new PdfHandlerService(), file, company, title, description);
       
       ChatResponse resp = this.service.setContent(userContent.toString()).ask();
       String finishReason = resp.getResult().getMetadata().getFinishReason();
@@ -131,9 +115,8 @@ public class DraftPublicController {
       log.error(e.getMessage());
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (IOException e) {
-      log.error("PDFBox extraction: " + e.getMessage());
-      return ResponseEntity.internalServerError().build();
-    } finally {
+				throw new RuntimeException(e);
+			} finally {
       log.info("Deleting file: " + file.getName());
       file.delete();
     }
@@ -154,24 +137,11 @@ public class DraftPublicController {
       @NotNull @RequestParam("company") String company,
       @NotNull @RequestParam("title") String title,
       @NotNull @RequestParam("description") String description) {
-    File file = convertToFile(mf);
+    File file = Convert.toFile(mf);
     try {
-      XWPFDocument document = new XWPFDocument(new FileInputStream(file));
-      XWPFWordExtractor extractor = new XWPFWordExtractor(document);
-      var resume = extractor.getText();
+      var userContent = PromptContent.setUserContent(new DocxHandlerService(), file, company,title, description);
 
-      StringBuilder userContent = new StringBuilder();
-      userContent
-          .append("Here is the company: ")
-          .append(company)
-          .append("The job title: ")
-          .append(title + "\n")
-          .append("The job description: ")
-          .append(description + "\n")
-          .append("Here is my resume: \n")
-          .append(resume);
-
-      ChatResponse resp = this.service.setContent(userContent.toString()).ask();
+      ChatResponse resp = this.service.setContent(userContent).ask();
       String finishReason = resp.getResult().getMetadata().getFinishReason();
       if (resp.getResult().getMetadata().getFinishReason().equalsIgnoreCase("STOP")) {
         String content = resp.getResult().getOutput().getContent();
@@ -202,31 +172,6 @@ public class DraftPublicController {
   public ResponseEntity updateDraft(@NotNull @RequestParam("changes") String changes) {
 
     return ResponseEntity.ok(null) ;
-  }
-
-
-  /**
-   * @param mf Spring Boot file type MultipartFile from client post request
-   *     <p>It will convert file from MultipartFile to File parsing into Text
-   */
-  private File convertToFile(@NotNull MultipartFile mf) {
-    File file = null;
-    try {
-      file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
-      file.createNewFile();
-      FileOutputStream fos = new FileOutputStream(file);
-      fos.write(mf.getBytes());
-      fos.close();
-    } catch (IOException e) {
-      log.error("File conversion Error: " + e.getMessage());
-    }
-    return file;
-  }
-
-  @Deprecated
-  private void springAiResp(String userContent) {
-    ChatResponse resp = this.service.setContent(userContent).ask();
-    //    System.out.println(resp);
   }
 
 }
