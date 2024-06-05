@@ -62,9 +62,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/drafter/private/auth/token")
-                    .permitAll()
+                auth
                     .requestMatchers("/drafter/public/**")
+                    .permitAll()
+                    .requestMatchers("/drafter/private/auth/token")
                     .permitAll()
                     .requestMatchers("/drafter/private/**")
                     .authenticated())

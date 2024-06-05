@@ -1,7 +1,7 @@
 package co.loyyee.Omi.Breakfast.service;
 
 import co.loyyee.Omi.Breakfast.model.Outlet;
-import co.loyyee.Omi.Breakfast.model.Scraper;
+import co.loyyee.Omi.Breakfast.model.Scrapable;
 import co.loyyee.Omi.Breakfast.model.TickerNews;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Finviz implements Runnable, Scraper<TickerNews> {
+public class Finviz implements Scrapable<TickerNews> {
     private List<TickerNews> tickerNewsList;
     private String ticker;
 
@@ -89,7 +89,7 @@ public class Finviz implements Runnable, Scraper<TickerNews> {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return getTickerNewsList();
+        return getList();
     }
 
     public String getTicker() {
@@ -100,7 +100,7 @@ public class Finviz implements Runnable, Scraper<TickerNews> {
         return thread;
     }
 
-    public List<TickerNews> getTickerNewsList() {
+    public List<TickerNews> getList() {
         return tickerNewsList;
     }
 

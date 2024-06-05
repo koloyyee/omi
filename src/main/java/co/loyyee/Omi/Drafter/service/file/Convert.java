@@ -1,4 +1,4 @@
-package co.loyyee.Omi.Drafter.util.helpers;
+package co.loyyee.Omi.Drafter.service.file;
 
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
@@ -16,9 +16,9 @@ public class Convert {
 	 * @param mf Spring Boot file type MultipartFile from client post request
 	 *     <p>It will convert file from MultipartFile to File parsing into Text
 	 */
-	public static File toFile(@NotNull MultipartFile mf) {
-		
+	public File toFile(@NotNull MultipartFile mf) {
 		File file = null;
+		// REFACTOR TODO: update to Files don't use File, and try to use autoclosable.
 		try {
 			file = new File(Objects.requireNonNull(mf.getOriginalFilename()));
 			file.createNewFile();

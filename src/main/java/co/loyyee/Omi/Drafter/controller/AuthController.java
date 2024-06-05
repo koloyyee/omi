@@ -1,6 +1,7 @@
 package co.loyyee.Omi.Drafter.controller;
 
 
+import co.loyyee.Omi.Drafter.model.CustomUser;
 import co.loyyee.Omi.Drafter.model.LoginRequest;
 import co.loyyee.Omi.Drafter.service.security.TokenService;
 import org.slf4j.Logger;
@@ -40,7 +41,12 @@ public class AuthController {
 /**
  * TODO: create login
  * TODO: create register
+ * maybe switch everything to Firebase auth
  * */
+@PostMapping("/register")
+public void register(@RequestBody @NonNull CustomUser newUser) {
+
+}
 
 	/**
 	 * This is the Auth Basic approach 

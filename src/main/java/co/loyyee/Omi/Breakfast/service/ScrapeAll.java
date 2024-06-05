@@ -1,5 +1,6 @@
 package co.loyyee.Omi.Breakfast.service;
 
+import co.loyyee.Omi.Breakfast.model.Scrapable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,32 +16,22 @@ public class ScrapeAll {
 
     public static void main(String[] args) {
         String[] tickers = new String[] { "AAPL", "GOOG", "META", "BRK-A" };
-        ArrayList<Finviz> fscrapers = new ArrayList<>();
-        ArrayList<Benzinga> bscrapers = new ArrayList<>();
+        ArrayList<Scrapable> scrapList = new ArrayList<>();
 
         for (String ticker : tickers) {
-            // fscrapers.add(new Finviz(ticker));
-            bscrapers.add(new Benzinga(ticker));
+            scrapList.add(new Finviz(ticker));
+            scrapList.add(new Benzinga(ticker));
         }
-        // List<Finviz> combinedList = new ArrayList<>(fscrapers);
-        for (Benzinga b : bscrapers) {
+        for ( Scrapable item : scrapList) {
+            
             try {
-                b.getThread().join();
-                log.info(b.getTickerNewsList().toString());
+                item.getThread().join();
+                log.info(item.getList().toString());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        // for(Finviz f : fscrapers) {
-        // try {
-        // f.getThread().join();
-        // log.info(f.getTickerNewsList().toString());
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
-        // throw new RuntimeException(e);
-        // }
-        // }
     }
 
     public static void vThread() throws InterruptedException, ExecutionException {
@@ -56,7 +47,7 @@ public class ScrapeAll {
         ExecutorService service = Executors.newVirtualThreadPerTaskExecutor();
         for (Future<Finviz> f : service.invokeAll(fscrapers)) {
             Finviz finviz = f.get();
-            finviz.getTickerNewsList().forEach(System.out::println);
+            finviz.getList().forEach(System.out::println);
         }
     }
 }
