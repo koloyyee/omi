@@ -1,16 +1,10 @@
 package co.loyyee.Omi.security;
 
-import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
-import co.loyyee.Omi.Drafter.service.security.DrafterUserDetailsServiceImpl;
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +30,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
+
+import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
+import co.loyyee.Omi.Drafter.service.security.DrafterUserDetailsServiceImpl;
 
 /**
  * This the JWT Spring Security setup based on the tutorial by Dan Vega. <hr> Spring Security - How
@@ -77,6 +81,21 @@ public class SecurityConfig {
         .build();
   }
 
+//   @Bean
+  SecurityFilterChain firebaseAuthSecurityFilterChain(HttpSecurity http) throws Exception {
+    return http.cors(Customizer.withDefaults())
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(
+            auth ->
+                auth.anyRequest()
+                    .authenticated())
+        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+        // .sessionManagement(
+        //     session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        //        .httpBasic(Customizer.withDefaults())
+        // .formLogin(Customizer.withDefaults())
+        .build();
+  }
   /**
    * Create default user. <br>
    * Register user will be done in the similar fashion but UserDTO or User Model is needed.
@@ -127,12 +146,12 @@ public class SecurityConfig {
    * (backend only)</a> <br>
    * This is the non-programmatic approach. it is replaced new programmatic approach above.
    */
-  @Bean
+//   @Bean
   JwtDecoder jwtDecoder() {
     return NimbusJwtDecoder.withPublicKey(drafterRsaKey.publicKey()).build();
   }
 
-  @Bean
+//   @Bean
   JwtEncoder jwtEncoder() {
     JWK jwk =
         new RSAKey.Builder(drafterRsaKey.publicKey())
