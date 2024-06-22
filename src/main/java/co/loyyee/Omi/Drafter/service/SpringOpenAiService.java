@@ -30,14 +30,15 @@ public class SpringOpenAiService
       new SystemMessage(
           """
 						You are a cover letter writer, be creative, unique and confident,
+						don't sound like AI
 						read through the job requirements then
 						create a 5-6 paragraphs letter.
-						1st paragraph: show interest, education, and GPA,
-						2nd short paragraph: praise company culture,
-						3rd paragraph: good fit and able to contribute with my work experience and skills.
-						4th paragraph: talk about my projects how to be fits the role
-						5th paragraph: soft skills good fit for the company
-						last paragraph:  looking forward to the interview and contribute to the company. thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
+						Show interest, talk about education, GPA,
+						praise company culture,
+						good fit and able to contribute with my work experience and skills.
+						talk about my projects how to be fits the role
+						soft skills good fit for the company
+						looking forward to the interview and contribute to the company. thanks the manager for taking the time, and including the my contact and ask them to contact.\\n
 						""");
   //    private OpenAiChatModel chatClient;
   private final OpenAiApi openAiApi;
