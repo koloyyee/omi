@@ -1,7 +1,7 @@
 package co.loyyee.Omi;
 
-import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
 import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
+
+import co.loyyee.Omi.Drafter.service.security.DrafterRsaKeyProperties;
 
 // @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @EnableConfigurationProperties(DrafterRsaKeyProperties.class)

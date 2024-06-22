@@ -1,29 +1,39 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL ,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    enabled BOOLEAN NOT NULL,
-    role VARCHAR(100) NOT NULL
-);
-CREATE TABLE  IF NOT EXISTS authorities (
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    authority VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
+-- comment out for firebase
+-- CREATE TABLE IF NOT EXISTS users (
+--     id SERIAL PRIMARY KEY,
+--     username VARCHAR(255) NOT NULL UNIQUE,
+--     password VARCHAR(255) NOT NULL ,
+--     email VARCHAR(255) NOT NULL UNIQUE,
+--     enabled BOOLEAN NOT NULL,
+--     role VARCHAR(100) NOT NULL
+-- );
+-- CREATE TABLE  IF NOT EXISTS authorities (
+--     id SERIAL PRIMARY KEY,
+--     user_id INT NOT NULL,
+--     authority VARCHAR(50) NOT NULL,
+--     FOREIGN KEY (user_id) REFERENCES users(id)
+-- );
 
 --create unique index if not exists  ix_auth_username on authorities (
 --username,
 --authority);
 
+create table if not exists Users (
+    user_id VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    roles VARCHAR(100)
+);
+
+
 create TABLE IF NOT EXISTS Applicant (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL CONSTRAINT fk_applicant_user REFERENCES users(id)
+    user_id INT NOT NULL CONSTRAINT fk_applicant_user REFERENCES users(user_id)
 );
 create TABLE IF NOT EXISTS Resume (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER CONSTRAINT fk_resume_appliant_id REFERENCES applicant(id)
+    user_id INTEGER CONSTRAINT fk_resume_appliant_id REFERENCES applicant(user_id)
 );
 
 create table if not exists industry (
@@ -61,14 +71,14 @@ create table if not exists applicant_application (
 );
 
 
-INSERT INTO users (username, password, email, enabled, role)
-SELECT 'david',
-'{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku',
-'admin@test.com',
-true,
-'ROLE_ADMIN'
-WHERE NOT EXISTS (
-    SELECT *
-    FROM users
-    WHERE username = 'david'
-);
+-- INSERT INTO users (username, password, email, enabled, role)
+-- SELECT 'david',
+-- '{bcrypt}$2a$10$kz2iFhO0fzLNrU5mRl1eNuPFHzCENDCkC.0NPk55vKiKngdPKQjku',
+-- 'admin@test.com',
+-- true,
+-- 'ROLE_ADMIN'
+-- WHERE NOT EXISTS (
+--     SELECT *
+--     FROM users
+--     WHERE username = 'david'
+-- );

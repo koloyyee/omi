@@ -1,11 +1,7 @@
-package co.loyyee.Omi.Drafter.service;
+package co.loyyee.Omi.Drafter.service.springai;
 
-import co.loyyee.Omi.Drafter.util.exception.ContentFilterException;
-import co.loyyee.Omi.Drafter.util.exception.FunctionCallException;
-import co.loyyee.Omi.Drafter.util.exception.LengthException;
-import co.loyyee.Omi.Drafter.util.exception.NullException;
-import io.swagger.v3.oas.annotations.Hidden;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.messages.Message;
@@ -17,6 +13,12 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
+
+import co.loyyee.Omi.Drafter.util.exception.ContentFilterException;
+import co.loyyee.Omi.Drafter.util.exception.FunctionCallException;
+import co.loyyee.Omi.Drafter.util.exception.LengthException;
+import co.loyyee.Omi.Drafter.util.exception.NullException;
+import io.swagger.v3.oas.annotations.Hidden;
 import reactor.core.publisher.Flux;
 
 /** SaiOai: Spring AI - OpenAI implementations */

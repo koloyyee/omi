@@ -10,7 +10,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.ChatResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,15 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.loyyee.Omi.Drafter.service.PromptContent;
-import co.loyyee.Omi.Drafter.service.SpringOpenAiService;
+import co.loyyee.Omi.Drafter.service.file.Convert;
 import co.loyyee.Omi.Drafter.service.file.DocxHandlerService;
 import co.loyyee.Omi.Drafter.service.file.PdfHandlerService;
-import co.loyyee.Omi.Drafter.util.exception.ContentFilterException;
-import co.loyyee.Omi.Drafter.util.exception.FunctionCallException;
-import co.loyyee.Omi.Drafter.util.exception.LengthException;
-import co.loyyee.Omi.Drafter.util.exception.NullException;
-import co.loyyee.Omi.Drafter.util.exception.OpenAiExceptionWorker;
-import co.loyyee.Omi.Drafter.util.helpers.Convert;
+import co.loyyee.Omi.Drafter.service.springai.SpringOpenAiService;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -79,8 +73,8 @@ public class DraftPublicController {
     }
 
     @GetMapping
-    public ResponseEntity publicTest() {
-        return ResponseEntity.ok("public is HERE!");
+    public String publicTest() {
+        return "public is HERE!";
     }
 
     @GetMapping(path = "/test")
@@ -106,7 +100,7 @@ public class DraftPublicController {
      * @param description The job description
      */
     @PostMapping(value = "/upload/pdf", consumes = "multipart/form-data")
-    public ResponseEntity uploadPdf(
+    public String uploadPdf(
             @NotNull @RequestParam("resume") MultipartFile mf,
             @NotNull @RequestParam("company") String company,
             @NotNull @RequestParam("title") String title,
@@ -117,32 +111,17 @@ public class DraftPublicController {
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl("no-cache, no-store, must-revalidate");
         /* Multipart File conversion because PDDocument only take  File. */
-        File file = Convert.toFile(mf);
+        Convert convert = new Convert();
+        File file = convert.toFile(mf);
 
         try {
+            PromptContent promptContent = new PromptContent();
+            var userContent = promptContent.setUserContent(new PdfHandlerService(), file, company, title, description);
 
-            var userContent = PromptContent.setUserContent(new PdfHandlerService(), file, company, title, description);
-
-            ChatResponse resp = this.service.setContent(userContent.toString()).ask();
-            String finishReason = resp.getResult().getMetadata().getFinishReason();
-            if (finishReason.equalsIgnoreCase("stop")) {
-                String content = resp.getResult().getOutput().getContent();
-                return ResponseEntity.ok(content);
-            } else {
-                if (finishReason.equalsIgnoreCase("length")) {
-                    throw new LengthException();
-                } else if (finishReason.equalsIgnoreCase("content_filter")) {
-                    throw new ContentFilterException();
-                } else if (finishReason.equalsIgnoreCase("tool_calls")) {
-                    throw new FunctionCallException();
-                } else {
-                    throw new NullException();
-                }
-            }
-        } catch (OpenAiExceptionWorker e) {
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().body(e.getMessage());
+            String resp = this.service.setContent(userContent).ask();
+            return resp;
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         } finally {
             log.info("Deleting file: " + file.getName());
@@ -163,36 +142,24 @@ public class DraftPublicController {
    *
      */
     @PostMapping("/upload/docx")
-    public ResponseEntity uploadDocx(
+    public String uploadDocx(
             @NotNull @RequestParam("resume") MultipartFile mf,
             @NotNull @RequestParam("company") String company,
             @NotNull @RequestParam("title") String title,
             @NotNull @RequestParam("description") String description) {
-        File file = Convert.toFile(mf);
-        try {
-            var userContent = PromptContent.setUserContent(new DocxHandlerService(), file, company, title, description);
+        Convert convert = new Convert();
+        File file = convert.toFile(mf);
 
-            ChatResponse resp = this.service.setContent(userContent).ask();
-            String finishReason = resp.getResult().getMetadata().getFinishReason();
-            if (resp.getResult().getMetadata().getFinishReason().equalsIgnoreCase("STOP")) {
-                String content = resp.getResult().getOutput().getContent();
-                return ResponseEntity.ok(content);
-            } else {
-                if (finishReason.equalsIgnoreCase("length")) {
-                    throw new LengthException();
-                } else if (finishReason.equalsIgnoreCase("content_filter")) {
-                    throw new ContentFilterException();
-                } else if (finishReason.equalsIgnoreCase("tool_calls")) {
-                    throw new FunctionCallException();
-                } else {
-                    throw new NullException();
-                }
-            }
-        } catch (OpenAiExceptionWorker e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        try {
+
+            PromptContent promptContent = new PromptContent();
+            var userContent = promptContent.setUserContent(new DocxHandlerService(), file, company, title, description);
+            String resp = this.service.setContent(userContent).ask();
+            return resp;
         } catch (IOException e) {
             log.error("Docx extraction: " + e.getMessage());
-            return ResponseEntity.internalServerError().build();
+            throw new RuntimeException(e.getMessage());
+            // return ResponseEntity.internalServerError().build();
         } finally {
             log.info("Deleting file: " + file.getName());
             file.delete();
